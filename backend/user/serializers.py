@@ -16,45 +16,32 @@ class RegistrationSerializer(serializers.ModelSerializer):
         return value
      
     def validate(self, attrs):
-        
-        if 'email' not in attrs:
-            raise serializers.ValidationError({"email": "Email is required!"})
-        
-        if 'first_name' not in attrs:
-            raise serializers.ValidationError({"first_name": "First name is required!"})
-        if 'last_name' not in attrs:
-            raise serializers.ValidationError({"last_name": "Last name is required!"})
-        
-        if attrs['password'] != attrs['password2']:
-            raise serializers.ValidationError({"password2": "Passwords do not match!"})
+        email = attrs.get('email')
+        password = attrs.get('password')
+        password2 = attrs.get('password2')
 
-        email = attrs['email'].lower()
-        if User.objects.filter(email=email).exists():
-            raise serializers.ValidationError({"email": "Email already exists"})
-
-        return attrs
-
-    def save(self):
-        email = self.validated_data['email']
-        first_name = self.validated_data['first_name'].capitalize()
-        last_name = self.validated_data['last_name'].capitalize()
-        username = self.validated_data['username']
-        password = self.validated_data['password']
-        password2 = self.validated_data['password2']
 
         if password != password2:
-            raise serializers.ValidationError({"password2": "password do not match!"})
+            raise serializers.ValidationError({"password2": "Passwords do not match!"})
+            
+        email = email.lower()
+        if User.objects.filter(email__iexact=email).exists():
+            raise serializers.ValidationError({"email": "Email already exists"})
+
+        attrs['email'] = email
+
+        return attrs
+          
         
-        if User.objects.filter(email =self.validated_data['email']).exists():
-            raise serializers.ValidationError({"email":"Email already exists"})
-        
-    
+
+    def save(self):
+        validated = self.validated_data
         account =User.objects.create_user(
-            email= email,
-            username= username,
-            first_name=first_name,
-            last_name=last_name,
-            password=password,
+            email=validated['email'],
+            username=validated['username'],
+            first_name=validated['first_name'].title(),
+            last_name=validated['last_name'].title(),
+            password=validated['password'],
         )
 
         return account
