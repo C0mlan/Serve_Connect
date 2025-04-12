@@ -48,7 +48,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         return account
     
 
-class ProfileSerializer(serializers.Serializer):
-        class Meta:
-            model = Profile
-            fields = [ "user","account_type", "based_on", "org_name", "bio"]
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = [ "user","account_type", "based_on", "org_name", "bio"]

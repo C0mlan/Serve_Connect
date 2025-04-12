@@ -77,15 +77,20 @@ def userverification(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-
 def update_profile(request):
-    profile = Profile.objects.get(user=request.user)
     serializer = ProfileSerializer(data=request.data)
     if serializer.is_valid():
-        serializer.save(user=request.user)
+        profile = serializer.save(user=request.user)
         profile.prof_updated = True
         profile.save()
-        return Response({"message": "Profile updated successfully!"}, status=status.HTTP_200_OK)
+        verify = Onetime.objects.get(user=request.user)
+        response_data = {
+               "message": "Profile updated successfully!",
+                "account_type" :profile.account_type,
+                "prof_up": profile.prof_updated,
+                "is_verified": verify.is_verified
+            }
+        return Response(response_data , status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
