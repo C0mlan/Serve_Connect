@@ -72,6 +72,6 @@ def userverification(request):
                 }, status=status.HTTP_200_OK)
         return Response({'message':"Account already verified"}, status=status.HTTP_204_NO_CONTENT)
     except Onetime.DoesNotExist:
-        return Response({'message':"Invalid otp"}, status=status.HTTP_200_OK)
+        return Response({'message':"Invalid otp"}, status=status.HTTP_400_BAD_REQUEST)
 
 
