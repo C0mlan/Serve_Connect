@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from .serializers import RegistrationSerializer
+from .serializers import RegistrationSerializer, ProfileSerializer
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from .utils import Util, generate_otp
-from .models import User, Onetime
+from .models import User, Onetime,Profile
 from rest_framework_simplejwt.tokens import RefreshToken
 
 @api_view(['POST'])
@@ -73,5 +73,19 @@ def userverification(request):
         return Response({'message':"Account already verified"}, status=status.HTTP_204_NO_CONTENT)
     except Onetime.DoesNotExist:
         return Response({'message':"Invalid otp"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+
+def update_profile(request):
+    profile = Profile.objects.get(user=request.user)
+    serializer = ProfileSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(user=request.user)
+        profile.prof_updated = True
+        profile.save()
+        return Response({"message": "Profile updated successfully!"}, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

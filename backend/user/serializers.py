@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from .models import Profile
 
 class RegistrationSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(write_only = True)
@@ -45,4 +46,9 @@ class RegistrationSerializer(serializers.ModelSerializer):
         )
 
         return account
+    
 
+class ProfileSerializer(serializers.Serializer):
+        class Meta:
+            model = Profile
+            fields = [ "user","account_type", "based_on", "org_name", "bio"]
