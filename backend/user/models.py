@@ -14,9 +14,9 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     prof_updated = models.BooleanField(default=False)
     account_type = models.CharField(max_length=100)
-    org_name = models.CharField(max_length=100)
-    based_on = models.JSONField(default=list)
-    bio =  models.CharField(max_length=200)
+    org_name = models.CharField(max_length=100, null = True,blank=True)
+    based_on = models.JSONField(default=list, null = True,blank=True)
+    bio =  models.CharField(max_length=200, null= True, blank=True)
 
     def __str__(self):
         return str(self.user.username)
