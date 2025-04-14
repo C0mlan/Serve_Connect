@@ -12,18 +12,17 @@ const UpdateProfilePage = () => {
 
   const navigate = useNavigate();
   const { user, setUser } = useAuth();
-
+  // console.log(user);
   const handleBasedOnChange = (e) => {
     if (!basedOn.includes(e.target.value) && e.target.checked === true) {
       setBasedOn([...basedOn, e.target.value]);
-      console.log(basedOn == "");
     } else {
       let basedOnCopy = basedOn.filter((el) => el !== e.target.value);
       setBasedOn(basedOnCopy);
     }
   };
 
-  const handleUpdateProfile = (e) => {
+  const handleUpdateProfile = async (e) => {
     e.preventDefault();
 
     if (accountType === "volunteer" && basedOn.length == 0) {
@@ -43,15 +42,19 @@ const UpdateProfilePage = () => {
       based_on: basedOn,
       org_name: orgName,
       bio,
+      user: 1,
     };
 
     try {
-      const res = api.post("/update-profile", { data });
-      console.log(res);
-      enqueueSnackbar("Profile updated successfully!", { variant: "success" });
-      let userCopy = { ...user };
-      userCopy.isProfileUpdated = true;
-      setUser(userCopy);
+      const res = await api.post("/update-profile/", data);
+      // console.log(res);
+      enqueueSnackbar(res.data.message, { variant: "success" });
+      setUser({
+        ...user,
+        accountType: res.data.account_type,
+        isProfileUpdated: res.data.prof_up,
+        isEmailVerified: res.data.is_verified,
+      });
       navigate("/dashboard");
     } catch (err) {
       console.log(err);
@@ -111,7 +114,7 @@ const UpdateProfilePage = () => {
               type="text"
               id="org-name"
               value={orgName}
-              pattern="[A-Z][A-Za-z0-9]{2,}"
+              pattern="[A-Z][A-Za-z0-9\s.]{2,}"
               title="Must start with an uppercase letter, followed by two or more letters or numbers."
               onChange={(e) => setOrgName(e.target.value)}
             />

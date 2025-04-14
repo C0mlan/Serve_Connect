@@ -2,10 +2,14 @@ import { useState } from "react";
 import api from "../helpers/api";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
+import { ACCESS_TOKEN } from "../helpers/constants";
+import { useAuth } from "../contexts/AuthContext";
+
 const VerifyPage = () => {
   const [otp, setOtp] = useState("");
 
   const navigate = useNavigate();
+  const { setIsAuthenticated, setUser, user } = useAuth();
 
   const handleOtpSubmit = (e) => {
     e.preventDefault();
@@ -20,23 +24,23 @@ const VerifyPage = () => {
       .post("/user-ver/", { otp })
       .then((res) => {
         if (res.status === 204) {
-          enqueueSnackbar(
-            "Your account has already been verified, please login instead!",
-            {
-              variant: "warning",
-            }
-          );
-          navigate("/login");
+          enqueueSnackbar("Your email has already been verified!");
         } else if (res.status === 200) {
-          enqueueSnackbar(
-            "Your account has been verified! Please login to continue :)",
-            {
-              variant: "success",
-            }
-          );
-          // localStorage.setItem(ACCESS_TOKEN, res.data.access_token);
-          navigate("/login");
+          localStorage.removeItem(ACCESS_TOKEN);
+          enqueueSnackbar("Your email has been verified successfully!", {
+            variant: "success",
+          });
+          localStorage.setItem(ACCESS_TOKEN, res.data.access_token);
         }
+        const newUser = {
+          ...user,
+          isEmailVerified: true,
+          isProfileUpdated: false,
+        };
+        setUser(newUser);
+        setIsAuthenticated(true);
+        // console.log(user, isAuthenticated);
+        navigate("/dashboard");
       })
       .catch((err) => {
         if (err.response.status === 400) {

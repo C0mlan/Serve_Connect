@@ -1,16 +1,16 @@
 import { ACCESS_TOKEN } from "../helpers/constants";
 import { jwtDecode } from "jwt-decode";
-import { useSnackbar } from "notistack";
 import { useState, createContext, useContext, useEffect } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const token = localStorage.getItem(ACCESS_TOKEN);
-  const [user, setUser] = useState({});
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
-
-  const { enqueueSnackbar } = useSnackbar();
+  const [user, setUser] = useState({
+    isEmailVerified: false,
+    isProfileUpdated: false,
+  });
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     const checkTokenValidity = async () => {
@@ -20,8 +20,7 @@ export const AuthProvider = ({ children }) => {
         const now = Date.now() / 1000;
 
         if (tokenExp < now) {
-          console.log("token expired");
-          enqueueSnackbar("Please login to continue!");
+          localStorage.removeItem(ACCESS_TOKEN);
           setIsAuthenticated(false);
         } else {
           setIsAuthenticated(true);

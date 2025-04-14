@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import api from "../helpers/api";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ const RegisterPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-  const [terms, setTerms] = useState(false);
+  const [terms, setTerms] = useState(true);
 
   const navigate = useNavigate();
   const handleRegister = async (e) => {
