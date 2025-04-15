@@ -7,7 +7,7 @@ import VerifyPage from "./pages/VerifyPage.jsx";
 import UpdateProfilePage from "./pages/UpdateProfilePage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
-import DashboardPage from "./pages/DashboardPage.jsx";
+import ListingsPage from "./pages/ListingsPage.jsx";
 
 function App() {
   return (
@@ -22,10 +22,10 @@ function App() {
             <Route path="/verify" element={<VerifyPage />} />
             <Route path="/update-profile" element={<UpdateProfilePage />} />
             <Route
-              path="/dashboard"
+              path="/listings"
               element={
                 <ProtectedRoute>
-                  <DashboardPage />
+                  <ListingsPage />
                 </ProtectedRoute>
               }
             />

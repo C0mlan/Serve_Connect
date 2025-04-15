@@ -28,6 +28,13 @@ const RegisterPage = () => {
       return;
     }
 
+    if (username.includes("@")) {
+      enqueueSnackbar("Username cannot contain @", {
+        variant: "error",
+      });
+      return;
+    }
+
     if (!/^(?=.*[!@#$%^&*]).{8,}$/.test(password)) {
       enqueueSnackbar(
         "Password must be at least 8 characters long and contain any of !@#$%^&*",

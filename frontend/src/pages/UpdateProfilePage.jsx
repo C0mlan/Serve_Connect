@@ -55,7 +55,7 @@ const UpdateProfilePage = () => {
         isProfileUpdated: res.data.prof_up,
         isEmailVerified: res.data.is_verified,
       });
-      navigate("/dashboard");
+      navigate("/listings");
     } catch (err) {
       console.log(err);
       enqueueSnackbar(
