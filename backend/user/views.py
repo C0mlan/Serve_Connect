@@ -135,6 +135,7 @@ def login_view(request):
         profile = Profile.objects.get(user=user)
         return Response({
             "access_token": str(refresh.access_token),
+            "refresh_token": str(refresh),
             "token_type": "bearer",
             "is_verified": verify.is_verified,
             "username": user.username,
@@ -142,9 +143,10 @@ def login_view(request):
             "first_name":user.first_name,
             "last_name":user.last_name,
             "profile_update": profile.prof_updated,
-
-
-
+            "account_type": profile.account_type,
+            "based_on": profile.based_on,
+            "org name": profile.org_name,
+            "bio": profile.org_name
         }, status=status.HTTP_200_OK)
      
     return Response({"detail": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
