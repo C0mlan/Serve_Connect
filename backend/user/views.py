@@ -7,6 +7,7 @@ from rest_framework import status
 from .utils import Util, generate_otp
 from .models import User, Onetime,Profile
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import authenticate
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -93,4 +94,57 @@ def update_profile(request):
         return Response(response_data , status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def login_view(request):
 
+    '''This view handles user login by allowing authentication through either a username or email,
+    along with a password. 
+    It first checks if both fields are provided. 
+    Then, it looks up the user based on the identifier type (email or username). 
+    If the user exists and the password is correct,
+    it authenticates the user and returns JWT tokens (access and refresh), 
+    user information, verification status, and profile update status.'''
+
+
+    identifier = request.data.get("identifier")
+    password = request.data.get("password")
+
+    if not identifier or not password:
+        return Response(
+            {"error": "Username and password are required."},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    try:
+        if "@" in identifier:
+            user =User.objects.get(email=identifier)
+        else:
+            user=User.objects.get(username=identifier)
+    except (User.DoesNotExist):
+        return Response(
+            {"error": "Invalid  User details. "},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
+ 
+    user = authenticate(username=user.username, password=password)
+    
+ 
+    if user is not None:
+        refresh = RefreshToken.for_user(user)
+        verify = Onetime.objects.get(user=user)
+        profile = Profile.objects.get(user=user)
+        return Response({
+            "access_token": str(refresh.access_token),
+            "token_type": "bearer",
+            "is_verified": verify.is_verified,
+            "username": user.username,
+            "email": user.email,
+            "first_name":user.first_name,
+            "last_name":user.last_name,
+            "profile_update": profile.prof_updated,
+
+
+
+        }, status=status.HTTP_200_OK)
+     
+    return Response({"detail": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
