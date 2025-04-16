@@ -79,7 +79,11 @@ def userverification(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def update_profile(request):
-    serializer = ProfileSerializer(data=request.data)
+    try:
+        profile = request.user.profile 
+    except Profile.DoesNotExist:
+        return Response({"error": "Profile not found."}, status=status.HTTP_404_NOT_FOUND)
+    serializer = ProfileSerializer(instance=profile,data=request.data)
     if serializer.is_valid():
         profile = serializer.save(user=request.user)
         profile.prof_updated = True
@@ -92,6 +96,7 @@ def update_profile(request):
                 "is_verified": verify.is_verified
             }
         return Response(response_data , status=status.HTTP_200_OK)
+    
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
