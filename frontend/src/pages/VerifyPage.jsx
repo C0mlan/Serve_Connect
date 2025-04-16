@@ -2,7 +2,7 @@ import { useState } from "react";
 import api from "../helpers/api";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
-import { ACCESS_TOKEN } from "../helpers/constants";
+import { ACCESS_TOKEN, USER } from "../helpers/constants";
 import { useAuth } from "../contexts/AuthContext";
 
 const VerifyPage = () => {
@@ -27,6 +27,7 @@ const VerifyPage = () => {
           enqueueSnackbar("Your email has already been verified!");
         } else if (res.status === 200) {
           localStorage.removeItem(ACCESS_TOKEN);
+          localStorage.removeItem(USER);
           enqueueSnackbar("Your email has been verified successfully!", {
             variant: "success",
           });
@@ -40,7 +41,7 @@ const VerifyPage = () => {
         setUser(newUser);
         setIsAuthenticated(true);
         // console.log(user, isAuthenticated);
-        navigate("/dashboard");
+        navigate("/listings");
       })
       .catch((err) => {
         if (err.response.status === 400) {

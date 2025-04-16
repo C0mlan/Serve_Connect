@@ -1,45 +1,93 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../helpers/api";
-import { REFRESH_TOKEN, ACCESS_TOKEN } from "../helpers/constants";
+import { REFRESH_TOKEN, ACCESS_TOKEN, USER } from "../helpers/constants";
 import { enqueueSnackbar } from "notistack";
 import { useAuth } from "../contexts/AuthContext";
+import Spinner from "../components/Spinner";
 
 export default function LoginPage() {
   const [option, setOption] = useState("username");
-  const [optionValue, setOptionValue] = useState("");
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { setUser, setIsAuthenticated } = useAuth();
 
   const handleLogin = async (e) => {
-    // setLoading(true);
     e.preventDefault();
 
-    if (!optionValue || !password) {
+    const loggedInUser = JSON.parse(localStorage.getItem(USER))?.username;
+
+    if (!identifier || !password) {
       enqueueSnackbar("Please fill in all the fields", { variant: "error" });
       return;
     }
 
     try {
-      const response = await api.post("/loginpage/", {
-        optionValue,
+      setLoading(true);
+      const response = await api.post("/login-page/", {
+        identifier,
         password,
       });
+      // console.log(response);
+      const {
+        access_token,
+        // refresh_token,
+        username,
+        email,
+        first_name: firstName,
+        last_name: lastName,
+        org_name: orgName,
+        bio,
+        profile_update: isProfileUpdated,
+        is_verified: isEmailVerified,
+        based_on: basedOn,
+      } = response.data;
 
-      const { access_token, user, profile } = response.data;
-      localStorage.setItem(ACCESS_TOKEN, access_token);
-      setUser({ ...user, ...profile });
-      setIsAuthenticated(true);
-      enqueueSnackbar("User login successful", { variant: "success" });
-      navigate("/dashboard");
+      if (!(loggedInUser === username)) {
+        localStorage.setItem(ACCESS_TOKEN, access_token);
+        setUser({
+          username,
+          email,
+          firstName,
+          lastName,
+          orgName,
+          bio,
+          isProfileUpdated,
+          isEmailVerified,
+          basedOn,
+        });
+        localStorage.setItem(
+          USER,
+          JSON.stringify({
+            username,
+            email,
+            firstName,
+            lastName,
+            orgName,
+            bio,
+            isProfileUpdated,
+            isEmailVerified,
+            basedOn,
+          })
+        );
+        setIsAuthenticated(true);
+        navigate("/listings");
+      } else {
+        enqueueSnackbar("You are already logged in!");
+        return;
+      }
     } catch (error) {
+      if (error.status === 400) console.log(error);
+
       if (error.status === 401)
         enqueueSnackbar("Invalid credentials, please try again", {
           variant: "error",
         });
       // console.error("Login error", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -55,8 +103,8 @@ export default function LoginPage() {
         <input
           id={option}
           type={option === "username" ? "text" : "email"}
-          value={optionValue}
-          onChange={(e) => setOptionValue(e.target.value)}
+          value={identifier}
+          onChange={(e) => setIdentifier(e.target.value)}
         />
         <label htmlFor="password">Password</label>
         <input
@@ -67,7 +115,9 @@ export default function LoginPage() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <Link to="/forgot-password"> Forgot Password</Link>
-        <input type="submit" value="Login" />
+        <button type="submit" disabled={loading}>
+          {loading ? <Spinner /> : "Login"}
+        </button>
       </form>
       <p>
         Don't have an account? Register <Link to="/register">here</Link>
