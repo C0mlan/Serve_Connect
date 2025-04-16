@@ -2,10 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { ACCESS_TOKEN, USER } from "../helpers/constants";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const { isAuthenticated, setIsAuthenticated, setUser } = useAuth();
-
+  const navigate = useNavigate();
   const handleLogout = () => {
     if (confirm("Are you sure?")) {
       setIsAuthenticated(false);
@@ -15,6 +16,7 @@ const NavBar = () => {
       });
       localStorage.removeItem(USER);
       localStorage.removeItem(ACCESS_TOKEN);
+      navigate("/login");
     }
   };
 

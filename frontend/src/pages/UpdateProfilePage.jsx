@@ -42,7 +42,7 @@ const UpdateProfilePage = () => {
       based_on: basedOn,
       org_name: orgName,
       bio,
-      user: 1,
+      // user: 1,
     };
 
     try {

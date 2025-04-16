@@ -2,6 +2,8 @@ import { useState } from "react";
 import api from "../helpers/api";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { ACCESS_TOKEN, USER } from "../helpers/constants";
 
 const RegisterPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -13,6 +15,7 @@ const RegisterPage = () => {
   const [terms, setTerms] = useState(true);
 
   const navigate = useNavigate();
+  const { setUser, setIsAuthenticated } = useAuth();
   const handleRegister = async (e) => {
     e.preventDefault();
 
@@ -64,6 +67,13 @@ const RegisterPage = () => {
         enqueueSnackbar("Account has been created, please verify your email!", {
           variant: "success",
         });
+        setUser({
+          isEmailVerified: false,
+          isProfileUpdated: false,
+        });
+        setIsAuthenticated(false);
+        localStorage.removeItem(USER);
+        localStorage.removeItem(ACCESS_TOKEN);
         navigate("/verify");
       }
     } catch (err) {
