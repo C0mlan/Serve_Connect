@@ -13,6 +13,13 @@ def list_service(request):
     serializer = VolunteerSerializer(service, many=True)
     return Response(serializer.data,  status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def list_user(request):
+    service = Volunteer.objects.filter(user = request.user)
+    serializer = VolunteerSerializer(service, many=True)
+    return Response(serializer.data,  status=status.HTTP_200_OK)
+
 
     
 
