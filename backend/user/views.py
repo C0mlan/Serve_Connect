@@ -155,3 +155,6 @@ def login_view(request):
         }, status=status.HTTP_200_OK)
      
     return Response({"detail": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+    
