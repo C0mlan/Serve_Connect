@@ -24,6 +24,19 @@ def single_service(request, pk):
     serializer = ServiceSerializer(service)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def edit_service(request, pk):
+    try:
+        service = Service.objects.get(id=pk, user=request.user)
+    except service.DoesNotExist:
+        return Response({"error": "Service not found or not owned by you."}, status=status.HTTP_404_NOT_FOUND)
+    serializer = ServiceSerializer(instance=service, data=request.data, partial=True) 
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET'])
