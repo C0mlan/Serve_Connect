@@ -30,7 +30,7 @@ def edit_service(request, pk):
     try:
         service = Service.objects.get(id=pk, user=request.user)
     except service.DoesNotExist:
-        return Response({"error": "Service not found or not owned by you."}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"error": "Service not found"}, status=status.HTTP_404_NOT_FOUND)
     serializer = ServiceSerializer(instance=service, data=request.data, partial=True) 
     if serializer.is_valid():
         serializer.save()
@@ -55,7 +55,16 @@ def create_post(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_service(request, pk):
+    try:
+        service = Service.objects.get(id=pk, user=request.user)
+    except Service.DoesNotExist:
+        return Response({"error": "Service not found"}, status=status.HTTP_404_NOT_FOUND)
 
+    service.delete()
+    return Response({"message": "Service deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
 
     
 
