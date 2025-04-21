@@ -1,7 +1,8 @@
 from rest_framework import serializers
-from .models import Volunteer
+from .models import Service
 
-class VolunteerSerializer(serializers.ModelSerializer):
+class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Volunteer
+        model = Service
         fields = '__all__'
+        read_only_fields = ['user', 'created', 'updated']

@@ -2,6 +2,10 @@ from django.urls import path
 from . import views
 
 urlpatterns =[
-    path('list_service/', views.list_service, name='list_service'),
-    path('list_user/', views.list_user, name='list_user'),
+    path('all_service/', views.all_service, name='allservice'),
+    path('all_service/<int:pk>/', views.single_service, name='single_service'),
+
+    path('user_service/', views.user_service, name='user_service'),
+    path('create_service/', views.create_post, name='create_service'),
+    
 ]
