@@ -13,11 +13,11 @@ class Onetime(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    prof_updated = models.BooleanField(default=False)
-    account_type = models.CharField(max_length=100)
-    org_name = models.CharField(max_length=100, null = True)
-    based_on = models.JSONField(default=list, null = True)
-    bio =  models.CharField(max_length=200, null= True)
+    prof_updated = models.BooleanField(default=False, blank = True)
+    account_type = models.CharField(max_length=100, blank = True)
+    org_name = models.CharField(max_length=100, null = True, blank = True)
+    based_on = models.JSONField(default=list, null = True, blank = True)
+    bio =  models.CharField(max_length=200, null= True, blank = True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
