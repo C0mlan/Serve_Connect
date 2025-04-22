@@ -2,9 +2,10 @@ from rest_framework import serializers
 from .models import Service
 
 class ServiceSerializer(serializers.ModelSerializer):
-    created = serializers.DateTimeField(format="%d %b %Y, %I:%M %p")
-    updated = serializers.DateTimeField(format="%d %b %Y, %I:%M %p")
+    created = serializers.DateTimeField(format="%d %b %Y, %I:%M %p", read_only=True)
+    updated = serializers.DateTimeField(format="%d %b %Y, %I:%M %p", read_only=True)
     class Meta:
         model = Service
-        fields = '__all__'
-        read_only_fields = ['user', 'created', 'updated']
+        fields = ["id" "title", "brief_des", "description", "expectation", "category", "created","updated"]
+
+        
