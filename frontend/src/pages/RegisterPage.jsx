@@ -62,7 +62,7 @@ const RegisterPage = () => {
     };
 
     try {
-      const res = await api.post("/register/", data);
+      const res = await api.post("/user/register/", data);
       if (res.status === 201) {
         enqueueSnackbar("Account has been created, please verify your email!", {
           variant: "success",

@@ -26,7 +26,7 @@ export default function LoginPage() {
 
     try {
       setLoading(true);
-      const response = await api.post("/login-page/", {
+      const response = await api.post("/user/login-page/", {
         identifier,
         password,
       });
@@ -43,6 +43,7 @@ export default function LoginPage() {
         profile_update: isProfileUpdated,
         is_verified: isEmailVerified,
         based_on: basedOn,
+        account_type: accountType,
       } = response.data;
 
       if (!(loggedInUser === username)) {
@@ -57,6 +58,7 @@ export default function LoginPage() {
           isProfileUpdated,
           isEmailVerified,
           basedOn,
+          accountType,
         });
         localStorage.setItem(
           USER,
@@ -70,6 +72,7 @@ export default function LoginPage() {
             isProfileUpdated,
             isEmailVerified,
             basedOn,
+            accountType,
           })
         );
         setIsAuthenticated(true);
