@@ -22,7 +22,12 @@ def single_service(request, pk):
         return Response({'detail': 'Service not found.'}, status=status.HTTP_404_NOT_FOUND)
 
     serializer = ServiceSerializer(service)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    logged_user = request.user.id
+    response_data = {
+        'logged_user': logged_user,
+        'data': serializer.data
+    }
+    return Response(response_data, status=status.HTTP_200_OK)
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
@@ -34,6 +39,7 @@ def edit_service(request, pk):
     serializer = ServiceSerializer(instance=service, data=request.data, partial=True) 
     if serializer.is_valid():
         serializer.save()
+        
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
