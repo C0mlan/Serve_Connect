@@ -138,11 +138,13 @@ def login_view(request):
         refresh = RefreshToken.for_user(user)
         verify = Onetime.objects.get(user=user)
         profile = Profile.objects.get(user=user)
+
         return Response({
             "access_token": str(refresh.access_token),
             "refresh_token": str(refresh),
             "token_type": "bearer",
             "is_verified": verify.is_verified,
+            'logged_user': user.id,
             "username": user.username,
             "email": user.email,
             "first_name":user.first_name,
