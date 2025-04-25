@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .models import Service
-from .serializers import ServiceSerializer
+from .models import Service, Interaction
+from .serializers import ServiceSerializer, InteractionSerializer
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -67,8 +67,21 @@ def delete_service(request, pk):
     service.delete()
     return Response({"message": "Service deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
 
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def create_reason(request, pk):
+    try:
+        service = Service.objects.get(id=pk)
+    except Service.DoesNotExist:
+        return Response({'error': 'Service not found'}, status=status.HTTP_404_NOT_FOUND)
+   
+    serializer= InteractionSerializer(data=request.data)
     
-
-
+    if serializer.is_valid():
+        serializer.save(user=request.user, service=service)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
 
