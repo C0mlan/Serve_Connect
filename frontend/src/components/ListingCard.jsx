@@ -1,4 +1,4 @@
-import moment from "moment";
+// import moment from "moment";
 import clock from "../assets/clock.svg";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
@@ -17,7 +17,7 @@ const ListingCard = ({ listing }) => {
     user: userId,
   } = listing;
 
-  const formattedDate = moment(created, "DD MMM YYYY, h:mm A").fromNow();
+  // const formattedDate = moment(created, "DD MMM YYYY, h:mm A").fromNow();
   // console.log(formattedDate);
 
   const { user } = useAuth();
@@ -44,7 +44,7 @@ const ListingCard = ({ listing }) => {
               <div className="text-base font-semibold">
                 Poster Name (Org type)
               </div>
-              <div className="mt-0.5 ">{formattedDate}</div>
+              {/* <div className="mt-0.5 ">{formattedDate}</div> */}
             </div>
           </div>
           <h1 className="mb-2 text-2xl font-bold">{title}</h1>

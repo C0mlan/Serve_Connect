@@ -24,6 +24,8 @@ class Profile(models.Model):
 
     def __str__(self):
         return str(self.user.username)
+   
+       
 
 #to create a profile automantically after a User is create
 def create_profile(sender, instance, created, **kwargs):

@@ -14,6 +14,8 @@ class Service(models.Model):
     updated = models.DateTimeField(auto_now=True)
     def __str__(self):
         return f'{self.title} {self.user.username}'
+    class Meta:
+        ordering = ['-created']
     
 class Interaction(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,null =True)
@@ -22,6 +24,8 @@ class Interaction(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return f"Interaction with {self.service.title} X {self.reason}"
+    class Meta:
+        ordering = ['-created'] #this orders from the most recent 
 
 
     
