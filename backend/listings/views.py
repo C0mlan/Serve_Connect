@@ -9,6 +9,7 @@ from rest_framework import status
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def all_service(request):
+    # Returns a list of all services except those created by the currently authenticated user
     service = Service.objects.exclude(user=request.user)
     serializer = ServiceSerializer(service, many=True)
     return Response(serializer.data,  status=status.HTTP_200_OK)
@@ -16,6 +17,7 @@ def all_service(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def single_service(request, pk):
+    # Retrieves and returns a single service by its ID
     try:
         service = Service.objects.get(id=pk)
     except Service.DoesNotExist:
@@ -27,6 +29,7 @@ def single_service(request, pk):
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def edit_service(request, pk):
+    # Allows the user to update their own service by ID
     try:
         service = Service.objects.get(id=pk, user=request.user)
     except service.DoesNotExist:
@@ -43,6 +46,8 @@ def edit_service(request, pk):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def user_service(request):
+    # Retrieves and returns all services created by the user
+
     service = Service.objects.filter(user = request.user)
     serializer = ServiceSerializer(service, many=True)
     return Response(serializer.data,  status=status.HTTP_200_OK)
@@ -84,4 +89,12 @@ def create_reason(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def user_interaction(request, pk):
+    service = Interaction.objects.filter(service=pk)
+    serializer = InteractionSerializer(service, many=True)
+    return Response(serializer.data,  status=status.HTTP_200_OK)
 
+
+    
