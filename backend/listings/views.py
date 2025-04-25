@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from .models import Service, Interaction
-from .serializers import ServiceSerializer, InteractionSerializer
+from .serializers import ServiceSerializer, InteractionSerializer,Interaction_Serializer
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -64,6 +64,7 @@ def create_post(request):
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
 def delete_service(request, pk):
+    # Deletes a service created by the authenticated user
     try:
         service = Service.objects.get(id=pk, user=request.user)
     except Service.DoesNotExist:
@@ -76,6 +77,7 @@ def delete_service(request, pk):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def create_reason(request, pk):
+    # Creates a new interaction with a given service
     try:
         service = Service.objects.get(id=pk)
     except Service.DoesNotExist:
@@ -92,9 +94,18 @@ def create_reason(request, pk):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def user_interaction(request, pk):
+    # Retrieves all interactions for a specific service by its ID
     service = Interaction.objects.filter(service=pk)
-    serializer = InteractionSerializer(service, many=True)
+    serializer = Interaction_Serializer(service, many=True)
     return Response(serializer.data,  status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def volunteer_interaction(request):
+    # Retrieves all interactions created by the authenticated user
+    interaction = Interaction.objects.filter(user=request.user)
+    serializer = Interaction_Serializer(interaction, many=True)
+    return Response(serializer.data,status=status.HTTP_200_OK )
 
 
     
