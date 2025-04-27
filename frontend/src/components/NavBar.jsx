@@ -22,12 +22,14 @@ const NavBar = () => {
   // console.log(user.basedOn);
 
   return (
-    <nav>
+    <nav className="flex gap-x-2">
       <Link to="/register">Register</Link>
       <Link to="/verify">Verify</Link>
       <Link to="/update-profile">Update</Link>
       <Link to="/listings">Listings</Link>
       <Link to="/create-listing">Create Listing</Link>
+      <Link to="/listings/me">My Listings</Link>
+      <Link to="/interactions">My Interactions</Link>
 
       {isAuthenticated && <button onClick={handleLogout}>Logout</button>}
 

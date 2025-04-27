@@ -4,6 +4,9 @@ import { enqueueSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { ACCESS_TOKEN, USER } from "../helpers/constants";
+import PasswordInput from "../components/PasswordInput";
+import { Link } from "react-router-dom";
+import Button from "../components/Button";
 
 const RegisterPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -12,7 +15,8 @@ const RegisterPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-  const [terms, setTerms] = useState(true);
+  const [terms, setTerms] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const { setUser, setIsAuthenticated } = useAuth();
@@ -27,7 +31,7 @@ const RegisterPage = () => {
       !password ||
       !password2
     ) {
-      enqueueSnackbar("Please fill in all the fields", { variant: "error" });
+      enqueueSnackbar("Please fill in all the fields!", { variant: "error" });
       return;
     }
 
@@ -61,6 +65,7 @@ const RegisterPage = () => {
       password2: password2,
     };
 
+    setLoading(true);
     try {
       const res = await api.post("/user/register/", data);
       if (res.status === 201) {
@@ -80,76 +85,155 @@ const RegisterPage = () => {
       let data = err.response.data;
       enqueueSnackbar(Object.values(data)[0][0], { variant: "error" });
       return;
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div>
-      <form onSubmit={handleRegister}>
-        <label htmlFor="first-name">First Name</label>
-        <input
-          type="text"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          id="first-name"
-        />
-        <br />
-        <label htmlFor="last-name">Last Name</label>
-        <input
-          type="text"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          id="last-name"
-        />
-        <br />
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          id="email"
-        />
-        <br />
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          id="username"
-        />
-        <br />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          value={password}
-          placeholder="At least 8 chars with 1 special character"
-          onChange={(e) => setPassword(e.target.value)}
-          id="password"
-        />
-        <br />
-        <label htmlFor="c-password">Confirm Password</label>
-        <input
-          type="password"
-          value={password2}
-          onChange={(e) => setPassword2(e.target.value)}
-          id="c-password"
-        />
-        <br />
-        <input
-          type="checkbox"
-          id="terms"
-          value={terms}
-          onChange={(e) => {
-            setTerms(e.target.checked);
-          }}
-        />
-        <label htmlFor="terms">
-          I agree to the Terms and Conditions and Privacy Policy
-        </label>
-        <br />
-        <input type="submit" value="Register" disabled={!terms} />
-      </form>
-    </div>
+    <>
+      <div className="w-full h-screen bg-white overflow-hidden flex flex-col md:flex-row">
+        {/* Left Side - Logo */}
+        <div className="w-full hidden md:w-1/2 bg-purple-600 md:flex items-center justify-center p-8">
+          <div className="text-white text-center">
+            <img
+              src="/logo.svg"
+              alt="Company Logo"
+              className="h-24 w-24 mx-auto mb-4"
+            />
+            <h2 className="text-3xl font-bold mb-2">Logo</h2>
+            <p className="text-purple-100">Welcome to our platform</p>
+          </div>
+        </div>
+        <div className="w-full md:w-1/2 p-8 md:p-12 overflow-y-scroll">
+          {/* <div className="w-full max-w-lg mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8"> */}
+          <h1 className="text-3xl font-bold mb-6">Create an account</h1>
+          <form onSubmit={handleRegister}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 mb-2">
+              <div>
+                <label
+                  htmlFor="first-name"
+                  className="block text-base font-medium mb-2"
+                >
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  value={firstName}
+                  placeholder="John"
+                  className="bg-gray-50 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none block w-full p-2.5"
+                  onChange={(e) => setFirstName(e.target.value)}
+                  id="first-name"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="last-name"
+                  className="block text-base font-medium mb-2"
+                >
+                  Last Name
+                </label>
+
+                <input
+                  type="text"
+                  value={lastName}
+                  placeholder="Doe"
+                  className="bg-gray-50 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none block w-full p-2.5"
+                  onChange={(e) => setLastName(e.target.value)}
+                  id="last-name"
+                />
+              </div>
+            </div>
+            <div className="mb-2">
+              <label
+                htmlFor="email"
+                className="block text-base font-medium mb-2"
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                value={email}
+                placeholder="johndoe123@email.com"
+                onChange={(e) => setEmail(e.target.value)}
+                className="bg-gray-50 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none block w-full p-2.5"
+                id="email"
+              />
+            </div>
+            <div className="mb-2">
+              <label
+                htmlFor="username"
+                className="block text-base font-medium  mb-2"
+              >
+                Username
+              </label>
+              <input
+                type="text"
+                value={username}
+                placeholder="JohnDoe123"
+                className="bg-gray-50 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none block w-full p-2.5"
+                onChange={(e) => setUsername(e.target.value)}
+                id="username"
+              />
+            </div>
+            <div className="mb-2">
+              <PasswordInput
+                value={password}
+                id="password"
+                label="Password"
+                placeholder="At least 8 chars with 1 special character"
+                className="bg-gray-50 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none block w-full p-2.5"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="mb-2">
+              <PasswordInput
+                id="c-password"
+                value={password2}
+                label="Confirm Password"
+                className="bg-gray-50 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none block w-full p-2.5"
+                onChange={(e) => setPassword2(e.target.value)}
+              />
+            </div>
+
+            <div className="flex items-center mb-2 mt-3">
+              <input
+                id="terms"
+                value={terms}
+                onChange={(e) => {
+                  setTerms(e.target.checked);
+                }}
+                name="terms"
+                type="checkbox"
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                required
+              />
+              <label htmlFor="terms" className="ml-2 block text-sm">
+                I agree to the{" "}
+                <a href="#" className="text-blue-600 hover:underline">
+                  Terms and Conditions
+                </a>
+              </label>
+            </div>
+            <Button
+              disabled={loading || !terms}
+              loading={loading}
+              text="Register"
+            ></Button>
+            <div className="text-center text-sm ">
+              Already have an account?{" "}
+              <Link
+                to="/login"
+                className="text-blue-600 font-medium hover:underline"
+              >
+                Log in
+              </Link>
+            </div>
+          </form>
+        </div>
+      </div>
+      {/* </div> */}
+    </>
   );
 };
 

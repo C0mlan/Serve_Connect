@@ -17,6 +17,7 @@ const SingleUserListing = () => {
     };
     getListing();
   }, []);
+
   const handleEdit = (id) => {
     navigate(`/listing/${id}/edit`);
   };
@@ -30,23 +31,47 @@ const SingleUserListing = () => {
   };
 
   return (
-    <div>
-      SingleUserListing
+    <div className="w-full max-w-4xl mx-auto p-4  sm:p-6 md:p-8 space-y-6">
+      <h1 className="text-3xl font-bold text-center">My Listings</h1>
       <ul>
         {userListings && userListings.length > 0 ? (
           userListings.map((listing) => (
-            <li key={listing.id}>
-              <Link to={`/listing/${listing.id}`}>{listing.title}</Link>
+            <li
+              key={listing.id}
+              className="bg-white border-b p-4 border-gray-200 hover:bg-gray-50 flex justify-between"
+            >
+              <Link
+                to={`/listing/${listing.id}`}
+                className="text-blue-700 hover: underline"
+              >
+                {listing.title}
+              </Link>
               <div>
-                <button onClick={() => handleEdit(listing.id)}>Edit</button>
-                <buton onClick={() => handleDelete(listing.id)}>Delete</buton>
+                <button
+                  onClick={() => handleEdit(listing.id)}
+                  className="text-green-700 hover:underline mr-3 font-semibold cursor-pointer"
+                >
+                  Edit
+                </button>
+                <buton
+                  onClick={() => handleDelete(listing.id)}
+                  className="text-red-700 hover:underline mr-3 font-semibold cursor-pointer"
+                >
+                  Delete
+                </buton>
               </div>
             </li>
           ))
         ) : (
-          <li>
-            You have no listing. Click <Link to="/create-listing">here</Link> to
-            create one
+          <li className="bg-white border-b p-4 border-gray-200 hover:bg-gray-50 flex justify-between">
+            You have not created a listing yet. Click{" "}
+            <Link
+              to="/create-listing"
+              className="text-blue-700 hover:underline"
+            >
+              here
+            </Link>{" "}
+            to create one now!
           </li>
         )}
       </ul>

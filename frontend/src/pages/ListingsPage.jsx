@@ -12,7 +12,7 @@ const ListingsPage = () => {
 
   const navigate = useNavigate();
   const { setIsAuthenticated } = useAuth();
-
+  // console.log(user);
   useEffect(() => {
     const getListings = async () => {
       try {
@@ -36,15 +36,14 @@ const ListingsPage = () => {
     };
     getListings();
   }, []);
+
   return (
     <section className="mx-12 my-12 sm:mx-30">
       <SearchFilter />
       <div className="grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
         {listings && listings.length > 0 ? (
           listings.map((listing) => (
-            <>
-              <ListingCard listing={listing} key={listing.id} />
-            </>
+            <ListingCard listing={listing} key={listing.id} />
           ))
         ) : (
           <p>No listings available.</p>

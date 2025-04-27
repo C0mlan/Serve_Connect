@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "./Button";
 
 const SearchFilter = () => {
   return (
@@ -10,7 +11,7 @@ const SearchFilter = () => {
         <input
           type="text"
           id="simple-search"
-          className="bg-gray-50 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none block w-full p-2.5  "
+          className="bg-gray-50 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none block w-full sm:w-1/2 p-2.5  "
           placeholder="Search for an outreach..."
           required
         />
@@ -23,7 +24,7 @@ const SearchFilter = () => {
             <option value="One-time">One-time</option>
             <option value="Weekly">Weekly</option>
             <option value="Monthly">Monthly</option>
-            <option value="Occasionaly">Occasionaly</option>
+            <option value="Occasionally">Occasionally</option>
             <option value="Fulltime">Fulltime</option>
           </select>
           <select
@@ -51,13 +52,7 @@ const SearchFilter = () => {
           </select>
         </div>
 
-        <button
-          type="button"
-          className="block p-2.5 font-medium w-full sm:w-40 text-white bg-gray-700 hover:bg-gray-800 rounded-lg border focus:ring-4 focus:outline-none focus:ring-gray-300 cursor-pointer"
-        >
-          <span className="sr-only">Clear filter</span>
-          Clear filter
-        </button>
+        <Button type="button" text="Clear filter"></Button>
       </form>
     </div>
   );

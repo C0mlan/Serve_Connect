@@ -13,7 +13,7 @@ class ServiceSerializer(serializers.ModelSerializer):
 
 class InteractionSerializer(serializers.ModelSerializer):
     created = serializers.DateTimeField(format="%d %b %Y, %I:%M %p", read_only=True)
-    username = serializers.CharField(source='user.username', read_only=True)
+    # username = serializers.CharField(source='user.username', read_only=True)
     class Meta:
         model = Interaction
         fields = ["id", "user", "service","reason", "created"]
