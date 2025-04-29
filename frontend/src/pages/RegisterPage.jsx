@@ -42,17 +42,20 @@ const RegisterPage = () => {
       return;
     }
 
-    if (!/^(?=.*[!@#$%^&*]).{8,}$/.test(password)) {
+    if (!/^(?=.*[!@#$%^&*()-_=+[\]{}|;:',.<>?/]).{8,}$/.test(password)) {
       enqueueSnackbar(
-        "Password must be at least 8 characters long and contain any of !@#$%^&*",
+        "Password must be at least 8 characters long and contain at least a special character!",
         {
           variant: "error",
+          autoHideDuration: 8000,
         }
       );
       return;
     }
     if (password !== password2) {
-      enqueueSnackbar("Passwords do not match", { variant: "error" });
+      enqueueSnackbar("Password does not match with confirmation!", {
+        variant: "error",
+      });
       return;
     }
 
@@ -205,12 +208,12 @@ const RegisterPage = () => {
                 }}
                 name="terms"
                 type="checkbox"
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                className="h-4 w-4 text-gray-600 focus:ring-gray-500 border-gray-300 rounded"
                 required
               />
               <label htmlFor="terms" className="ml-2 block text-sm">
                 I agree to the{" "}
-                <a href="#" className="text-blue-600 hover:underline">
+                <a href="#" className="text-gray-600 hover:underline">
                   Terms and Conditions
                 </a>
               </label>
@@ -224,7 +227,7 @@ const RegisterPage = () => {
               Already have an account?{" "}
               <Link
                 to="/login"
-                className="text-blue-600 font-medium hover:underline"
+                className="text-gray-600 font-medium hover:underline"
               >
                 Log in
               </Link>

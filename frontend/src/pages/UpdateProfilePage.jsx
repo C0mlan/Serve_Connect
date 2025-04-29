@@ -10,6 +10,7 @@ const UpdateProfilePage = () => {
   const [bio, setBio] = useState("");
   const [basedOn, setBasedOn] = useState([]);
   const [orgName, setOrgName] = useState("");
+  const [orgType, setOrgType] = useState("");
   const [accountType, setAccountType] = useState("volunteer");
   const [loading, setLoading] = useState(false);
 
@@ -40,6 +41,12 @@ const UpdateProfilePage = () => {
       });
       return;
     }
+    if (accountType === "organization" && orgType == "") {
+      enqueueSnackbar("Please select the type of organization", {
+        variant: "error",
+      });
+      return;
+    }
 
     // if (bio.length == 0) {
     //   enqueueSnackbar(
@@ -56,6 +63,7 @@ const UpdateProfilePage = () => {
       account_type: accountType,
       based_on: basedOn,
       org_name: orgName,
+      org_type: orgType,
       bio,
     };
 
@@ -67,6 +75,7 @@ const UpdateProfilePage = () => {
         let user = JSON.parse(loggedInUser);
         user["isProfileUpdated"] = true;
         user["orgName"] = orgName;
+        user["orgType"] = orgName;
         user["bio"] = bio;
         user["basedOn"] = basedOn;
         user["accountType"] = accountType;
@@ -152,18 +161,40 @@ const UpdateProfilePage = () => {
           </div>
         )}
         {accountType === "organization" && (
-          <div className="mb-2">
-            <label className="block mb-2">Name of your organization</label>
-            <input
-              type="text"
-              id="org-name"
-              value={orgName}
-              className="bg-gray-50 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none block w-full p-2.5"
-              pattern="[A-Z][A-Za-z0-9\s.]{2,}"
-              title="Must start with an uppercase letter, followed by two or more letters or numbers."
-              onChange={(e) => setOrgName(e.target.value)}
-            />
-          </div>
+          <>
+            <div className="mb-2">
+              <label className="block mb-2">Name of your organization</label>
+              <input
+                type="text"
+                id="org-name"
+                value={orgName}
+                className="bg-gray-50 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none block w-full p-2.5"
+                pattern="[A-Z][A-Za-z0-9\s.]{2,}"
+                title="Must start with an uppercase letter, followed by two or more letters or numbers."
+                onChange={(e) => setOrgName(e.target.value)}
+              />
+            </div>
+            <div className="mb-2">
+              <label htmlFor="account-type" className="block mb-2">
+                Please select an organization type
+              </label>
+              <select
+                id="account-type"
+                value={orgType}
+                className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:border-gray-500  focus:outline-none block w-full p-2.5"
+                onChange={(e) => setOrgType(e.target.value)}
+              >
+                <option value="NGO">NGO</option>
+                <option value="Government org">Government org</option>
+                <option value="Community based org">Community based org</option>
+                <option value="International development org">
+                  International development org
+                </option>
+                <option value="Religious org">Religious org</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </>
         )}
         <div className="mb-2">
           <label htmlFor="bio" className="block mb-2">
