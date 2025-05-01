@@ -22,8 +22,8 @@ def register_view(request):
             user = serializer.save()
             user_data = serializer.data
 
-            #"generate_otp' generates the otp
-            email_otp = generate_otp()
+            
+            email_otp = generate_otp() # "generate_otp" generates the otp
             Onetime.objects.create(user=user, otp=email_otp)
            
             # user = User.objects.get(email=user_data['email'])
@@ -56,7 +56,7 @@ def register_view(request):
 def userverification(request):
     '''This view verifies a user's OTP (one-time password). 
     If the OTP is valid and the user is not yet verified,
-    marks them as verified and returns a JWT access token.'''
+    marks them as verified.'''
 
     otpcode=request.data.get('otp')
     try:
@@ -66,12 +66,11 @@ def userverification(request):
             user_code.save()
 
             user = user_code.user
-            refresh = RefreshToken.for_user(user)
+            # refresh = RefreshToken.for_user(user)
             return Response({
             'message': "Account has been verified",
-            'access_token': str(refresh.access_token),
+            # 'access_token': str(refresh.access_token),
                 }, status=status.HTTP_200_OK)
-        return Response({'message':"Account already verified"}, status=status.HTTP_204_NO_CONTENT)
     except Onetime.DoesNotExist:
         return Response({'message':"Invalid otp"}, status=status.HTTP_400_BAD_REQUEST)
 

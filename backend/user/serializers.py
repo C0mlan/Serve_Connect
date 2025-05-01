@@ -40,7 +40,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         account =User.objects.create_user(
             email=validated['email'],
             username=validated['username'],
-            first_name=validated['first_name'].title(),
+            first_name=validated['first_name'].title(), #changes first_name to title before saveing to db
             last_name=validated['last_name'].title(),
             password=validated['password'],
         )
