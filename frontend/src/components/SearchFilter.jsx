@@ -3,7 +3,7 @@ import Button from "./Button";
 
 const SearchFilter = () => {
   return (
-    <div className="mb-8">
+    <div className="w-full p-4 bg-white border border-gray-200 rounded-lg shadow-sm mb-5">
       <form className="items-center justify-between mx-auto sm:flex gap-x-4">
         <label htmlFor="simple-search" className="sr-only">
           Search

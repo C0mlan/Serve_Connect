@@ -31,7 +31,7 @@ const SingleUserListing = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-4  sm:p-6 md:p-8 space-y-6">
+    <div className="w-full max-w-4xl mt-4 mx-auto p-4  sm:p-6 md:p-8 space-y-6">
       <h1 className="text-3xl font-bold text-center">My Listings</h1>
       <ul>
         {userListings && userListings.length > 0 ? (
@@ -63,15 +63,14 @@ const SingleUserListing = () => {
             </li>
           ))
         ) : (
-          <li className="bg-white border-b p-4 border-gray-200 hover:bg-gray-50 flex justify-between">
-            You have not created a listing yet. Click{" "}
+          <li className="bg-white border-b p-4 border-gray-200  flex justify-between">
+            You have not created a listing yet.
             <Link
               to="/create-listing"
               className="text-blue-700 hover:underline"
             >
-              here
-            </Link>{" "}
-            to create one now!
+              Create listing
+            </Link>
           </li>
         )}
       </ul>

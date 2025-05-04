@@ -36,7 +36,7 @@ const ListingCard = ({ listing }) => {
     <div>
       {id} {userId}
       {String(canApply)}
-      <div className="p-4 rounded-lg shadow-sm select-none hover:shadow-lg">
+      <div className="p-4 rounded-lg shadow-sm bg-white select-none hover:shadow-lg">
         <div className="p-2 rounded-md ">
           <div className="flex items-center mb-4 space-x-4">
             <div className="w-12 h-12 bg-gray-100 rounded-full"></div>

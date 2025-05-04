@@ -6,6 +6,8 @@ import { enqueueSnackbar } from "notistack";
 import { useAuth } from "../contexts/AuthContext";
 import PasswordInput from "../components/PasswordInput";
 import Button from "../components/Button";
+import welcomeImage from "../assets/welcome.jpg";
+import logo from "../assets/logo.png";
 
 export default function LoginPage() {
   const [loginType, setLoginType] = useState("email");
@@ -93,17 +95,24 @@ export default function LoginPage() {
 
   return (
     <>
-      <div className="w-full h-screen bg-white overflow-hidden flex flex-col md:flex-row">
+      <div className="w-full h-screen mx-4 md:mx-0 bg-white mt-4 overflow-hidden flex flex-col md:flex-row">
         {/* Left Side - Logo */}
-        <div className="w-full hidden md:w-1/2 bg-purple-600 md:flex items-center justify-center p-8">
-          <div className="text-white text-center">
+        <div
+          className="w-full relative hidden md:w-1/2 md:flex items-center justify-center p-8 bg-no-repeat bg-cover bg-top-right"
+          style={{
+            backgroundImage: `url(${welcomeImage})`,
+            height: "100%",
+          }}
+        >
+          <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
+          <div className="text-white text-center z-100">
+            <h2 className="text-3xl font-bold mb-2"></h2>
             <img
-              src="/logo.svg"
-              alt="Company Logo"
-              className="h-24 w-24 mx-auto mb-4"
+              src={logo}
+              className="h-12 w-12 mx-auto"
+              alt="ServeConnect logo"
             />
-            <h2 className="text-3xl font-bold mb-2">Logo</h2>
-            <p className="text-purple-100">Welcome to our platform</p>
+            <p className="text-4xl font-bold">ServeConnect</p>
           </div>
         </div>
 
@@ -170,7 +179,7 @@ export default function LoginPage() {
             </div>
             <Button disabled={loading} text="Login" loading={loading}></Button>
           </form>
-          <div className="text-center text-sm text-gray-600">
+          <div className="text-center text-md text-gray-600">
             No account yet?{" "}
             <Link to="/register" className=" font-medium hover:underline">
               Register now

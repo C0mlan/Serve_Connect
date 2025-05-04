@@ -18,7 +18,7 @@ const UserInteractionsPage = () => {
   }, []);
 
   return (
-    <div className="w-full max-w-lg mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
+    <div className="max-w-lg mx-4 md:mx-auto mt-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
       <h1 className="mb-2 text-xl font-semibold">
         Listings you have interacted with
       </h1>

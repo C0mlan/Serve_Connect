@@ -7,6 +7,7 @@ import { ACCESS_TOKEN, USER } from "../helpers/constants";
 import PasswordInput from "../components/PasswordInput";
 import { Link } from "react-router-dom";
 import Button from "../components/Button";
+import volunteerSmiling from "../assets/volunteer-smiling.jpg";
 
 const RegisterPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -95,9 +96,16 @@ const RegisterPage = () => {
 
   return (
     <>
-      <div className="w-full h-screen bg-white overflow-hidden flex flex-col md:flex-row">
+      <div className="w-full h-screen bg-white mt-4 mx-4 md:mx-0 overflow-hidden flex flex-col md:flex-row">
         {/* Left Side - Logo */}
-        <div className="w-full hidden md:w-1/2 bg-purple-600 md:flex items-center justify-center p-8">
+        <div
+          className="w-full relative hidden md:w-1/2  md:flex items-center justify-center p-8  bg-no-repeat bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${volunteerSmiling})`,
+            height: "100%",
+          }}
+        >
+          <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
           <div className="text-white text-center">
             <img
               src="/logo.svg"
@@ -223,8 +231,8 @@ const RegisterPage = () => {
               loading={loading}
               text="Register"
             ></Button>
-            <div className="text-center text-sm ">
-              Already have an account?{" "}
+            <div className="text-center text-md ">
+              Already have an account?
               <Link
                 to="/login"
                 className="text-gray-600 font-medium hover:underline"

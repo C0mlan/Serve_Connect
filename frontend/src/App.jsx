@@ -19,6 +19,8 @@ import SingleUserListingPage from "./pages/SingleUserListingPage.jsx";
 import EditListingPage from "./pages/EditListingPage.jsx";
 import UserInteractionsPage from "./pages/UserInteractionsPage.jsx";
 import { useEffect, useState } from "react";
+import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
 function App() {
   const location = useLocation();
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -35,18 +37,18 @@ function App() {
     };
   }, []);
   return (
-    <>
+    <div className="bg-gray-50 min-h-screen flex flex-col p-4">
       {/* (window.innerWidth || document.documentElement.clientWidth) < 768 */}
       {location.pathname == "/register" || location.pathname == "/login" ? (
         isSmallScreen ? (
-          <NavBar />
+          <Header />
         ) : (
           ""
         )
       ) : (
-        <NavBar />
+        <Header />
       )}
-      <main className="">
+      <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />
@@ -104,7 +106,16 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
-    </>
+      {location.pathname == "/register" || location.pathname == "/login" ? (
+        isSmallScreen ? (
+          <Footer />
+        ) : (
+          ""
+        )
+      ) : (
+        <Footer />
+      )}
+    </div>
   );
 }
 
