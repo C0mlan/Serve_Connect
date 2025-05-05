@@ -49,6 +49,11 @@ def user_service(request):
     # Retrieves and returns all services created by the user
 
     service = Service.objects.filter(user = request.user)
+    if not service.exists():
+        return Response(
+            {"error": "No service found."},
+            status=status.HTTP_404_NOT_FOUND
+        )
     serializer = ServiceSerializer(service, many=True)
     return Response(serializer.data,  status=status.HTTP_200_OK)
 
@@ -95,17 +100,30 @@ def create_reason(request, pk):
 @permission_classes([IsAuthenticated])
 def user_interaction(request, pk):
     # Retrieves all interactions for a specific service by its ID
+
     service = Interaction.objects.filter(service=pk)
+    if not service.exists():
+        return Response(
+            {"error": "No interactions found."},
+            status=status.HTTP_404_NOT_FOUND
+        )
+
     serializer = Interaction_Serializer(service, many=True)
     return Response(serializer.data,  status=status.HTTP_200_OK)
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def volunteer_interaction(request):
     # Retrieves all interactions created by the authenticated user
     interaction = Interaction.objects.filter(user=request.user)
+    if not interaction.exists():
+        return Response(
+            {"error": "No interactions found."},
+            status=status.HTTP_404_NOT_FOUND
+        )
     serializer = Interaction_Serializer(interaction, many=True)
     return Response(serializer.data,status=status.HTTP_200_OK )
-
+    
 
     

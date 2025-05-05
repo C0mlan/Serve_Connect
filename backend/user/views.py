@@ -152,6 +152,7 @@ def login_view(request):
             "account_type": profile.account_type,
             "based_on": profile.based_on,
             "org_name": profile.org_name,
+            "org_type": profile.org_type,
             "bio": profile.bio
         }, status=status.HTTP_200_OK)
      
