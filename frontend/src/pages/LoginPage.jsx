@@ -23,6 +23,11 @@ export default function LoginPage() {
     if (!identifier || !password) {
       enqueueSnackbar("Please fill in all the fields", { variant: "error" });
       return;
+    } else if (loginType === "username" && identifier.includes("@")) {
+      enqueueSnackbar("Email not allowed in username field!", {
+        variant: "error",
+      });
+      return;
     }
 
     try {
@@ -31,7 +36,6 @@ export default function LoginPage() {
         identifier,
         password,
       });
-      // console.log(response);
       const {
         access_token,
         // refresh_token,
@@ -40,6 +44,7 @@ export default function LoginPage() {
         first_name: firstName,
         last_name: lastName,
         org_name: orgName,
+        org_type: orgType,
         bio,
         profile_update: isProfileUpdated,
         is_verified: isEmailVerified,
@@ -58,6 +63,7 @@ export default function LoginPage() {
             firstName,
             lastName,
             orgName,
+            orgType,
             bio,
             isProfileUpdated,
             isEmailVerified,
@@ -77,10 +83,9 @@ export default function LoginPage() {
       if (error.status === 400) console.log(error);
 
       if (error.status === 401)
-        enqueueSnackbar("Invalid credentials, please try again", {
+        enqueueSnackbar("Invalid credentials, please try again!", {
           variant: "error",
         });
-      // console.error("Login error", error);
     } finally {
       setLoading(false);
     }
@@ -150,7 +155,6 @@ export default function LoginPage() {
 
             <PasswordInput
               id="password"
-              type="password"
               label="Password"
               value={password}
               className="bg-gray-50 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none block w-full p-2.5"

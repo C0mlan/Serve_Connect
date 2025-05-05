@@ -76,9 +76,13 @@ const VerifyPage = () => {
           <Button disabled={loading} loading={loading} text="Verify"></Button>
 
           <button
-            onClick={() => setOtp("")}
+            onClick={() => {
+              return otp == ""
+                ? enqueueSnackbar("No input to clear!")
+                : setOtp("");
+            }}
             type="button"
-            className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 cursor-pointer w-1/2 mx-auto sm:w-1/2"
+            className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg px-5 mt-2 mb-2 cursor-pointer w-1/2 mx-auto"
           >
             Clear
           </button>
