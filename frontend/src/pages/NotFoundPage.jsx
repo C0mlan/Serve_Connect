@@ -1,10 +1,17 @@
 import React from "react";
 import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
 
 const NotFoundPage = () => {
+  const navigate = useNavigate();
+
+  const handlePrevBtnClick = () => {
+    navigate(-2);
+  };
+
   return (
     <div>
-      <div className="min-h-screen bg-gray-100  flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8">
+      <div className="  flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8 text-center">
           <div className="mb-8">
             <h2 className="mt-6 text-6xl font-extrabold text-gray-900 ">404</h2>
@@ -16,13 +23,11 @@ const NotFoundPage = () => {
             </p>
           </div>
           <div className="mt-8">
-            <a
-              href="/"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-            >
-              Previous page
-            </a>
-            <Button type="button" text="Previous page"></Button>
+            <Button
+              type="button"
+              text="Go back"
+              onClick={handlePrevBtnClick}
+            ></Button>
           </div>
         </div>
         <div className="mt-16 w-full max-w-2xl">

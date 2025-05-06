@@ -18,7 +18,7 @@ const UserInteractionsPage = () => {
   }, []);
 
   return (
-    <div className="w-full max-w-lg mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
+    <div className="max-w-lg mx-4 md:mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
       <h1 className="mb-2 text-xl font-semibold">
         Listings you have interacted with
       </h1>
@@ -27,7 +27,7 @@ const UserInteractionsPage = () => {
           <ul>
             {userInteractions.map((interaction) => (
               <li
-                className="bg-white border-b p-2 border-gray-200 hover:bg-gray-50"
+                className="bg-white border-b p-2 border-gray-200 hover:bg-gray-100"
                 key={interaction.id}
               >
                 {">"} You interacted with listing {interaction.service} with

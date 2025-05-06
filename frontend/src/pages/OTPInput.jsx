@@ -34,7 +34,7 @@ const OTPInput = ({ otp, setOtp, length }) => {
           type="number"
           maxLength="1"
           disabled={otp.length == 6}
-          className="w-16 h-16 p-4 py-3 mx-auto mr-2 text-3xl font-bold text-center text-gray-900 bg-white border border-gray-300 rounded-lg disabled:bg-gray-200 focus:ring-2 focus:ring-gray-300 focus:outline-none"
+          className="w-14 h-14 p-4 py-3 mx-auto mr-2 text-3xl font-bold text-center text-gray-900 bg-white border border-gray-300 rounded-lg disabled:bg-gray-200 focus:ring-2 focus:ring-gray-300 focus:outline-none"
           value={otp[index] || ""}
           onChange={(e) => handleChange(index, e.target.value)}
           onKeyDown={(e) => handleKeyDown(index, e)}

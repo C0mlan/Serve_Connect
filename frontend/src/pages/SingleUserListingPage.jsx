@@ -38,7 +38,7 @@ const SingleUserListing = () => {
           userListings.map((listing) => (
             <li
               key={listing.id}
-              className="bg-white border-b p-4 border-gray-200 hover:bg-gray-50 flex justify-between"
+              className="bg-white border-b p-4 border-gray-200 hover:bg-gray-100 flex justify-between"
             >
               <Link
                 to={`/listing/${listing.id}`}
@@ -63,15 +63,14 @@ const SingleUserListing = () => {
             </li>
           ))
         ) : (
-          <li className="bg-white border-b p-4 border-gray-200 hover:bg-gray-50 flex justify-between">
-            You have not created a listing yet. Click{" "}
+          <li className="bg-white border-b p-4 border-gray-200  flex justify-between">
+            You have not created a listing yet.
             <Link
               to="/create-listing"
               className="text-blue-700 hover:underline"
             >
-              here
-            </Link>{" "}
-            to create one now!
+              Create listing
+            </Link>
           </li>
         )}
       </ul>

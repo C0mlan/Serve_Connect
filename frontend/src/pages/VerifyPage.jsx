@@ -58,7 +58,7 @@ const VerifyPage = () => {
       });
   };
   return (
-    <div className="w-full max-w-lg mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
+    <div className="max-w-lg mx-4 md:mx-auto mt-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
       <form
         className="sm:flex flex-col justify-center items-center space-y-6"
         onSubmit={handleOtpSubmit}
@@ -82,7 +82,7 @@ const VerifyPage = () => {
                 : setOtp("");
             }}
             type="button"
-            className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg px-5 mt-2 mb-2 cursor-pointer w-1/2 mx-auto"
+            className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg px-5 py-3 mt-2 mb-2 cursor-pointer w-1/2 mx-auto"
           >
             Clear
           </button>

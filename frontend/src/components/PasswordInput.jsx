@@ -7,17 +7,17 @@ const PasswordInput = ({ id, label, ...props }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="relative">
+    <div className="relative z-0">
       {label && (
         <label htmlFor={id} className="block text-base font-medium mb-2">
           {label}
         </label>
       )}
-      <div className="relative">
+      <div className="relative z-4">
         <input id={id} type={showPassword ? "text" : "password"} {...props} />
         <button
           type="button"
-          className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 cursor-pointer"
+          className="absolute z-4 inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 cursor-pointer"
           onClick={() => setShowPassword(!showPassword)}
         >
           {showPassword ? (
