@@ -4,7 +4,6 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import NavBar from "./components/NavBar";
 import HomePage from "./pages/HomePage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
@@ -37,7 +36,7 @@ function App() {
     };
   }, []);
   return (
-    <div className="bg-gray-50 min-h-screen flex flex-col p-4">
+    <div className="bg-gray-50 min-h-screen flex flex-col">
       {/* (window.innerWidth || document.documentElement.clientWidth) < 768 */}
       {location.pathname == "/register" || location.pathname == "/login" ? (
         isSmallScreen ? (

@@ -33,6 +33,10 @@ const NavBar = () => {
     }
   };
 
+  const handleCloseMobileNav = () => {
+    setIsMobileNavOpen(false);
+  };
+
   return (
     <>
       <nav className=" relative flex items-center bg-white justify-between">
@@ -40,24 +44,28 @@ const NavBar = () => {
         <div className="hidden md:flex items-center text-xl">
           <Link
             to="/"
+            onClick={handleCloseMobileNav}
             className=" hover:bg-gray-100 px-3 py-2 font-medium rounded-md"
           >
             Home
           </Link>
           <Link
             to="/about"
+            onClick={handleCloseMobileNav}
             className=" hover:bg-gray-100 px-3 py-2 font-medium rounded-md"
           >
             About
           </Link>
           <Link
             to="/listings"
+            onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
             className=" hover:bg-gray-100 px-3 py-2 font-medium rounded-md"
           >
             Listings
           </Link>
           <Link
             to="/contact"
+            onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
             className=" hover:bg-gray-100 px-3 py-2 font-medium rounded-md"
           >
             Contact
@@ -70,6 +78,7 @@ const NavBar = () => {
           {isAuthenticated && user.accountType !== "volunteer" && (
             <Link
               to="/create-listing"
+              onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
               className=" hover:bg-gray-100 px-3 py-2 font-medium rounded-md"
             >
               Create Listing
@@ -148,24 +157,28 @@ const NavBar = () => {
           <div className="text-bold hover:shadow-lg">
             <Link
               to="/"
+              onClick={handleCloseMobileNav}
               className=" hover:bg-gray-100 border-b border-gray-200  px-6 py-5 font-medium w-full block"
             >
               Home
             </Link>
             <Link
               to="/about"
+              onClick={handleCloseMobileNav}
               className=" hover:bg-gray-100 border-b border-gray-200 px-6 py-5 font-medium w-full block"
             >
               About
             </Link>
             <Link
               to="/listings"
+              onClick={handleCloseMobileNav}
               className=" hover:bg-gray-100 border-b border-gray-200 px-6 py-5 font-medium w-full block"
             >
               Listings
             </Link>
             <Link
               to="/contact"
+              onClick={handleCloseMobileNav}
               className=" hover:bg-gray-100 border-b border-gray-200 px-6 py-5 font-medium w-full block"
             >
               Contact
@@ -173,6 +186,7 @@ const NavBar = () => {
             {!isAuthenticated && (
               <Link
                 to="/login"
+                onClick={handleCloseMobileNav}
                 className=" hover:bg-gray-100 border-b border-gray-200 px-6 py-1 font-medium w-full block"
               >
                 <Button text="Login" />

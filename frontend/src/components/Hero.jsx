@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
-import heroImage from "../assets/heroImage.png";
+import hero1 from "../assets/hero1.avif";
+import hero2 from "../assets/hero2.avif";
+import hero3 from "../assets/hero3.jpg";
 import Button from "./Button";
 
 const Hero = () => {
   return (
     <section className="flex-grow bg-gray-50">
-      <div className="container mx-auto px-4 py-16 flex flex-col md:flex-row sm:gap-x-60 items-center">
+      <div className="mx-4 md:mx-12 py-16 flex flex-col md:flex-row gap-x-10 items-center">
         {/* Left Column - Text Content */}
         <div className="md:w-1/2 mb-12 md:mb-0">
           <h1 className="text-5xl md:text-6xl font-bold uppercase text-black leading-tight mb-6">
@@ -23,8 +25,24 @@ const Hero = () => {
         </div>
 
         {/* Right Column - Image */}
-        <div className="md:w-1/2 bg-white pt-4 px-6 rounded-2xl">
-          <img src={heroImage} alt="Hero" className="" />
+        <div className="md:w-1/2 bg-white pt-4 px-6 pb-4 rounded-2xl gap-y-2 flex flex-col">
+          <img
+            src={hero1}
+            alt="Hero"
+            className="h-3/4 scale-95 hover:scale-100 transition-all ease-in-out duration-300 rounded-2xl"
+          />
+          <div className="grid sm:grid-cols-2 gap-1">
+            <img
+              src={hero2}
+              alt="Hero"
+              className="h-full scale-95 sm:scale-90 hover:scale-100 transition-all ease-in-out duration-300 rounded-2xl"
+            />
+            <img
+              src={hero3}
+              alt="Hero"
+              className="h-full scale-95 sm:scale-90 hover:scale-100 transition-all ease-in-out duration-300 rounded-2xl"
+            />
+          </div>
         </div>
       </div>
     </section>

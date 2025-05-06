@@ -2,7 +2,7 @@ import logo from "../assets/logo.png";
 
 const Footer = () => {
   return (
-    <footer className="text-gray-700 py-8 md:py-12 mx-4 md:mx-8">
+    <footer className="text-gray-700 py-8 md:py-12 mx-4 md:mx-12">
       {/* Footer Columns */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
         {/* Copyright Section */}

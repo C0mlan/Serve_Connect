@@ -13,7 +13,11 @@ const ReuseableSection = ({
     <article className={`md:flex  ${reverse && "flex-row-reverse"} gap-x-28`}>
       {/* Header Section */}
       <div className="w-full mb-12 md:mb-0 md:w-2/4">
-        <img src={image} alt="Section image" className="h-auto rounded-xl" />
+        <img
+          src={image}
+          alt="Section image"
+          className="h-auto rounded-xl block mx-auto"
+        />
       </div>
       <div className="w-full md:w-3/4">
         <img

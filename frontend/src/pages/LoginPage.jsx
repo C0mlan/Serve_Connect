@@ -96,7 +96,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <div className="w-full h-screen mx-4 md:mx-0 bg-white mt-4 overflow-hidden flex flex-col md:flex-row">
+      <div className="w-full h-screen mx-4 md:mx-0 bg-white overflow-hidden flex flex-col md:flex-row">
         {/* Left Side - Logo */}
         <div
           className="w-full relative hidden md:w-1/2 md:flex items-center justify-center p-8 bg-no-repeat bg-cover bg-top-right"
@@ -110,10 +110,10 @@ export default function LoginPage() {
             <h2 className="text-3xl font-bold mb-2"></h2>
             <img
               src={logo}
-              className="h-12 w-12 mx-auto"
+              className="h-40 w-40 mx-auto"
               alt="ServeConnect logo"
             />
-            <p className="text-4xl font-bold">ServeConnect</p>
+            <p className="text-4xl font-bold">Welcome to ServeConnect</p>
           </div>
         </div>
 

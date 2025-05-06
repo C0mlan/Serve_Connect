@@ -8,6 +8,7 @@ import PasswordInput from "../components/PasswordInput";
 import { Link } from "react-router-dom";
 import Button from "../components/Button";
 import volunteerSmiling from "../assets/volunteer-smiling.jpg";
+import logo from "../assets/logo.png";
 
 const RegisterPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -96,7 +97,7 @@ const RegisterPage = () => {
 
   return (
     <>
-      <div className="w-full h-screen bg-white mt-4 mx-4 md:mx-0 overflow-hidden flex flex-col md:flex-row">
+      <div className="w-full h-screen bg-white mx-4 md:mx-0 overflow-hidden flex flex-col md:flex-row">
         {/* Left Side - Logo */}
         <div
           className="w-full relative hidden md:w-1/2  md:flex items-center justify-center p-8  bg-no-repeat bg-cover bg-center"
@@ -106,14 +107,13 @@ const RegisterPage = () => {
           }}
         >
           <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
-          <div className="text-white text-center">
+          <div className="text-white text-center z-100">
             <img
-              src="/logo.svg"
-              alt="Company Logo"
-              className="h-24 w-24 mx-auto mb-4"
+              src={logo}
+              className="h-40 w-40 mx-auto"
+              alt="ServeConnect logo"
             />
-            <h2 className="text-3xl font-bold mb-2">Logo</h2>
-            <p className="text-purple-100">Welcome to our platform</p>
+            <p className="text-4xl font-bold">Welcome to ServeConnect</p>
           </div>
         </div>
         <div className="w-full md:w-1/2 p-8 md:p-12 overflow-y-scroll">

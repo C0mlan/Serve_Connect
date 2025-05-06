@@ -9,7 +9,7 @@ const OpportunityCard = ({ spanText, title, body, image, footer }) => {
         <img
           src={image}
           alt="opoortunityImg"
-          className="block mx-auto h-48 w-48 rounded-full"
+          className="block mx-auto w-full rounded-2xl mb-4"
         />
         <h1 className="text-4xl font-bold uppercase">{title}</h1>
 

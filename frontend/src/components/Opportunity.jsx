@@ -1,5 +1,5 @@
-import opportunityImg1 from "../assets/opportunity-1.png";
-import opportunityImg2 from "../assets/opportunity-2.png";
+import communityEngagement from "../assets/community-engagement.jpg";
+import happyVolunteer from "../assets/happy-volunteer.jpg";
 import screenshot from "../assets/screenshot.png";
 import check from "../assets/check.png";
 import OpportunityCard from "./OpportunityCard";
@@ -20,7 +20,7 @@ const Opportunity = () => {
         {/* Left Container - Londis Care Home */}
         <OpportunityCard
           spanText="Lend a Helping Hand"
-          image={opportunityImg1}
+          image={communityEngagement}
           title="UNLOCK THE POWER OF COMMMUNITY ENGAGEMENT"
           body="Discover how you can makes a positive impact in your community by
           exploring our wide range of volunteer opportunities."
@@ -28,7 +28,7 @@ const Opportunity = () => {
         />
         <OpportunityCard
           spanText="Embrace the Spirit of Service"
-          image={opportunityImg2}
+          image={happyVolunteer}
           title="IGNITE CHANGE THROUGH VOLUNTEERING"
           body="Join our vibrant community of volunteers and make a meaningful
               difference in the lives of those in need."

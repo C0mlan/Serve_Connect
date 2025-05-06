@@ -2,10 +2,11 @@ import discoverImg1 from "../assets/discover-1.png";
 import discoverImg2 from "../assets/discover-2.png";
 import discoverImg3 from "../assets/discover-3.png";
 import tool from "../assets/tool.png";
-import empowerLady from "../assets/empower-lady.png";
+import groupHappyVolunteers from "../assets/group-happy-volunteers.avif";
 
 import DiscoverGridItem from "./DiscoverGridItem";
 import ReuseableSection from "./ReuseableSection";
+import Feedback from "./Feedback";
 
 const Discover = () => {
   return (
@@ -36,15 +37,16 @@ const Discover = () => {
               upcoming commitments."
         />
       </div>
+      <Feedback />
       <ReuseableSection
         reverse={true}
         icon={tool}
-        image={empowerLady}
+        image={groupHappyVolunteers}
         title="EMPOWERING VOLUNTEERS, TRANSFORMING COMMUNITIES!"
         body="Join our vibrant community of volunteers and make a lasting
-impact. Whether you have a few hours a week or a few days
-a month, we habe a wide range of opportunities that will
-inspire and empower ypu to create positive change."
+        impact. Whether you have a few hours a week or a few days
+        a month, we habe a wide range of opportunities that will
+        inspire and empower you to create positive change."
         buttonText="Get Started"
       />
     </section>

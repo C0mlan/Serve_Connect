@@ -5,7 +5,7 @@ const HomePage = () => {
   return (
     <div>
       <Hero />
-      <div className="bg-white mx-4 md:mx-8 pb-12">
+      <div className="bg-white mx-4 md:mx-12 pb-12 px-4">
         <Opportunity />
         <Discover />
       </div>
