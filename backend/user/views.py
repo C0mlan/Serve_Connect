@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import RegistrationSerializer, ProfileSerializer
+from .serializers import RegistrationSerializer, ProfileSerializer, validate_password
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -160,3 +160,20 @@ def login_view(request):
 
 
     
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def forgot_password(request):
+    password = request.data.get("password")
+
+    if not password:
+        return Response({"detail": "New password is required."}, status=status.HTTP_400_BAD_REQUEST)
+    
+    validation_error = validate_password(password)
+    if validation_error:
+        return Response({"detail": validation_error}, status=status.HTTP_400_BAD_REQUEST)
+
+    user = request.user
+    user.set_password(password)
+    user.save()
+
+    return Response({"detail": "Password updated successfully."}, status=status.HTTP_200_OK)
