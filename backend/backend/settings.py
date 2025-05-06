@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     "user.apps.UserConfig",
     "listings.apps.ListingsConfig",
     "rest_framework",
+    "drf_spectacular",
     "corsheaders",
 ]
 
@@ -155,3 +156,11 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT=587
 EMAIL_HOST_USER= os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS":"drf_spectacular.openapi.AutoSchema",
+    }
+
+SPECTACULAR_SETTINGS ={
+    "TITLE": "Django DRF Serve_Connect",
+}

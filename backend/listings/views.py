@@ -6,7 +6,12 @@ from .serializers import ServiceSerializer, InteractionSerializer,Interaction_Se
 from rest_framework.response import Response
 from rest_framework import status
 from django.db import IntegrityError
+from drf_spectacular.utils import extend_schema
 
+
+@extend_schema(responses={200: ServiceSerializer},
+               methods = ['GET'],
+               request= ServiceSerializer,)
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def all_service(request):
@@ -15,6 +20,9 @@ def all_service(request):
     serializer = ServiceSerializer(service, many=True)
     return Response(serializer.data,  status=status.HTTP_200_OK)
 
+@extend_schema(responses={200: ServiceSerializer},
+               methods = ['GET'],
+               request= ServiceSerializer,)
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def single_service(request, pk):
@@ -27,6 +35,9 @@ def single_service(request, pk):
     serializer = ServiceSerializer(service)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
+@extend_schema(responses={200: ServiceSerializer},
+               methods = ['PUT'],
+               request= ServiceSerializer,)
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def edit_service(request, pk):
@@ -44,6 +55,9 @@ def edit_service(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@extend_schema(responses={200: ServiceSerializer},
+               methods = ['GET'],
+               request= ServiceSerializer,)
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def user_service(request):
@@ -58,6 +72,10 @@ def user_service(request):
     serializer = ServiceSerializer(service, many=True)
     return Response(serializer.data,  status=status.HTTP_200_OK)
 
+
+@extend_schema(responses={200: ServiceSerializer},
+               methods = ['POST'],
+               request= ServiceSerializer,)
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def create_post(request):
@@ -67,6 +85,10 @@ def create_post(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+@extend_schema(methods = ['DELETE'],
+               responses={204}
+               )
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
 def delete_service(request, pk):
@@ -79,7 +101,9 @@ def delete_service(request, pk):
     service.delete()
     return Response({"message": "Service deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
 
-
+@extend_schema(responses={201: InteractionSerializer},
+               methods = ['POST'],
+               request= InteractionSerializer,)
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def create_reason(request, pk):
@@ -100,7 +124,9 @@ def create_reason(request, pk):
                             status=status.HTTP_400_BAD_REQUEST)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-
+@extend_schema(responses={200: Interaction_Serializer},
+               methods = ['GET'],
+               request= Interaction_Serializer,)
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def user_interaction(request, pk):
@@ -116,7 +142,9 @@ def user_interaction(request, pk):
     serializer = Interaction_Serializer(service, many=True)
     return Response(serializer.data,  status=status.HTTP_200_OK)
 
-
+@extend_schema(responses={200: Interaction_Serializer},
+               methods = ['GET'],
+               request= Interaction_Serializer,)
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def volunteer_interaction(request):
@@ -129,6 +157,5 @@ def volunteer_interaction(request):
         )
     serializer = Interaction_Serializer(interaction, many=True)
     return Response(serializer.data,status=status.HTTP_200_OK )
-    
-
-    
+ 
+ 

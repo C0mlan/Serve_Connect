@@ -8,7 +8,10 @@ from .utils import Util, generate_otp
 from .models import User, Onetime,Profile
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
+from drf_spectacular.utils import extend_schema
 
+@extend_schema(responses={201: RegistrationSerializer},
+               methods = ['POST'])
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register_view(request):
@@ -50,7 +53,10 @@ def register_view(request):
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-
+@extend_schema(
+    methods=['POST'],
+    request=None,  # Or define a serializer if needed
+    responses={200: {'type': 'object', 'properties': {'message': {'type': 'string'}}}},)
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def userverification(request):
@@ -74,8 +80,12 @@ def userverification(request):
     except Onetime.DoesNotExist:
         return Response({'message':"Invalid otp"}, status=status.HTTP_400_BAD_REQUEST)
 
-
-@api_view(['POST'])
+@extend_schema(
+    methods=['PATCH'],
+    request=ProfileSerializer,
+    responses={200: ProfileSerializer},
+)
+@api_view(['PATCH'])
 @permission_classes([IsAuthenticated])
 def update_profile(request):
     try:
@@ -98,6 +108,11 @@ def update_profile(request):
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+@extend_schema(
+    methods=['POST'],
+    responses={200},
+)
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login_view(request):
@@ -158,19 +173,25 @@ def login_view(request):
      
     return Response({"detail": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
 
-
+@extend_schema(
+    methods=['PATCH'],
+    responses={200},
+)
     
 @api_view(['PATCH'])
 @permission_classes([IsAuthenticated])
 def forgot_password(request):
     password = request.data.get("password")
+    password2 =request.data.get("password2")
 
-    if not password:
-        return Response({"detail": "New password is required."}, status=status.HTTP_400_BAD_REQUEST)
     
-    validation_error = validate_password(password)
-    if validation_error:
-        return Response({"detail": validation_error}, status=status.HTTP_400_BAD_REQUEST)
+    if password != password2:
+        return Response({"detail": "Passwords do not match!"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    try:
+        validation_error = validate_password(password)
+    except validation_error as e:
+        return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
     user = request.user
     user.set_password(password)
