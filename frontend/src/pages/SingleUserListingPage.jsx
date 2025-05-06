@@ -31,14 +31,14 @@ const SingleUserListing = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mt-4 mx-auto p-4  sm:p-6 md:p-8 space-y-6">
+    <div className="w-full max-w-4xl mx-auto p-4  sm:p-6 md:p-8 space-y-6">
       <h1 className="text-3xl font-bold text-center">My Listings</h1>
       <ul>
         {userListings && userListings.length > 0 ? (
           userListings.map((listing) => (
             <li
               key={listing.id}
-              className="bg-white border-b p-4 border-gray-200 hover:bg-gray-50 flex justify-between"
+              className="bg-white border-b p-4 border-gray-200 hover:bg-gray-100 flex justify-between"
             >
               <Link
                 to={`/listing/${listing.id}`}

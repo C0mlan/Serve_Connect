@@ -85,38 +85,41 @@ const SingleListingPage = () => {
     }
   };
   return (
-    <div className="w-full max-w-4xl mx-auto p-4  sm:p-6 md:p-8 space-y-3">
-      {String(listing.expectation)}
-      <h1 className="text-3xl font-bold text-center"> {listing.title}</h1>
-      <p className="text-center text-lg">Poster Name goes here</p>
-      <div className="text-center">Duration: {listing.duration}</div>
-      <div>{listing.description}</div>
-      <div>
-        Accepting volunteers based on:{" "}
-        {listing.expectation &&
-          (listing.expectation.length > 0 ? (
-            listing.expectation.map((el, index) => (
-              <span
-                key={index}
-                className="bg-gray-200  text-xs font-medium px-3 mr-2 py-1 rounded-full"
-              >
-                {el}
+    <article>
+      <div className="max-w-lg mx-4 md:mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
+        <h1 className="text-3xl font-bold text-center uppercase">
+          {listing.title}
+        </h1>
+        <p className="text-center text-lg">Poster Name goes here</p>
+        <div className="text-center">Duration: {listing.duration}</div>
+        <div className="font-medium my-2">{listing.description}</div>
+        <div>
+          Accepting volunteers based on:{" "}
+          {listing.expectation &&
+            (listing.expectation.length > 0 ? (
+              listing.expectation.map((el, index) => (
+                <span
+                  key={index}
+                  className="bg-gray-200  text-xs font-medium px-3 mr-2 py-1 rounded-full"
+                >
+                  {el}
+                </span>
+              ))
+            ) : (
+              <span className="bg-gray-200  text-xs font-medium px-3 mr-2 py-1 rounded-full">
+                All
               </span>
-            ))
-          ) : (
-            <span className="bg-gray-200  text-xs font-medium px-3 mr-2 py-1 rounded-full">
-              All
-            </span>
-          ))}
-      </div>
-      <div>
-        Category:
-        <span className="font-medium"> {listing.category}</span>
+            ))}
+        </div>
+        <div>
+          Category:
+          <span className="font-medium"> {listing.category}</span>
+        </div>
       </div>
       {user.accountType == "volunteer" && (
         <div
           id="match"
-          className="w-full mt-12 max-w-lg mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8"
+          className="mt-4 max-w-lg mx-4 md:mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8"
         >
           <h1 className="mb-2 text-xl font-semibold">Indicate Interest</h1>
           <form onSubmit={handleMatchListing}>
@@ -137,14 +140,14 @@ const SingleListingPage = () => {
         </div>
       )}
       {user.accountType !== "volunteer" && user.id === listing.user && (
-        <div className="w-full mt-12 max-w-lg mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
+        <div className="mt-4 max-w-lg mx-4 md:mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
           <h1 className="mb-2 text-xl font-semibold">Interactions</h1>
           {listingInteractions.length > 0 ? (
             <>
               <ul>
                 {listingInteractions.map((interaction) => (
                   <li
-                    className="bg-white border-b p-2 border-gray-200 hover:bg-gray-50"
+                    className="bg-white border-b p-2 border-gray-200 hover:bg-gray-100"
                     key={interaction.id}
                   >
                     {">"} User {interaction.username} has indicated interest
@@ -162,7 +165,7 @@ const SingleListingPage = () => {
           )}
         </div>
       )}
-    </div>
+    </article>
   );
 };
 

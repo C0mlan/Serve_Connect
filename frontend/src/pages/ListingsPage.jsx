@@ -38,7 +38,7 @@ const ListingsPage = () => {
   }, []);
 
   return (
-    <section className="mx-8 mt-6 mb-12">
+    <section className="mx-8 mb-12">
       <SearchFilter />
       <div className="grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
         {listings && listings.length > 0 ? (

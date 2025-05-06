@@ -35,14 +35,6 @@ const NavBar = () => {
 
   return (
     <>
-      {/* <nav className="flex gap-x-2">
-        <Link to="/listings">Listings</Link>
-        
-        
-
-
-        
-      </nav> */}
       <nav className=" relative flex items-center bg-white justify-between">
         {/* Navigation Links - Right Side - Hamburger menu for mobile */}
         <div className="hidden md:flex items-center text-xl">
@@ -60,7 +52,7 @@ const NavBar = () => {
           </Link>
           <Link
             to="/listings"
-            className=" hover:bg-gray-100 px-3 py-2 font-medium w-full block"
+            className=" hover:bg-gray-100 px-3 py-2 font-medium rounded-md"
           >
             Listings
           </Link>

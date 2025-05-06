@@ -6,7 +6,7 @@ const NotFoundPage = () => {
   const navigate = useNavigate();
 
   const handlePrevBtnClick = () => {
-    navigate(-1);
+    navigate(-2);
   };
 
   return (

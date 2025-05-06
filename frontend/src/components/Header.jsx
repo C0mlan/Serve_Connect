@@ -3,7 +3,7 @@ import NavBar from "./NavBar";
 
 const Header = () => {
   return (
-    <header className="flex items-center bg-white justify-between shadow-lg p-4 sm:px-6 mx-4 md:mx-8 border-b border-gray-200">
+    <header className="mb-8 flex items-center bg-white justify-between shadow-lg p-4 sm:px-6 mx-4 md:mx-8 border-b border-gray-200">
       {/* Logo and Brand Name - Left Side */}
       <div className="flex items-center align-middle space-x-3">
         <img src={logo} alt="Logo" className="h-10 w-10 inline-block" />

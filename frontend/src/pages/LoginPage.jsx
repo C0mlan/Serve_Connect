@@ -10,7 +10,7 @@ import welcomeImage from "../assets/welcome.jpg";
 import logo from "../assets/logo.png";
 
 export default function LoginPage() {
-  const [loginType, setLoginType] = useState("email");
+  const [loginType, setLoginType] = useState("username");
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -38,6 +38,7 @@ export default function LoginPage() {
         identifier,
         password,
       });
+      console.log(response.data);
       const {
         access_token,
         // refresh_token,
