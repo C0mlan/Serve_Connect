@@ -18,7 +18,7 @@ class Service(models.Model):
         ordering = ['-created']
     
 class Interaction(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE,null =True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     reason = models.TextField(max_length=200,null =True,blank = True)
     created = models.DateTimeField(auto_now_add=True)

@@ -5,6 +5,7 @@ from .models import Service, Interaction
 from .serializers import ServiceSerializer, InteractionSerializer,Interaction_Serializer
 from rest_framework.response import Response
 from rest_framework import status
+from django.db import IntegrityError
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -91,8 +92,12 @@ def create_reason(request, pk):
     serializer= InteractionSerializer(data=request.data)
     
     if serializer.is_valid():
-        serializer.save(user=request.user, service=service)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        try:
+            serializer.save(user=request.user, service=service)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except IntegrityError:
+            return Response({'error': "User can only make one interation on a service"},
+                            status=status.HTTP_400_BAD_REQUEST)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
