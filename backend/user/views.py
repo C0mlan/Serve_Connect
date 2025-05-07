@@ -5,10 +5,11 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from .utils import Util, generate_otp
-from .models import User, Onetime,Profile
+from .models import User, Onetime,Profile, ForgotPassword
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from drf_spectacular.utils import extend_schema
+from django.core.exceptions import ValidationError
 
 @extend_schema(responses={201: RegistrationSerializer},
                methods = ['POST'])
@@ -187,14 +188,71 @@ def forgot_password(request):
     
     if password != password2:
         return Response({"detail": "Passwords do not match!"}, status=status.HTTP_400_BAD_REQUEST)
+    if not password:
+        return Response({"detail": "New password is required."}, status=status.HTTP_400_BAD_REQUEST) 
     
     try:
         validation_error = validate_password(password)
-    except validation_error as e:
-        return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    except ValidationError as e:
+        return Response({"detail": e.messages}, status=status.HTTP_400_BAD_REQUEST)
 
     user = request.user
     user.set_password(password)
     user.save()
 
     return Response({"detail": "Password updated successfully."}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def otp_forgetpassword(request):
+    email = request.data.get("email")
+    
+   
+    if not User.objects.filter(email=email).exists():
+        return Response({"error": "User with this email does not exist."}, status=404)
+    user = User.objects.get(email=email)
+    # email_otp = generate_otp() # "generate_otp" generates the otp
+    # forgot_record = ForgotPassword.objects.create(user=user, password_otp=email_otp)
+    # email_body= f'''<h2>Email Verification OTP</h2><br><br>
+    #                 <h3> 
+    #                 <p>Hi {user.username},</p><br>
+    #                 <p>Your One-Time Password (OTP) for email verification is: <strong>{email_otp}<strong>.</p><br>
+    #                 <p>Please use this code to verify your account.Thank you.</p><br>
+    #                 </h3>
+    #                 <br><br><br>
+    #                 '''
+    # data = {
+    #     'email_body': email_body,
+    #     'to_email': user.email,
+    #     'email_subject': 'Email OTP'
+    # }
+    # Util.send_email(data)
+    return Response({"message": "OTP sent to your email."}, status=200)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def verify_passwordotp(request):
+    otp = request.data.get('otp')
+
+    try:
+        user_code= ForgotPassword.objects.get(password_otp=otp)
+        if not user_code.password_verify:
+            user_code.password_verify = True
+            user_code.save()
+            user= user_code.user
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                "message": "you are allowed to change password",
+                "access_token": str(refresh.access_token)
+                })
+    except ForgotPassword.DoesNotExist:
+        return Response({"message":"Invalid otp"}, status = status.HTTP_400_BAD_REQUEST)
+
+
+
+   
+
+    
+

@@ -34,3 +34,10 @@ def create_profile(sender, instance, created, **kwargs):
         user_profile.save()
 
 post_save.connect(create_profile, sender=User)
+
+class ForgotPassword(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    password_otp= models.CharField(max_length=10)
+    password_verify = models.BooleanField(default=False)
+    def __str__(self):
+        return f'{self.password_otp} {self.user.username} {self.password_verify}'
