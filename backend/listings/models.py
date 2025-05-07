@@ -21,7 +21,7 @@ class Interaction(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     reason = models.TextField(max_length=200,null =True,blank = True)
-    state = models.IntegerField(default=3)
+    state = models.IntegerField(default=2)
     created = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return f"Interaction with {self.service.title} X {self.reason}"
