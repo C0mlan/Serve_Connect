@@ -214,11 +214,11 @@ def otp_forgetpassword(request):
     user = User.objects.get(email=email)
     # email_otp = generate_otp() # "generate_otp" generates the otp
     # forgot_record = ForgotPassword.objects.create(user=user, password_otp=email_otp)
-    # email_body= f'''<h2>Email Verification OTP</h2><br><br>
+    # email_body= f'''<h2>Password Reset OTP</h2><br><br>
     #                 <h3> 
     #                 <p>Hi {user.username},</p><br>
-    #                 <p>Your One-Time Password (OTP) for email verification is: <strong>{email_otp}<strong>.</p><br>
-    #                 <p>Please use this code to verify your account.Thank you.</p><br>
+    #                 <p>Your One-Time Password (OTP) for Password Reset: <strong>{email_otp}<strong>.</p><br>
+    #                 <p>Please use this code to reset your account.Thank you.</p><br>
     #                 </h3>
     #                 <br><br><br>
     #                 '''

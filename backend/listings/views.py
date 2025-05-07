@@ -158,4 +158,30 @@ def volunteer_interaction(request):
     serializer = Interaction_Serializer(interaction, many=True)
     return Response(serializer.data,status=status.HTTP_200_OK )
  
- 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def interaction_state(request, pk):
+    state= request.data.get('state')
+    
+    try:
+        interaction = Interaction.objects.get(id=pk)
+    except Interaction.DoesNotExist:
+        return Response({"detail": "Interaction not found."}, status=status.HTTP_404_NOT_FOUND)
+
+    # Check if the requesting user is the creator of the related service
+    if interaction.service.user != request.user:
+        return Response({"detail": "You do not have permission to modify this interaction."},
+                        status=status.HTTP_403_FORBIDDEN)
+    if state == "ACCEPT":
+        interaction.state = 1
+        interaction.save()
+        return Response({"detail": "Seeker has accepted interaction"}, status=status.HTTP_200_OK)
+    elif state == "DECLINE":
+        interaction.state = 0
+        interaction.save()
+        return Response({"detail": "seeker has declined interation"},status=status.HTTP_200_OK)
+    else:
+        return Response({"detail": "Invalid state value."}, status=status.HTTP_400_BAD_REQUEST) 
+
+
+

@@ -30,14 +30,15 @@ class InteractionSerializer(serializers.ModelSerializer):
     # username = serializers.CharField(source='user.username', read_only=True)
     class Meta:
         model = Interaction
-        fields = ["id", "user", "service","reason", "created"]
+        fields = ["id", "user", "service","reason", "created", "state"]
         extra_kwargs={"user":{"read_only":True},"service":{"read_only":True}}
 
 class Interaction_Serializer(serializers.ModelSerializer):
     created = serializers.DateTimeField(format="%d %b %Y, %I:%M %p", read_only=True)
     username = serializers.CharField(source='user.username', read_only=True)
     title = serializers.CharField(source='service.title', read_only=True)
+   
     class Meta:
         model = Interaction
-        fields = ["id", "user", "service", "username","reason", "created", "title"]
+        fields = ["id", "user", "service", "username","reason", "created", "title", "state"]
         extra_kwargs={"user":{"read_only":True},"service":{"read_only":True}}
