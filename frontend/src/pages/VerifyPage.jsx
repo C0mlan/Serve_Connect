@@ -3,7 +3,7 @@ import api from "../helpers/api";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, USER } from "../helpers/constants";
-import { useAuth } from "../contexts/AuthContext";
+// import { useAuth } from "../contexts/AuthContext";
 import OTPInput from "./OTPInput";
 import Button from "../components/Button";
 
@@ -12,7 +12,7 @@ const VerifyPage = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-  const { setIsAuthenticated, setUser, user } = useAuth();
+  // const { user } = useAuth();
 
   const handleOtpSubmit = (e) => {
     e.preventDefault();
@@ -38,15 +38,14 @@ const VerifyPage = () => {
           });
           localStorage.setItem(ACCESS_TOKEN, res.data.access_token);
         }
-        const newUser = {
-          ...user,
-          isEmailVerified: true,
-          isProfileUpdated: false,
-        };
-        setUser(newUser);
-        setIsAuthenticated(true);
+        // const newUser = {
+        //   ...user,
+        //   isEmailVerified: true,
+        //   isProfileUpdated: false,
+        // };
+        // setUser(newUser);
         setLoading(false);
-        navigate("/listings");
+        navigate("/login");
       })
       .catch((err) => {
         if (err.response.status === 400) {
@@ -58,7 +57,7 @@ const VerifyPage = () => {
       });
   };
   return (
-    <div className="max-w-lg mx-4 md:mx-auto mt-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
+    <div className="max-w-lg mx-auto md:mx-auto mt-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
       <form
         className="sm:flex flex-col justify-center items-center space-y-6"
         onSubmit={handleOtpSubmit}
@@ -66,15 +65,9 @@ const VerifyPage = () => {
         <h1 className="text-xl text-center font-medium text-gray-900 ">
           Please enter the OTP sent to your email
         </h1>
-        <OTPInput
-          otp={otp}
-          setOtp={setOtp}
-          length={6}
-          disabled={otp.length >= 6}
-        />
+        <OTPInput otp={otp} setOtp={setOtp} length={6} />
         <div className="sm:flex gap-x-2.5 grid">
           <Button disabled={loading} loading={loading} text="Verify"></Button>
-
           <button
             onClick={() => {
               return otp == ""

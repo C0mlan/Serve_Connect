@@ -80,6 +80,7 @@ export default function LoginPage() {
         navigate("/listings");
       } else {
         enqueueSnackbar("You are already logged in!");
+        navigate("/listings");
         return;
       }
     } catch (error) {
@@ -96,7 +97,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <div className="w-full h-screen mx-4 md:mx-0 bg-white overflow-hidden flex flex-col md:flex-row">
+      <div className="w-full h-screen md:mx-0 bg-white overflow-hidden flex flex-col md:flex-row">
         {/* Left Side - Logo */}
         <div
           className="w-full relative hidden md:w-1/2 md:flex items-center justify-center p-8 bg-no-repeat bg-cover bg-top-right"

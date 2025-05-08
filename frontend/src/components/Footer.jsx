@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 
 const Footer = () => {
@@ -20,29 +21,29 @@ const Footer = () => {
           <h3 className="font-bold text-lg mb-4">Quick Links</h3>
           <ul className="space-y-2">
             <li>
-              <a
-                href="#"
+              <Link
+                to="/listings"
                 className="hover:text-black hover:font-semibold transition"
               >
                 Browse Opportunities
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                to="/volunteer-feedback"
                 className="hover:text-black hover:font-semibold transition"
               >
                 Volunteer Stories
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a
-                href="#"
+              <Link
+                to="/donate"
                 className="hover:text-black hover:font-semibold transition"
               >
                 Donate
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -52,28 +53,28 @@ const Footer = () => {
           <h3 className="font-bold text-lg mb-4">Support</h3>
           <ul className="space-y-2">
             <li>
-              <a
-                href="#"
+              <Link
+                to="/faqs"
                 className="hover:text-black hover:font-semibold transition"
               >
                 FAQs
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                to="/contact"
                 className="hover:text-black hover:font-semibold transition"
               >
                 Contact Us
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                to="/privacy-policy"
                 className="hover:text-black hover:font-semibold transition"
               >
                 Privacy Policy
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

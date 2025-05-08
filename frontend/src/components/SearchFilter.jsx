@@ -24,8 +24,8 @@ const SearchFilter = () => {
             <option value="One-time">One-time</option>
             <option value="Weekly">Weekly</option>
             <option value="Monthly">Monthly</option>
-            <option value="Occasionally">Occasionally</option>
-            <option value="Fulltime">Fulltime</option>
+            <option value="Occasional">Occasional</option>
+            <option value="Full-time">Full-time</option>
           </select>
           <select
             id="category"

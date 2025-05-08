@@ -38,17 +38,21 @@ const ListingsPage = () => {
   }, []);
 
   return (
-    <section className="mx-8 mb-12">
+    <section className="md:mx-12 mb-12">
       <SearchFilter />
-      <div className="grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
-        {listings && listings.length > 0 ? (
-          listings.map((listing) => (
+      <h1 className="text-center text-4xl my-6">Available Opportunities</h1>
+      {listings && listings.length > 0 ? (
+        <div className="grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
+          {listings.map((listing) => (
             <ListingCard listing={listing} key={listing.id} />
-          ))
-        ) : (
-          <p>No listings available.</p>
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-center text-xl mt-4">
+          There are no volunteer opportunities available at the moment. Please
+          check back later!
+        </p>
+      )}
     </section>
   );
 };

@@ -7,7 +7,10 @@ const ProtectedRoute = ({ children, role }) => {
   if (isAuthenticated === false) return <Navigate to="/login" />;
   if (user.isEmailVerified === false) return <Navigate to="/verify" />;
   if (user.isProfileUpdated === false) return <Navigate to="/update-profile" />;
-  if (user.accountType === "volunteer" && role === "seeker")
+  if (
+    (user.accountType === "volunteer" && role === "seeker") ||
+    (user.accountType !== "volunteer" && role === "volunteer")
+  )
     return <Navigate to="/not-found" />;
 
   return children;

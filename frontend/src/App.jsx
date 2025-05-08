@@ -16,7 +16,10 @@ import CreateListingPage from "./pages/CreateListingPage.jsx";
 import SingleListingPage from "./pages/SingleListingPage.jsx";
 import SingleUserListingPage from "./pages/SingleUserListingPage.jsx";
 import EditListingPage from "./pages/EditListingPage.jsx";
-import UserInteractionsPage from "./pages/UserInteractionsPage.jsx";
+import UserConnectionsPage from "./pages/UserConnectionsPage.jsx";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage.jsx";
+import ForgotPasswordOtpPage from "./pages/ForgotPasswordOtpPage.jsx";
+import UpdatePasswordPage from "./pages/UpdatePasswordPage.jsx";
 import { useEffect, useState } from "react";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
@@ -47,13 +50,19 @@ function App() {
       ) : (
         <Header />
       )}
-      <main>
+      <main className="px-4 md:px-0">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/verify" element={<VerifyPage />} />
           <Route path="/update-profile" element={<UpdateProfilePage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route
+            path="/forgot-password-otp"
+            element={<ForgotPasswordOtpPage />}
+          />
+          <Route path="/update-password" element={<UpdatePasswordPage />} />
           <Route
             path="/listings"
             element={
@@ -73,9 +82,9 @@ function App() {
           <Route
             path="/listing/:id"
             element={
-              // <ProtectedRoute>
-              <SingleListingPage />
-              // </ProtectedRoute>
+              <ProtectedRoute>
+                <SingleListingPage />
+              </ProtectedRoute>
             }
           />
           <Route
@@ -95,10 +104,10 @@ function App() {
             }
           />
           <Route
-            path="/interactions"
+            path="/connections"
             element={
-              <ProtectedRoute>
-                <UserInteractionsPage />
+              <ProtectedRoute role="volunteer">
+                <UserConnectionsPage />
               </ProtectedRoute>
             }
           />

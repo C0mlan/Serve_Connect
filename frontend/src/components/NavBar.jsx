@@ -29,12 +29,21 @@ const NavBar = () => {
     if (user.accountType === "volunteer") {
       return "Volunteer";
     } else {
-      return "Volunteer Seeker";
+      return `Volunteer Seeker - ${user.accountType.toUpperCase()}`;
     }
   };
 
   const handleCloseMobileNav = () => {
     setIsMobileNavOpen(false);
+    setIsOpen(false);
+  };
+  const handleProfileMenuOpen = () => {
+    if (isMobileNavOpen) {
+      setIsMobileNavOpen(false);
+      setIsOpen(true);
+    } else {
+      setIsOpen(!isOpen);
+    }
   };
 
   return (
@@ -58,14 +67,14 @@ const NavBar = () => {
           </Link>
           <Link
             to="/listings"
-            onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
+            onClick={handleCloseMobileNav}
             className=" hover:bg-gray-100 px-3 py-2 font-medium rounded-md"
           >
             Listings
           </Link>
           <Link
             to="/contact"
-            onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
+            onClick={handleCloseMobileNav}
             className=" hover:bg-gray-100 px-3 py-2 font-medium rounded-md"
           >
             Contact
@@ -78,7 +87,7 @@ const NavBar = () => {
           {isAuthenticated && user.accountType !== "volunteer" && (
             <Link
               to="/create-listing"
-              onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
+              onClick={handleCloseMobileNav}
               className=" hover:bg-gray-100 px-3 py-2 font-medium rounded-md"
             >
               Create Listing
@@ -89,7 +98,10 @@ const NavBar = () => {
         {/* Mobile Menu Button (hidden on desktop) */}
         <button
           className="sm:hidden bg-gray-500 cursor-pointer text-white p-2 rounded-sm ml-3"
-          onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
+          onClick={() => {
+            setIsMobileNavOpen(!isMobileNavOpen);
+            setIsOpen(false);
+          }}
         >
           <svg
             className="w-6 h-6"
@@ -108,19 +120,19 @@ const NavBar = () => {
         {isAuthenticated && user && (
           <div
             className="relative inline-block text-left ml-3"
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={handleProfileMenuOpen}
           >
             <div className="rounded-full justify-center bg-white px-3 h-12 flex items-center w-12 py-3 text-xl shadow-lg font-semibold ring-2 ring-gray-300 hover:bg-gray-50 cursor-pointer">
               Me
             </div>
             <div>
               {isOpen && (
-                <div className="absolute right-0 z-10 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden">
-                  <div className="py-1" role="none">
+                <div className="absolute right-0 top-16 z-10 w-72 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden">
+                  <div className="py-1">
                     {user.username && (
                       <p className="block px-4 py-2 text-sm text-gray-700">
                         You are logged in as <b>{user.username} (</b>
-                        {handleAccountTypeDisplay()}){" "}
+                        {handleAccountTypeDisplay()})
                       </p>
                     )}
                     {user.accountType !== "volunteer" && (
@@ -134,9 +146,9 @@ const NavBar = () => {
                     {user.accountType == "volunteer" && (
                       <Link
                         className=" hover:bg-gray-100 hover:text-gray-900 block w-full px-4 py-2 text-left text-sm text-gray-700"
-                        to="/interactions"
+                        to="/connections"
                       >
-                        My Interactions
+                        My Connection Requests
                       </Link>
                     )}
                     <button
@@ -195,6 +207,7 @@ const NavBar = () => {
             {isAuthenticated && user.accountType !== "volunteer" && (
               <Link
                 to="/create-listing"
+                onClick={handleCloseMobileNav}
                 className=" hover:bg-gray-100 border-b border-gray-200 px-6 py-5 font-medium w-full block"
               >
                 Create Listing

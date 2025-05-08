@@ -41,22 +41,6 @@ const UpdateProfilePage = () => {
       });
       return;
     }
-    if (accountType === "organization" && orgType == "") {
-      enqueueSnackbar("Please select the type of organization", {
-        variant: "error",
-      });
-      return;
-    }
-
-    // if (bio.length == 0) {
-    //   enqueueSnackbar(
-    //     "Please enter a short description of yourself for your bio!",
-    //     {
-    //       variant: "error",
-    //     }
-    //   );
-    //   return;
-    // }
 
     setLoading(true);
     const data = {
@@ -68,14 +52,14 @@ const UpdateProfilePage = () => {
     };
 
     try {
-      const res = await api.post("/user/update-profile/", data);
+      const res = await api.patch("/user/update-profile/", data);
       // console.log(res);
       enqueueSnackbar(res.data.message, { variant: "success" });
       if (loggedInUser !== null) {
         let user = JSON.parse(loggedInUser);
         user["isProfileUpdated"] = true;
         user["orgName"] = orgName;
-        user["orgType"] = orgName;
+        user["orgType"] = orgType;
         user["bio"] = bio;
         user["basedOn"] = basedOn;
         user["accountType"] = accountType;
@@ -101,7 +85,7 @@ const UpdateProfilePage = () => {
   };
 
   return (
-    <div className="max-w-lg mx-4 md:mx-auto mt-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
+    <div className="max-w-lg md:mx-auto mt-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
       <h1 className="mb-4 text-xl font-semibold text-center">
         Update your profile to continue!
       </h1>
@@ -163,7 +147,9 @@ const UpdateProfilePage = () => {
         {accountType === "organization" && (
           <>
             <div className="mb-2">
-              <label className="block mb-2">Name of your organization</label>
+              <label htmlFor="org-name" className="block mb-2">
+                Name of your organization
+              </label>
               <input
                 type="text"
                 id="org-name"
@@ -175,12 +161,13 @@ const UpdateProfilePage = () => {
               />
             </div>
             <div className="mb-2">
-              <label htmlFor="account-type" className="block mb-2">
+              <label htmlFor="org-type" className="block mb-2">
                 Please select an organization type
               </label>
               <select
-                id="account-type"
+                id="org-type"
                 value={orgType}
+                defaultValue="NGO"
                 className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:border-gray-500  focus:outline-none block w-full p-2.5"
                 onChange={(e) => setOrgType(e.target.value)}
               >

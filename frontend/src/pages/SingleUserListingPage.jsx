@@ -53,12 +53,12 @@ const SingleUserListing = () => {
                 >
                   Edit
                 </button>
-                <buton
+                <button
                   onClick={() => handleDelete(listing.id)}
                   className="text-red-700 hover:underline mr-3 font-semibold cursor-pointer"
                 >
                   Delete
-                </buton>
+                </button>
               </div>
             </li>
           ))

@@ -97,7 +97,7 @@ const RegisterPage = () => {
 
   return (
     <>
-      <div className="w-full h-screen bg-white mx-4 md:mx-0 overflow-hidden flex flex-col md:flex-row">
+      <div className="w-full h-screen bg-white md:mx-0 overflow-hidden flex flex-col md:flex-row">
         {/* Left Side - Logo */}
         <div
           className="w-full relative hidden md:w-1/2  md:flex items-center justify-center p-8  bg-no-repeat bg-cover bg-center"
@@ -133,7 +133,7 @@ const RegisterPage = () => {
                   value={firstName}
                   placeholder="John"
                   className="bg-gray-50 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none block w-full p-2.5"
-                  onChange={(e) => setFirstName(e.target.value)}
+                  onChange={(e) => setFirstName(e.target.value.trim(""))}
                   id="first-name"
                 />
               </div>
@@ -150,7 +150,7 @@ const RegisterPage = () => {
                   value={lastName}
                   placeholder="Doe"
                   className="bg-gray-50 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none block w-full p-2.5"
-                  onChange={(e) => setLastName(e.target.value)}
+                  onChange={(e) => setLastName(e.target.value.trim(""))}
                   id="last-name"
                 />
               </div>
@@ -183,7 +183,7 @@ const RegisterPage = () => {
                 value={username}
                 placeholder="JohnDoe123"
                 className="bg-gray-50 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none block w-full p-2.5"
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setUsername(e.target.value.trim(""))}
                 id="username"
               />
             </div>
@@ -216,7 +216,7 @@ const RegisterPage = () => {
                 }}
                 name="terms"
                 type="checkbox"
-                className="h-4 w-4 text-gray-600 focus:ring-gray-500 border-gray-300 rounded"
+                className="h-4 w-4 cursor-pointer text-gray-600 focus:ring-gray-500 border-gray-300 rounded"
                 required
               />
               <label htmlFor="terms" className="ml-2 block text-sm">
