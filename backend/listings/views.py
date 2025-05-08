@@ -121,7 +121,7 @@ def create_reason(request, pk):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except IntegrityError:
             return Response({'error': "User can only make one interation on a service"},
-                            status=status.HTTP_400_BAD_REQUEST)
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @extend_schema(responses={200: Interaction_Serializer},
