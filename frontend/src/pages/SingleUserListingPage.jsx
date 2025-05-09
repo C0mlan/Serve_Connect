@@ -25,6 +25,7 @@ const SingleUserListing = () => {
     try {
       const res = await api.delete(`/listings/all_service/delete/${id}/`);
       console.log(res);
+      setUserListings(userListings.filter((listing) => listing.id !== id));
     } catch (error) {
       console.error(error);
     }
@@ -54,7 +55,15 @@ const SingleUserListing = () => {
                   Edit
                 </button>
                 <button
-                  onClick={() => handleDelete(listing.id)}
+                  onClick={() =>
+                    confirm(
+                      'Are you sure you want to delete listing "' +
+                        listing.title +
+                        '"?'
+                    )
+                      ? handleDelete(listing.id)
+                      : ""
+                  }
                   className="text-red-700 hover:underline mr-3 font-semibold cursor-pointer"
                 >
                   Delete

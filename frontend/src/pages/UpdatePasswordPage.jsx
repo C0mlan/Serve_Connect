@@ -23,7 +23,17 @@ const UpdatePasswordPage = () => {
       });
       return;
     }
-    if (!/^(?=.*[!@#$%^&*()-_=+[\]{}|;:',.<>?/]).{8,}$/.test(newPassword)) {
+    console.log(
+      /^(?=.*[!@#$%^&*()-_=+[\]{}|;:',.<>?/])[a-zA-Z0-9!@#$%^&*()-_=+[\]{}|;:',.<>?/]{8,}$/.test(
+        newPassword
+      )
+    );
+    if (
+      !/^(?=.*[!@#$%^&*()-_=+[\]{}|;:',.<>?/])[a-zA-Z0-9!@#$%^&*()-_=+[\]{}|;:',.<>?/]{8,}$/.test(
+        newPassword
+      )
+    ) {
+      console.log("Password not valid");
       enqueueSnackbar(
         "Password must be at least 8 characters long and contain at least a special character!",
         {
