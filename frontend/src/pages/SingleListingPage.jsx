@@ -5,25 +5,33 @@ import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import { useAuth } from "../contexts/AuthContext";
 import { enqueueSnackbar } from "notistack";
-import moment from "moment";
+import { formatDistanceToNow } from "date-fns";
 
 const SingleListingPage = () => {
   const [listing, setListing] = useState({});
   const [canApply, setCanApply] = useState(false);
-  const [listingInteractions, setListingInteractions] = useState([]);
+  const [listingConnections, setListingConnections] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [hasUserRequested, setHasUserRequested] = useState(false);
+  const [cannotApplyReason, setCannotApplyReason] = useState("");
 
   const [reason, setReason] = useState();
 
   const param = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const [formattedDate, setFormattedDate] = useState("");
   useEffect(() => {
     const getListing = async () => {
       try {
         const res = await api.get(`/listings/all_service/${param.id}/`);
         setListing(res.data);
-        // console.log(res.data);
+        const { created } = res.data;
+        setFormattedDate(
+          formatDistanceToNow(new Date(created), {
+            addSuffix: true,
+          })
+        );
       } catch (error) {
         if (error.status === 404) {
           navigate("/not-found");
@@ -31,16 +39,24 @@ const SingleListingPage = () => {
       }
     };
     getListing();
-    getInteractions();
+    getConnections();
   }, []);
 
   useEffect(() => {
     handleCanApply();
+    getConnections();
   }, [listing]);
-  const getInteractions = async () => {
+  const getConnections = async () => {
     try {
       const res = await api.get(`/listings/services/${param.id}/interaction/`);
-      setListingInteractions(res.data);
+
+      const filteredConnection = res.data.filter(
+        (item) => item.user === user.id
+      );
+
+      setHasUserRequested(filteredConnection.length > 0);
+      setListingConnections(res.data);
+
       // console.log(res.data);
     } catch (error) {
       console.error(error);
@@ -48,8 +64,8 @@ const SingleListingPage = () => {
   };
   const handleCanApply = () => {
     if (user.accountType == "volunteer") {
-      console.log(listing.expectation);
-      console.log(user.basedOn);
+      // console.log(listing.expectation);
+      // console.log(user.basedOn);
       listing.expectation && listing.expectation.length == 0
         ? setCanApply(true)
         : setCanApply(
@@ -58,6 +74,15 @@ const SingleListingPage = () => {
                 user.basedOn.includes(element)
               )
           );
+      setCannotApplyReason(
+        `
+        You cannot apply because you are only volunteering based on ${String(
+          user.basedOn
+        )
+          .split(",")
+          .join(" and ")}
+        `
+      );
     }
   };
 
@@ -91,25 +116,33 @@ const SingleListingPage = () => {
     }
   };
 
-  const handleConfirm = async (state) => {
+  const handleConfirm = async (state, id) => {
     setLoading(true);
     try {
-      const res = await api.post(`listings/interation_state/${param.id}/`, {
+      const res = await api.post(`listings/interaction_state/${id}/`, {
         state,
       });
-      console.log(res);
+      // console.log(res);
       if (res.status === 200 && state === "ACCEPT") {
         enqueueSnackbar("You have accepted the connection request!", {
           variant: "success",
         });
 
-        window.location.reload();
+        setListingConnections(
+          listingConnections.map((el) =>
+            el.id === id ? { ...el, state: 1 } : el
+          )
+        );
       } else if (res.status === 200 && state === "DECLINE") {
         enqueueSnackbar("You have rejected the connection request!", {
           variant: "success",
         });
 
-        window.location.reload();
+        setListingConnections(
+          listingConnections.map((el) =>
+            el.id === id ? { ...el, state: 0 } : el
+          )
+        );
       }
     } catch (error) {
       console.log(error);
@@ -117,6 +150,7 @@ const SingleListingPage = () => {
       setLoading(false);
     }
   };
+
   return (
     <article>
       <div
@@ -127,10 +161,14 @@ const SingleListingPage = () => {
         <p className="text-center text-lg">
           By:{" "}
           {listing.org_name !== ""
-            ? `${listing.org_name} (${listing.org_type})`
+            ? `${
+                listing.org_name !== user.org_name
+                  ? `${listing.org_name} (${listing.org_type})`
+                  : "you"
+              }`
             : `${listing.first_name} ${listing.last_name}`}{" "}
           <span className="block align-middle text-sm font-normal text-gray-500">
-            Posted {moment(listing.created, "DD MMM YYYY, h:mm A").fromNow()}
+            Posted {formattedDate}
           </span>
         </p>
         <div className="font-medium my-2">{listing.description}</div>
@@ -176,41 +214,51 @@ const SingleListingPage = () => {
             ></textarea>
             <Button
               loading={loading}
-              disabled={!canApply || loading}
+              disabled={!canApply || loading || hasUserRequested}
               text="Send request"
             ></Button>
+            {hasUserRequested && (
+              <div className="text-sm text-gray-700 font-semibold">
+                You have already sent a connection request!
+              </div>
+            )}
+            {!canApply && (
+              <div className="text-sm text-gray-700 font-semibold">
+                {cannotApplyReason}
+              </div>
+            )}
           </form>
         </div>
       )}
       {user.accountType !== "volunteer" && user.id === listing.user && (
         <div className="mt-4 max-w-lg md:mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
           <h1 className="mb-2 text-xl font-semibold">Interactions</h1>
-          {listingInteractions.length > 0 ? (
+          {listingConnections.length > 0 ? (
             <>
               <ul>
-                {listingInteractions.map((interaction) => (
+                {listingConnections.map((interaction) => (
                   <li
                     className="bg-white border-b p-2 border-gray-200 hover:bg-gray-100"
                     key={interaction.id}
                   >
                     <div className="flex items-center justify-between">
                       <p>
-                        {">"} Volunteer {interaction.username} sent a connection
-                        request
+                        {" > "} Volunteer {interaction.username} sent a
+                        connection request
                         {interaction.reason &&
                           ` with description "${interaction.reason}" `}
                         <span className="ml-1 align-middle text-sm font-normal text-gray-500">
-                          {moment(
-                            interaction.created,
-                            "DD MMM YYYY, h:mm A"
-                          ).fromNow()}{" "}
+                          {formatDistanceToNow(new Date(interaction.created), {
+                            addSuffix: true,
+                          })}
                         </span>
                       </p>
-
                       <div>
                         <button
                           disabled={interaction.state == 1}
-                          onClick={() => handleConfirm("ACCEPT")}
+                          onClick={() =>
+                            handleConfirm("ACCEPT", interaction.id)
+                          }
                           className="text-green-700 disabled:text-green-700/50 hover:underline mr-3 font-semibold cursor-pointer"
                         >
                           {" "}
@@ -218,7 +266,9 @@ const SingleListingPage = () => {
                         </button>
                         <button
                           disabled={interaction.state == 0}
-                          onClick={() => handleConfirm("DECLINE")}
+                          onClick={() =>
+                            handleConfirm("DECLINE", interaction.id)
+                          }
                           className="text-red-700 disabled:text-red-700/50 hover:underline mr-3 font-semibold cursor-pointer"
                         >
                           Reject

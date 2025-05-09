@@ -17,7 +17,7 @@ const PasswordInput = ({ id, label, ...props }) => {
         <input id={id} type={showPassword ? "text" : "password"} {...props} />
         <button
           type="button"
-          className="absolute z-4 inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 cursor-pointer"
+          className="absolute z-4 inset-y-0 right-0 px-3 rounded-tr-md rounded-br-md hover:bg-gray-300 flex items-center text-gray-500 hover:text-gray-700 cursor-pointer"
           onClick={() => setShowPassword(!showPassword)}
         >
           {showPassword ? (

@@ -1,8 +1,8 @@
-import moment from "moment";
 import clock from "../assets/clock.svg";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useEffect, useState } from "react";
+import { formatDistanceToNow } from "date-fns";
 
 const ListingCard = ({ listing }) => {
   const [canApply, setCanApply] = useState(false);
@@ -20,7 +20,9 @@ const ListingCard = ({ listing }) => {
     last_name,
   } = listing;
 
-  const formattedDate = moment(created, "DD MMM YYYY, h:mm A").fromNow();
+  const formattedDate = formatDistanceToNow(new Date(created), {
+    addSuffix: true,
+  });
 
   const { user } = useAuth();
 

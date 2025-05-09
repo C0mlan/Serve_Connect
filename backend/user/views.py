@@ -212,8 +212,8 @@ def otp_forgetpassword(request):
     if not User.objects.filter(email=email).exists():
         return Response({"error": "User with this email does not exist."}, status=404)
     user = User.objects.get(email=email)
-    # email_otp = generate_otp() # "generate_otp" generates the otp
-    # forgot_record = ForgotPassword.objects.create(user=user, password_otp=email_otp)
+    email_otp = generate_otp() # "generate_otp" generates the otp
+    forgot_record = ForgotPassword.objects.create(user=user, password_otp=email_otp)
     # email_body= f'''<h2>Password Reset OTP</h2><br><br>
     #                 <h3> 
     #                 <p>Hi {user.username},</p><br>

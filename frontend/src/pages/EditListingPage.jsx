@@ -212,6 +212,11 @@ const EditListingPage = () => {
               <label htmlFor="availability">Availability</label>
             </div>
           </div>
+          {expectation.length == 0 && (
+            <div className="block text-sm text-gray-600">
+              * Blank allows all
+            </div>
+          )}
         </div>
         <label htmlFor="category" className="block mb-2">
           Category

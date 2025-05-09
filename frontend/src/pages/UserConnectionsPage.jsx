@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../helpers/api";
-import moment from "moment";
+import { formatDistanceToNow } from "date-fns";
 import { Link } from "react-router-dom";
 
 const UserConnectionsPage = () => {
@@ -11,7 +11,6 @@ const UserConnectionsPage = () => {
       try {
         const res = await api.get("/listings/interaction/");
         setUserConnections(res.data);
-        console.log(res.data);
       } catch (error) {
         console.error(error);
       }
@@ -34,14 +33,16 @@ const UserConnectionsPage = () => {
               >
                 {">"} You connection request for{" "}
                 <span className="font-semibold text-blue-700 hover:underline">
-                  <Link to={`/listing/${connection.id}`}>
+                  <Link to={`/listing/${connection.service}`}>
                     {" "}
                     {connection.title}
                   </Link>
                 </span>{" "}
                 sent
                 <span className="ml-1 align-middle text-sm font-normal text-gray-500">
-                  {moment(connection.created, "DD MMM YYYY, h:mm A").fromNow()}
+                  {formatDistanceToNow(new Date(connection.created), {
+                    addSuffix: true,
+                  })}
                 </span>{" "}
                 {connection.state === 2 ? (
                   <span>

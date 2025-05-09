@@ -159,7 +159,7 @@ export default function LoginPage() {
               placeholder={
                 loginType === "username" ? "JohnDoe123" : "johndoe123@gmail.com"
               }
-              value={identifier}
+              value={identifier.trim()}
               className="bg-gray-50 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none block w-full p-2.5"
               onChange={(e) => setIdentifier(e.target.value)}
             />
