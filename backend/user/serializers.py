@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from .models import Profile
 
 class RegistrationSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(write_only = True)
@@ -11,7 +12,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
     def validate_password(self, value):
         if len(value) < 8:
             raise serializers.ValidationError("Password must be at least 8 characters long.")
-        if not any(char in "!@#$%^&*()-_=+[]{}|;:',.<>?/" for char in value):
+        if not any(char in "!@#$%^&*()-_=+[]{}|;:',.<>?/0123456789" for char in value):
             raise serializers.ValidationError("Password must contain at least one special character.")
         return value
      
@@ -39,10 +40,22 @@ class RegistrationSerializer(serializers.ModelSerializer):
         account =User.objects.create_user(
             email=validated['email'],
             username=validated['username'],
-            first_name=validated['first_name'].title(),
+            first_name=validated['first_name'].title(), #changes first_name to title before saveing to db
             last_name=validated['last_name'].title(),
             password=validated['password'],
         )
 
         return account
+    
 
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = [ "id","account_type", "based_on", "org_name","org_type", "bio"]
+
+def validate_password(value):
+        if len(value) < 8:
+            raise serializers.ValidationError("Password must be at least 8 characters long.")
+        if not any(char in "!@#$%^&*()-_=+[]{}|;:',.<>?/0123456789" for char in value):
+            raise serializers.ValidationError("Password must contain at least one special character or digit.")
+        

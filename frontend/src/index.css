@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Staatliches&family=Syne:wght@400..800&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  --font-staatliches: "Staatliches", sans-serif;
+  --font-syne: "Syne", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply font-syne;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-staatliches;
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
