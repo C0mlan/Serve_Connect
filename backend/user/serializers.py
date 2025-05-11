@@ -12,7 +12,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
     def validate_password(self, value):
         if len(value) < 8:
             raise serializers.ValidationError("Password must be at least 8 characters long.")
-        if not any(char in "!@#$%^&*()-_=+[]{}|;:',.<>?/" for char in value):
+        if not any(char in "!@#$%^&*()-_=+[]{}|;:',.<>?/0123456789" for char in value):
             raise serializers.ValidationError("Password must contain at least one special character.")
         return value
      
@@ -56,6 +56,6 @@ class ProfileSerializer(serializers.ModelSerializer):
 def validate_password(value):
         if len(value) < 8:
             raise serializers.ValidationError("Password must be at least 8 characters long.")
-        if not any(char in "!@#$%^&*()-_=+[]{}|;:',.<>?/" for char in value):
-            raise serializers.ValidationError("Password must contain at least one special character.")
+        if not any(char in "!@#$%^&*()-_=+[]{}|;:',.<>?/0123456789" for char in value):
+            raise serializers.ValidationError("Password must contain at least one special character or digit.")
         
