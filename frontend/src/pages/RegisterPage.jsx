@@ -44,7 +44,9 @@ const RegisterPage = () => {
       return;
     }
 
-    if (!/^(?=.*[!@#$%^&*()-_=+[\]{}|;:',.<>?/]).{8,}$/.test(password)) {
+    if (
+      !/^(?=.*[!@#$%^&*()_+-=[\]{};':|,.<>?/?0-9])(?=.{8,}).*$/.test(password)
+    ) {
       enqueueSnackbar(
         "Password must be at least 8 characters long and contain at least a special character!",
         {
