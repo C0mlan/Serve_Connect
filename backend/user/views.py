@@ -30,21 +30,21 @@ def register_view(request):
             email_otp = generate_otp() # "generate_otp" generates the otp
             Onetime.objects.create(user=user, otp=email_otp)
            
-            # user = User.objects.get(email=user_data['email'])
-            # email_body= f'''<h2>Email Verification OTP</h2><br><br>
-            #                <h3> 
-            #                 <p>Hi {user.username},</p><br>
-            #                 <p>Your One-Time Password (OTP) for email verification is: <strong>{email_otp}<strong>.</p><br>
-            #                 <p>Please use this code to verify your account.Thank you.</p><br>
-            #                 </h3>
-            #                 <br><br><br>
-            #                 '''
-            # data = {
-            #     'email_body': email_body,
-            #     'to_email': user.email,
-            #     'email_subject': 'Email OTP'
-            # }
-            # Util.send_email(data)
+            user = User.objects.get(email=user_data['email'])
+            email_body= f'''<h2>Email Verification OTP</h2><br><br>
+                           <h3> 
+                            <p>Hi {user.username},</p><br>
+                            <p>Your One-Time Password (OTP) for email verification is: <strong>{email_otp}<strong>.</p><br>
+                            <p>Please use this code to verify your account.Thank you.</p><br>
+                            </h3>
+                            <br><br><br>
+                            '''
+            data = {
+                'email_body': email_body,
+                'to_email': user.email,
+                'email_subject': 'Email OTP'
+            }
+            Util.send_email(data)
 
             response_data = {
                 "response": "Account has created.",
@@ -214,20 +214,20 @@ def otp_forgetpassword(request):
     user = User.objects.get(email=email)
     email_otp = generate_otp() # "generate_otp" generates the otp
     forgot_record = ForgotPassword.objects.create(user=user, password_otp=email_otp)
-    # email_body= f'''<h2>Password Reset OTP</h2><br><br>
-    #                 <h3> 
-    #                 <p>Hi {user.username},</p><br>
-    #                 <p>Your One-Time Password (OTP) for Password Reset: <strong>{email_otp}<strong>.</p><br>
-    #                 <p>Please use this code to reset your account.Thank you.</p><br>
-    #                 </h3>
-    #                 <br><br><br>
-    #                 '''
-    # data = {
-    #     'email_body': email_body,
-    #     'to_email': user.email,
-    #     'email_subject': 'Email OTP'
-    # }
-    # Util.send_email(data)
+    email_body= f'''<h2>Password Reset OTP</h2><br><br>
+                    <h3> 
+                    <p>Hi {user.username},</p><br>
+                    <p>Your One-Time Password (OTP) for Password Reset: <strong>{email_otp}<strong>.</p><br>
+                    <p>Please use this code to reset your account.Thank you.</p><br>
+                    </h3>
+                    <br><br><br>
+                    '''
+    data = {
+        'email_body': email_body,
+        'to_email': user.email,
+        'email_subject': 'Email OTP'
+    }
+    Util.send_email(data)
     return Response({"message": "OTP sent to your email."}, status=200)
 
 

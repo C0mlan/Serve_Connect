@@ -48,7 +48,7 @@ const NavBar = () => {
 
   return (
     <>
-      <nav className=" relative flex items-center bg-white justify-between">
+      <nav className="relative flex items-center bg-white justify-between">
         {/* Navigation Links - Right Side - Hamburger menu for mobile */}
         <div className="hidden md:flex items-center text-xl">
           <Link
@@ -97,7 +97,7 @@ const NavBar = () => {
 
         {/* Mobile Menu Button (hidden on desktop) */}
         <button
-          className="sm:hidden bg-gray-500 cursor-pointer text-white p-2 rounded-sm ml-3"
+          className="md:hidden bg-gray-500 cursor-pointer text-white p-2 rounded-sm ml-3"
           onClick={() => {
             setIsMobileNavOpen(!isMobileNavOpen);
             setIsOpen(false);
@@ -165,7 +165,7 @@ const NavBar = () => {
         )}
       </nav>
       {isMobileNavOpen && (
-        <div className="absolute top-28 z-10 right-0 text-bold bg-white mx-8 min-w-sm">
+        <div className="absolute top-28 z-100 right-0 text-bold bg-white mx-8 min-w-sm">
           <div className="text-bold hover:shadow-lg">
             <Link
               to="/"
