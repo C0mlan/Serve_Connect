@@ -57,7 +57,7 @@ const VerifyPage = () => {
       });
   };
   return (
-    <div className="max-w-lg mx-auto md:mx-auto mt-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
+    <div className="max-w-lg mx-auto mt-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
       <form
         className="sm:flex flex-col justify-center items-center space-y-6"
         onSubmit={handleOtpSubmit}
