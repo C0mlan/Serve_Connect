@@ -38,7 +38,7 @@ export default function LoginPage() {
         identifier,
         password,
       });
-      console.log(response.data);
+      // console.log(response.data);
       const {
         access_token,
         // refresh_token,
@@ -97,29 +97,30 @@ export default function LoginPage() {
 
   return (
     <>
-      <div className="w-full h-screen md:mx-0 bg-white overflow-hidden flex flex-col md:flex-row">
-        {/* Left Side - Logo */}
+      <div className="w-full md:h-screen md:mx-0 bg-white overflow-hidden flex flex-col md:flex-row">
+        <div className="text-white text-center md:flex items-center justify-center p-4 hidden">
+          <img
+            src={logo}
+            alt="ServeConnect logo"
+            className="h-40 w-40 mx-auto"
+          />
+        </div>
         <div
-          className="w-full relative hidden md:w-1/2 md:flex items-center justify-center p-8 bg-no-repeat bg-cover bg-top-right"
+          className="w-full relative md:w-1/2 md:flex items-center justify-center p-8 bg-no-repeat bg-cover bg-top-right"
           style={{
             backgroundImage: `url(${welcomeImage})`,
             height: "100%",
           }}
         >
           <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
-          <div className="text-white text-center z-100">
-            <h2 className="text-3xl font-bold mb-2"></h2>
-            <img
-              src={logo}
-              className="h-40 w-40 mx-auto"
-              alt="ServeConnect logo"
-            />
-            <p className="text-4xl font-bold">Welcome to ServeConnect</p>
+          <div className="text-white text-center">
+            <p className="relative text-4xl font-bold z-20">
+              Welcome to ServeConnect
+            </p>
           </div>
         </div>
 
         <div className="w-full md:w-1/2 p-8 md:p-12 overflow-y-scroll">
-          {/* <div className="w-full max-w-lg mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8"> */}
           <h1 className="text-3xl font-bold mb-6">Welcome back!</h1>
           <form onSubmit={handleLogin} className="space-y-2">
             <div className="flex mb-6 bg-gray-100 rounded-lg p-1">
@@ -190,7 +191,6 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
-      {/* </div> */}
     </>
   );
 }

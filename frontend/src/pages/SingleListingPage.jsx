@@ -155,18 +155,14 @@ const SingleListingPage = () => {
     <article>
       <div
         id="details"
-        className="max-w-lg md:mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8"
+        className="max-w-lg mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8"
       >
         <h1 className="text-3xl text-center uppercase">{listing.title}</h1>
         <p className="text-center text-lg">
-          By:{" "}
+          By:
           {listing.org_name !== ""
-            ? `${
-                listing.org_name !== user.org_name
-                  ? `${listing.org_name} (${listing.org_type})`
-                  : "you"
-              }`
-            : `${listing.first_name} ${listing.last_name}`}{" "}
+            ? `${listing.org_name} (${listing.org_type})`
+            : `${listing.first_name} ${listing.last_name}`}
           <span className="block align-middle text-sm font-normal text-gray-500">
             Posted {formattedDate}
           </span>
@@ -199,7 +195,7 @@ const SingleListingPage = () => {
       {user.accountType == "volunteer" && (
         <div
           id="match"
-          className="mt-4 max-w-lg md:mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8"
+          className="mt-4 max-w-lg mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8"
         >
           <h1 className="mb-2 text-xl font-semibold">Indicate Interest</h1>
           <form onSubmit={handleIndicateInterest}>
@@ -231,7 +227,7 @@ const SingleListingPage = () => {
         </div>
       )}
       {user.accountType !== "volunteer" && user.id === listing.user && (
-        <div className="mt-4 max-w-lg md:mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
+        <div className="mt-4 max-w-lg mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
           <h1 className="mb-2 text-xl font-semibold">Interactions</h1>
           {listingConnections.length > 0 ? (
             <>

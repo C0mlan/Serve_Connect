@@ -7,7 +7,11 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    if (config.url.includes("login") || config.url.includes("register")) {
+    if (
+      config.url.includes("login") ||
+      config.url.includes("register") ||
+      config.url.includes("forgot-password")
+    ) {
       return config;
     }
 

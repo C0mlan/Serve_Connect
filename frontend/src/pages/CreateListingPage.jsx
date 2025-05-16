@@ -102,7 +102,7 @@ const CreateListingPage = () => {
     }
   };
   return (
-    <div className=" max-w-lg md:mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
+    <div className=" max-w-lg mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
       <h1 className="mb-4 text-3xl font-semibold text-center">
         Create a new listing
       </h1>
