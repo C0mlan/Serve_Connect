@@ -114,11 +114,11 @@ database_password = os.environ.get("DATABASE_PASSWORD")
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'serve_connect',           
-        'USER': 'serve_connect_user',
-        'PASSWORD': os.environ.get("database_password"),   
-        'HOST': 'dpg-d0gds024d50c73fogh50-a',              
-        'PORT': '5432',                 
+        'NAME': 'serve',           
+        'USER': 'postgres',
+        'PASSWORD': database_password,   
+        'HOST': 'localhost',             
+        'PORT': '5433',                 
     }
 }
 
@@ -167,11 +167,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#for production
+# CORS_ALLOWED_ORIGINS =  [
+#     "https://serve-connect.vercel.app/",  #frondend   URL
+# ]
+# CORS_ALLOWS_CREDENTIALS = True
 
-CORS_ALLOWED_ORIGINS =  [
-    "https://serve-connect.vercel.app/",  #frondend   URL
-]
-CORS_ALLOWS_CREDENTIALS = True
+#for local development
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 
 EMAIL_USE_TLS =True
