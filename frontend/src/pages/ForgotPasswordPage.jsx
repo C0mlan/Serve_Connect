@@ -55,7 +55,7 @@ const ForgotPasswordPage = () => {
     }
   };
   return (
-    <div className="max-w-lg md:mx-auto mt-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
+    <div className="max-w-lg mx-auto mt-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8">
       <h1 className="mb-4 text-xl font-semibold text-center">Password Reset</h1>
       <form onSubmit={handleSubmitEmail}>
         <div className="mb-2">
