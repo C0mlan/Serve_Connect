@@ -42,10 +42,9 @@ def single_service(request, pk):
 @permission_classes([IsAuthenticated])
 def edit_service(request, pk):
     # Allows the user to update their own service by ID
-    try:
-        service = Service.objects.get(id=pk, user=request.user)
-    except service.DoesNotExist:
-        return Response({"error": "Service not found"}, status=status.HTTP_404_NOT_FOUND)
+    
+    service = Service.objects.get(id=pk, user=request.user)
+  
     serializer = ServiceSerializer(instance=service, data=request.data, partial=True) 
     if serializer.is_valid():
         serializer.save()
@@ -62,13 +61,7 @@ def edit_service(request, pk):
 @permission_classes([IsAuthenticated])
 def user_service(request):
     # Retrieves and returns all services created by the user
-
     service = Service.objects.filter(user = request.user)
-    if not service.exists():
-        return Response(
-            {"error": "No service found."},
-            status=status.HTTP_404_NOT_FOUND
-        )
     serializer = ServiceSerializer(service, many=True)
     return Response(serializer.data,  status=status.HTTP_200_OK)
 
@@ -93,11 +86,7 @@ def create_post(request):
 @permission_classes([IsAuthenticated])
 def delete_service(request, pk):
     # Deletes a service created by the authenticated user
-    try:
-        service = Service.objects.get(id=pk, user=request.user)
-    except Service.DoesNotExist:
-        return Response({"error": "Service not found"}, status=status.HTTP_404_NOT_FOUND)
-
+    service = Service.objects.get(id=pk, user=request.user)
     service.delete()
     return Response({"message": "Service deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
 
@@ -133,12 +122,6 @@ def user_interaction(request, pk):
     # Retrieves all interactions for a specific service by its ID
 
     service = Interaction.objects.filter(service=pk)
-    if not service.exists():
-        return Response(
-            {"error": "No interactions found."},
-            status=status.HTTP_404_NOT_FOUND
-        )
-
     serializer = Interaction_Serializer(service, many=True)
     return Response(serializer.data,  status=status.HTTP_200_OK)
 
@@ -150,11 +133,6 @@ def user_interaction(request, pk):
 def volunteer_interaction(request):
     # Retrieves all interactions created by the authenticated user
     interaction = Interaction.objects.filter(user=request.user)
-    if not interaction.exists():
-        return Response(
-            {"error": "No interactions found."},
-            status=status.HTTP_404_NOT_FOUND
-        )
     serializer = Interaction_Serializer(interaction, many=True)
     return Response(serializer.data,status=status.HTTP_200_OK )
  
