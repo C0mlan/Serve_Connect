@@ -29,7 +29,7 @@ def register_view(request):
     '''
     serializer= RegistrationSerializer(data=request.data)
     if serializer.is_valid():
-       
+        
         user = serializer.save()
         email_otp = generate_otp() # "generate_otp" generates the otp
         Onetime.objects.create(user=user, otp=email_otp) #saves the otp of a user
@@ -39,7 +39,6 @@ def register_view(request):
             "user" :serializer.data  
         }
         
-        print(f"Time taken to send email: {t1 - t0} seconds")
         return Response(response_data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
