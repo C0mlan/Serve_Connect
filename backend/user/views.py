@@ -10,50 +10,38 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from drf_spectacular.utils import extend_schema
 from django.core.exceptions import ValidationError
+from .email import send_otp_email
+import time
+
+
+
 
 @extend_schema(responses={201: RegistrationSerializer},
                methods = ['POST'])
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register_view(request):
-    '''This view saves a new user, 
-    generates an OTP(One Time Password) and saves the OTP in the OneTime model table.
-      After the OTP has been generated, an email is sent to the new user'''
+    '''
+    handles user registration by validating the input data,
+    creating a new user, generating a one-time password (OTP),
+    saving the OTP to the database, and sending it to the user via email.
     
-    if request.method == "POST":
-        serializer= RegistrationSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            user_data = serializer.data
-
-            
-            email_otp = generate_otp() # "generate_otp" generates the otp
-            Onetime.objects.create(user=user, otp=email_otp)
-           
-            user = User.objects.get(email=user_data['email'])
-            email_body= f'''<h2>Email Verification OTP</h2><br><br>
-                           <h3> 
-                            <p>Hi {user.username},</p><br>
-                            <p>Your One-Time Password (OTP) for email verification is: <strong>{email_otp}<strong>.</p><br>
-                            <p>Please use this code to verify your account.Thank you.</p><br>
-                            </h3>
-                            <br><br><br>
-                            '''
-            data = {
-                'email_body': email_body,
-                'to_email': user.email,
-                'email_subject': 'Email OTP'
-            }
-            Util.send_email(data)
-
-            response_data = {
-                "response": "Account has created.",
-                "user" :serializer.data  
-            }
-            return Response(response_data, status=status.HTTP_201_CREATED)
+    '''
+    serializer= RegistrationSerializer(data=request.data)
+    if serializer.is_valid():
         
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+        user = serializer.save()
+        email_otp = generate_otp() # "generate_otp" generates the otp
+        Onetime.objects.create(user=user, otp=email_otp) #saves the otp of a user
+        send_otp_email(user.username, user.email, email_otp) # sends the otp to the user via email
+        response_data = {
+            "response": "Account has been created.",
+            "user" :serializer.data  
+        }
+        
+        return Response(response_data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 @extend_schema(
     methods=['POST'],
     request=None,  # Or define a serializer if needed
@@ -182,6 +170,7 @@ def login_view(request):
 @api_view(['PATCH'])
 @permission_classes([IsAuthenticated])
 def forgot_password(request):
+    t0= time.time()
     password = request.data.get("password")
     password2 =request.data.get("password2")
 
@@ -199,7 +188,8 @@ def forgot_password(request):
     user = request.user
     user.set_password(password)
     user.save()
-
+    t1 = time.time()  # ✅ CALL the function
+    print(f"Execution time: {round(t1 - t0, 2)} seconds")
     return Response({"detail": "Password updated successfully."}, status=status.HTTP_200_OK)
 
 
@@ -207,27 +197,12 @@ def forgot_password(request):
 @permission_classes([AllowAny])
 def otp_forgetpassword(request):
     email = request.data.get("email")
-    
-   
     if not User.objects.filter(email=email).exists():
         return Response({"error": "User with this email does not exist."}, status=404)
     user = User.objects.get(email=email)
     email_otp = generate_otp() # "generate_otp" generates the otp
     forgot_record = ForgotPassword.objects.create(user=user, password_otp=email_otp)
-    email_body= f'''<h2>Password Reset OTP</h2><br><br>
-                    <h3> 
-                    <p>Hi {user.username},</p><br>
-                    <p>Your One-Time Password (OTP) for Password Reset: <strong>{email_otp}<strong>.</p><br>
-                    <p>Please use this code to reset your account.Thank you.</p><br>
-                    </h3>
-                    <br><br><br>
-                    '''
-    data = {
-        'email_body': email_body,
-        'to_email': user.email,
-        'email_subject': 'Email OTP'
-    }
-    Util.send_email(data)
+    send_otp_email(user.username, user.email, email_otp)
     return Response({"message": "OTP sent to your email."}, status=200)
 
 
