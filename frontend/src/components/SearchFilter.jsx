@@ -1,17 +1,44 @@
 import { useState } from "react";
 import Button from "./Button";
 
-const SearchFilter = ({ handleSearch }) => {
+const SearchFilter = ({
+  handleSearch,
+  handleCategoryFilter,
+  handleDurationFilter,
+}) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [duration, setDuration] = useState("");
+  const [category, setCategory] = useState("");
 
   const handleSearchChange = (value) => {
     setSearchTerm(value);
     handleSearch(value);
   };
 
+  const handleCategoryFilterChange = (value) => {
+    setCategory(value);
+    setDuration("");
+    handleDurationFilter("");
+    if (value !== "") {
+      handleCategoryFilter(value);
+    }
+  };
+  const handleDurationFilterChange = (value) => {
+    setDuration(value);
+    setCategory("");
+    handleCategoryFilter("");
+    if (value !== "") {
+      handleDurationFilter(value);
+    }
+  };
+
   const handleClearFilter = () => {
-    setSearchTerm("");
-    handleSearch("");
+    // setSearchTerm("");
+    // handleSearch("");
+    setDuration("");
+    handleDurationFilter("");
+    setCategory("");
+    handleCategoryFilter("");
   };
 
   return (
@@ -31,6 +58,8 @@ const SearchFilter = ({ handleSearch }) => {
         <div className="flex my-2 gap-x-4 sm:my-0">
           <select
             id="duration"
+            value={duration}
+            onChange={(e) => handleDurationFilterChange(e.target.value)}
             className="bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500 block w-1/2 p-2.5 "
           >
             <option value="">Duration</option>
@@ -42,6 +71,8 @@ const SearchFilter = ({ handleSearch }) => {
           </select>
           <select
             id="category"
+            onChange={(e) => handleCategoryFilterChange(e.target.value)}
+            value={category}
             className="bg-gray-50 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none block w-1/2 p-2.5  "
           >
             <option value="">Category</option>

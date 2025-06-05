@@ -62,9 +62,35 @@ const ListingsPage = () => {
     }
   };
 
+  const handleCategoryFilter = (filter) => {
+    if (filter !== "") {
+      setFilteredListings(
+        listings.filter((listing) => listing.category === filter)
+      );
+    } else {
+      // If filter is empty, reset to original listings
+      setFilteredListings(listings);
+    }
+  };
+
+  const handleDurationFilter = (filter) => {
+    if (filter !== "") {
+      setFilteredListings(
+        listings.filter((listing) => listing.duration === filter)
+      );
+    } else {
+      // If filter is empty, reset to original listings
+      setFilteredListings(listings);
+    }
+  };
+
   return (
     <section className="md:mx-12 mb-12">
-      <SearchFilter handleSearch={handleSearch} />
+      <SearchFilter
+        handleSearch={handleSearch}
+        handleCategoryFilter={handleCategoryFilter}
+        handleDurationFilter={handleDurationFilter} // Placeholder for duration filter
+      />
       <h1 className="text-center text-4xl my-6">Available Opportunities</h1>
       {loading ? (
         <div className="flex justify-center items-center">
