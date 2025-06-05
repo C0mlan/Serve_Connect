@@ -236,7 +236,7 @@ const RegisterPage = () => {
               loading={loading}
               text="Register"
             ></Button>
-            <div className="text-center text-md ">
+            <div className="text-center text-md mt-2">
               Already have an account?
               <Link
                 to="/login"

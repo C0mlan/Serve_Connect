@@ -1,7 +1,19 @@
-import React from "react";
+import { useState } from "react";
 import Button from "./Button";
 
-const SearchFilter = () => {
+const SearchFilter = ({ handleSearch }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearchChange = (value) => {
+    setSearchTerm(value);
+    handleSearch(value);
+  };
+
+  const handleClearFilter = () => {
+    setSearchTerm("");
+    handleSearch("");
+  };
+
   return (
     <div className="w-full p-4 bg-white border border-gray-200 rounded-lg shadow-sm mb-5">
       <form className="items-center justify-between mx-auto sm:flex gap-x-4">
@@ -9,8 +21,9 @@ const SearchFilter = () => {
           Search
         </label>
         <input
+          onChange={(e) => handleSearchChange(e.target.value)}
+          value={searchTerm}
           type="text"
-          id="simple-search"
           className="bg-gray-50 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none block w-full sm:w-1/2 p-2.5  "
           placeholder="Search for an outreach..."
           required
@@ -52,7 +65,11 @@ const SearchFilter = () => {
           </select>
         </div>
 
-        <Button type="button" text="Clear filter"></Button>
+        <Button
+          type="button"
+          text="Clear filter"
+          onClick={handleClearFilter}
+        ></Button>
       </form>
     </div>
   );

@@ -68,6 +68,7 @@ const UpdateProfilePage = () => {
 
       setUser({
         ...user,
+        basedOn: res.data.based_on,
         accountType: res.data.account_type,
         isProfileUpdated: res.data.prof_up,
         isEmailVerified: res.data.is_verified,
@@ -172,12 +173,12 @@ const UpdateProfilePage = () => {
                 onChange={(e) => setOrgType(e.target.value)}
               >
                 <option value="NGO">NGO</option>
-                <option value="Government org">Government org</option>
-                <option value="Community based org">Community based org</option>
-                <option value="International development org">
-                  International development org
+                <option value="Governmental">Governmental</option>
+                <option value="Community based">Community based</option>
+                <option value="International development">
+                  International development
                 </option>
-                <option value="Religious org">Religious org</option>
+                <option value="Religious">Religious</option>
                 <option value="Other">Other</option>
               </select>
             </div>

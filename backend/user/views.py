@@ -91,6 +91,7 @@ def update_profile(request):
                "message": "Profile updated successfully!",
                 "account_type" :profile.account_type,
                 "prof_up": profile.prof_updated,
+                "based_on":profile.based_on,
                 "is_verified": verify.is_verified
             }
         return Response(response_data , status=status.HTTP_200_OK)

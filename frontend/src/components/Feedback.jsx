@@ -61,7 +61,10 @@ const Feedback = () => {
               <p className="mt-2 text-gray-600">
                 "Being a volunteer through this platform has been a game-changer
                 for me. The opportunities provided have allowed me to grow
-                personally and contribute to causes I care about."
+                personally and contribute to causes I care about. " Lorem ipsum,
+                dolor sit amet consectetur adipisicing elit. Sequi repudiandae
+                voluptatibus molestiae esse earum unde expedita ab ipsam
+                assumenda quibusdam.
               </p>
             </div>
           </div>

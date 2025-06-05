@@ -39,9 +39,9 @@ const ListingCard = ({ listing }) => {
   }, []);
 
   return (
-    <div>
-      <div className="p-4 rounded-lg shadow-sm bg-white select-none hover:shadow-lg">
-        <div className="p-2 rounded-md ">
+    <div className="p-4 rounded-lg shadow-sm bg-white select-none hover:shadow-lg">
+      <div className="flex flex-col h-full">
+        <div className="p-2 rounded-md flex-1">
           <h1 className="mb-2 text-2xl">{title}</h1>
           <div className="mb-2">
             <div className="text-base font-semibold">
@@ -79,24 +79,24 @@ const ListingCard = ({ listing }) => {
           <div className="mb-4">
             Category:<span className="font-medium"> {category}</span>
           </div>
-          <div className="">
-            <Link to={`/listing/${id}#details`}>
-              <button
-                type="button"
-                className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 cursor-pointer w-full mx-auto"
-              >
-                View Details
-              </button>
-            </Link>
-            <Link to={`/listing/${id}#match`}>
-              <button
-                disabled={!canApply}
-                className="disabled:bg-gray-500 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 w-full  cursor-pointer"
-              >
-                Connect
-              </button>
-            </Link>
-          </div>
+        </div>
+        <div className="mt-auto justify-end">
+          <Link to={`/listing/${id}#details`}>
+            <button
+              type="button"
+              className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 cursor-pointer w-full mx-auto"
+            >
+              View Details
+            </button>
+          </Link>
+          <Link to={`/listing/${id}#match`}>
+            <button
+              disabled={!canApply}
+              className="disabled:bg-gray-500 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 w-full  cursor-pointer"
+            >
+              Connect
+            </button>
+          </Link>
         </div>
       </div>
     </div>
