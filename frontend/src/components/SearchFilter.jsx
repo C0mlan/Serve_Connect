@@ -33,8 +33,8 @@ const SearchFilter = ({
   };
 
   const handleClearFilter = () => {
-    // setSearchTerm("");
-    // handleSearch("");
+    setSearchTerm("");
+    handleSearch("");
     setDuration("");
     handleDurationFilter("");
     setCategory("");
@@ -52,7 +52,7 @@ const SearchFilter = ({
           value={searchTerm}
           type="text"
           className="bg-gray-50 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none block w-full sm:w-1/2 p-2.5  "
-          placeholder="Search for an outreach..."
+          placeholder="Search..."
           required
         />
         <div className="flex my-2 gap-x-4 sm:my-0">
@@ -96,11 +96,7 @@ const SearchFilter = ({
           </select>
         </div>
 
-        <Button
-          type="button"
-          text="Clear filter"
-          onClick={handleClearFilter}
-        ></Button>
+        <Button type="button" text="Clear" onClick={handleClearFilter}></Button>
       </form>
     </div>
   );

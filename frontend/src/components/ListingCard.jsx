@@ -1,11 +1,11 @@
 import clock from "../assets/clock.svg";
 import { Link } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
-import { useEffect, useState } from "react";
+// import { useAuth } from "../contexts/AuthContext";
+// import { useEffect, useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 
 const ListingCard = ({ listing }) => {
-  const [canApply, setCanApply] = useState(false);
+  // const [canApply, setCanApply] = useState(false);
   const {
     id,
     title,
@@ -24,19 +24,19 @@ const ListingCard = ({ listing }) => {
     addSuffix: true,
   });
 
-  const { user } = useAuth();
+  // const { user } = useAuth();
 
-  useEffect(() => {
-    // console.log(user.basedOn);
-    // console.log(expectation);
+  // useEffect(() => {
+  //   // console.log(user.basedOn);
+  //   // console.log(expectation);
 
-    expectation.length == 0
-      ? setCanApply(true)
-      : setCanApply(
-          expectation &&
-            expectation.some((element) => user.basedOn.includes(element))
-        );
-  }, []);
+  //   expectation.length == 0
+  //     ? setCanApply(true)
+  //     : setCanApply(
+  //         expectation &&
+  //           expectation.some((element) => user.basedOn.includes(element))
+  //       );
+  // }, []);
 
   return (
     <div className="p-4 rounded-lg shadow-sm bg-white select-none hover:shadow-lg">
@@ -81,7 +81,7 @@ const ListingCard = ({ listing }) => {
           </div>
         </div>
         <div className="mt-auto justify-end">
-          <Link to={`/listing/${id}#details`}>
+          <Link to={`/listing/${id}`}>
             <button
               type="button"
               className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 cursor-pointer w-full mx-auto"
@@ -89,14 +89,14 @@ const ListingCard = ({ listing }) => {
               View Details
             </button>
           </Link>
-          <Link to={`/listing/${id}#match`}>
+          {/* <Link to={`/listing/${id}#match`}>
             <button
               disabled={!canApply}
               className="disabled:bg-gray-500 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 w-full  cursor-pointer"
             >
               Connect
             </button>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>

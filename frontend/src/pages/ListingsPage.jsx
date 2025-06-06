@@ -7,18 +7,19 @@ import { ACCESS_TOKEN, USER } from "../helpers/constants";
 import SearchFilter from "../components/SearchFilter";
 import ListingCard from "../components/ListingCard";
 import Spinner from "../components/Spinner";
+import { set } from "date-fns";
 
 const ListingsPage = () => {
   const [listings, setListings] = useState([]);
-  const [filteredListings, setFilteredListings] = useState([]);
+  const [filteredListings, setFilteredListings] = useState(listings);
   const [loading, setLoading] = useState(true);
+  const [noData, setNoData] = useState(false);
 
   const navigate = useNavigate();
   const { setIsAuthenticated } = useAuth();
 
   useEffect(() => {
     getListings();
-    setFilteredListings(listings);
   }, []);
 
   const getListings = async () => {
@@ -26,6 +27,7 @@ const ListingsPage = () => {
     try {
       const res = await api.get(`/listings/all_service/`);
       setListings(res.data);
+      setFilteredListings(res.data);
       // console.log(listings);
     } catch (error) {
       if (error.status === 404) {
@@ -47,39 +49,60 @@ const ListingsPage = () => {
 
   const handleSearch = (searchTerm) => {
     if (searchTerm !== "") {
-      setFilteredListings(
-        listings.filter(
-          (listing) =>
-            listing.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            listing.brief_des.toLowerCase().includes(searchTerm.toLowerCase())
-        )
+      const filteredListings = listings.filter(
+        (listing) =>
+          listing.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          listing.brief_des.toLowerCase().includes(searchTerm.toLowerCase())
       );
-      // setFilteredListings(filteredListings);
+      if (filteredListings.length === 0) {
+        setNoData(true);
+        setFilteredListings([]);
+      } else {
+        setNoData(false);
+        setFilteredListings(filteredListings);
+      }
     } else {
       // If search term is empty, reset to original listings
+      setNoData(false);
       setFilteredListings(listings);
       // getListings();
     }
   };
 
-  const handleCategoryFilter = (filter) => {
-    if (filter !== "") {
-      setFilteredListings(
-        listings.filter((listing) => listing.category === filter)
+  const handleCategoryFilter = (category) => {
+    if (category !== "") {
+      const filteredListings = listings.filter(
+        (listing) => listing.category === category
       );
+      if (filteredListings.length === 0) {
+        setNoData(true);
+        setFilteredListings([]);
+      } else {
+        setNoData(false);
+        setFilteredListings(filteredListings);
+      }
     } else {
+      setNoData(false);
       // If filter is empty, reset to original listings
       setFilteredListings(listings);
     }
   };
 
-  const handleDurationFilter = (filter) => {
-    if (filter !== "") {
-      setFilteredListings(
-        listings.filter((listing) => listing.duration === filter)
+  const handleDurationFilter = (duration) => {
+    if (duration !== "") {
+      const filteredListings = listings.filter(
+        (listing) => listing.duration === duration
       );
+      if (filteredListings.length === 0) {
+        setNoData(true);
+        setFilteredListings([]);
+      } else {
+        setNoData(false);
+        setFilteredListings(filteredListings);
+      }
     } else {
       // If filter is empty, reset to original listings
+      setNoData(false);
       setFilteredListings(listings);
     }
   };
@@ -97,11 +120,20 @@ const ListingsPage = () => {
           <Spinner color="black" size="10" />
         </div>
       ) : listings.length > 0 ? (
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-          {filteredListings.map((listing) => (
-            <ListingCard listing={listing} key={listing.id} />
-          ))}
-        </div>
+        <>
+          {noData ? (
+            <p className="text-center text-xl mt-4">
+              There are no volunteer opportunities that match your query at the
+              moment. Please check back later!
+            </p>
+          ) : (
+            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+              {filteredListings.map((listing) => (
+                <ListingCard listing={listing} key={listing.id} />
+              ))}
+            </div>
+          )}
+        </>
       ) : (
         <p className="text-center text-xl mt-4">
           There are no volunteer opportunities available at the moment. Please
