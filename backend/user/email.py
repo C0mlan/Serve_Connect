@@ -1,9 +1,5 @@
 from .utils import Util
-<<<<<<< HEAD
-from .email_template import otp_email_html
-=======
 from .email_template import otp_email_html, forgot_password_html
->>>>>>> seve-branch
 
 
 def send_otp_email(username, email, otp):
@@ -14,8 +10,6 @@ def send_otp_email(username, email, otp):
         'to_email': email,
     }
     
-<<<<<<< HEAD
-=======
     Util.send_email(data)
 
 def forgot_password_email(username, email, otp):
@@ -27,5 +21,4 @@ def forgot_password_email(username, email, otp):
         'to_email': email,
     }
     
->>>>>>> seve-branch
     Util.send_email(data)

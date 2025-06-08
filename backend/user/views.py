@@ -11,13 +11,9 @@ from django.contrib.auth import authenticate
 from drf_spectacular.utils import extend_schema
 from django.core.exceptions import ValidationError
 from .email import send_otp_email
-<<<<<<< HEAD
-import time
-=======
 
 
 
->>>>>>> seve-branch
 
 
 
@@ -32,15 +28,10 @@ def register_view(request):
     saving the OTP to the database, and sending it to the user via email.
     
     '''
-<<<<<<< HEAD
-    serializer= RegistrationSerializer(data=request.data)
-    if serializer.is_valid():
-=======
     
     serializer= RegistrationSerializer(data=request.data)
     if serializer.is_valid():
         
->>>>>>> seve-branch
         user = serializer.save()
         email_otp = generate_otp() # "generate_otp" generates the otp
         Onetime.objects.create(user=user, otp=email_otp) #saves the otp of a user
@@ -49,17 +40,10 @@ def register_view(request):
             "response": "Account has been created.",
             "user" :serializer.data  
         }
-<<<<<<< HEAD
-        return Response(response_data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-=======
     
         return Response(response_data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
->>>>>>> seve-branch
 @extend_schema(
     methods=['POST'],
     request=None,  # Or define a serializer if needed
@@ -241,4 +225,3 @@ def verify_passwordotp(request):
 
 
     
-
