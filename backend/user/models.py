@@ -28,12 +28,21 @@ class Profile(models.Model):
    
        
 
+<<<<<<< HEAD
 #to create a profile automantically after a User is create
 # def create_profile(sender, instance, created, **kwargs):
 #     if created:
 #         user_profile = Profile(user=instance)
 #         user_profile.save()
 # post_save.connect(create_profile, sender=User)
+=======
+# to create a profile automantically after a User is create
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        user_profile = Profile(user=instance)
+        user_profile.save()
+post_save.connect(create_profile, sender=User)
+>>>>>>> seve-branch
 
 class ForgotPassword(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

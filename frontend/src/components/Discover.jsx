@@ -2,7 +2,7 @@ import discoverImg1 from "../assets/discover-1.png";
 import discoverImg2 from "../assets/discover-2.png";
 import discoverImg3 from "../assets/discover-3.png";
 import tool from "../assets/tool.png";
-import groupHappyVolunteers from "../assets/group-happy-volunteers.avif";
+import community from "../assets/community.jpg";
 
 import DiscoverGridItem from "./DiscoverGridItem";
 import ReuseableSection from "./ReuseableSection";
@@ -41,7 +41,7 @@ const Discover = () => {
       <ReuseableSection
         reverse={true}
         icon={tool}
-        image={groupHappyVolunteers}
+        image={community}
         title="EMPOWERING VOLUNTEERS, TRANSFORMING COMMUNITIES!"
         body="Join our vibrant community of volunteers and make a lasting
         impact. Whether you have a few hours a week or a few days

@@ -2,17 +2,23 @@ import React, { useEffect, useState } from "react";
 import api from "../helpers/api";
 import { formatDistanceToNow } from "date-fns";
 import { Link } from "react-router-dom";
+import Spinner from "../components/Spinner";
 
 const UserConnectionsPage = () => {
   const [userConnections, setUserConnections] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getConnections = async () => {
+      setLoading(true);
       try {
         const res = await api.get("/listings/interaction/");
+        console.log(res);
         setUserConnections(res.data);
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
     getConnections();
@@ -24,7 +30,11 @@ const UserConnectionsPage = () => {
         Opportunities you have connected with
       </h1>
       <ul>
-        {userConnections && userConnections.length > 0 ? (
+        {loading ? (
+          <div className="flex justify-center items-center">
+            <Spinner color="black" size="10" />
+          </div>
+        ) : userConnections.length > 0 ? (
           <ul>
             {userConnections.map((connection) => (
               <li

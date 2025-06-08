@@ -182,7 +182,7 @@ export default function LoginPage() {
             </div>
             <Button disabled={loading} text="Login" loading={loading}></Button>
           </form>
-          <div className="text-center text-md text-gray-600">
+          <div className="text-center text-md text-gray-600 mt-2">
             No account yet?{" "}
             <Link to="/register" className=" font-medium hover:underline">
               Register now

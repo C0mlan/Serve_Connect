@@ -19,7 +19,7 @@ const ReuseableSection = ({
           className="h-auto rounded-xl block mx-auto"
         />
       </div>
-      <div className="w-full md:w-3/4">
+      <div className="w-full md:w-3/4 flex justify-center flex-col">
         <img
           src={icon}
           alt="app-screenshot"

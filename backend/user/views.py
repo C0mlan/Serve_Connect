@@ -11,7 +11,13 @@ from django.contrib.auth import authenticate
 from drf_spectacular.utils import extend_schema
 from django.core.exceptions import ValidationError
 from .email import send_otp_email
+<<<<<<< HEAD
 import time
+=======
+
+
+
+>>>>>>> seve-branch
 
 
 
@@ -26,8 +32,15 @@ def register_view(request):
     saving the OTP to the database, and sending it to the user via email.
     
     '''
+<<<<<<< HEAD
     serializer= RegistrationSerializer(data=request.data)
     if serializer.is_valid():
+=======
+    
+    serializer= RegistrationSerializer(data=request.data)
+    if serializer.is_valid():
+        
+>>>>>>> seve-branch
         user = serializer.save()
         email_otp = generate_otp() # "generate_otp" generates the otp
         Onetime.objects.create(user=user, otp=email_otp) #saves the otp of a user
@@ -36,10 +49,17 @@ def register_view(request):
             "response": "Account has been created.",
             "user" :serializer.data  
         }
+<<<<<<< HEAD
         return Response(response_data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+=======
+    
+        return Response(response_data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+>>>>>>> seve-branch
 @extend_schema(
     methods=['POST'],
     request=None,  # Or define a serializer if needed
@@ -89,6 +109,7 @@ def update_profile(request):
                "message": "Profile updated successfully!",
                 "account_type" :profile.account_type,
                 "prof_up": profile.prof_updated,
+                "based_on":profile.based_on,
                 "is_verified": verify.is_verified
             }
         return Response(response_data , status=status.HTTP_200_OK)
@@ -181,11 +202,8 @@ def forgot_password(request):
         validation_error = validate_password(password)
     except ValidationError as e:
         return Response({"detail": e.messages}, status=status.HTTP_400_BAD_REQUEST)
-
     user = request.user
     user.set_password(password)
-    user.save()
-
     return Response({"detail": "Password updated successfully."}, status=status.HTTP_200_OK)
 
 
@@ -193,27 +211,12 @@ def forgot_password(request):
 @permission_classes([AllowAny])
 def otp_forgetpassword(request):
     email = request.data.get("email")
-    
-   
     if not User.objects.filter(email=email).exists():
         return Response({"error": "User with this email does not exist."}, status=404)
     user = User.objects.get(email=email)
     email_otp = generate_otp() # "generate_otp" generates the otp
     forgot_record = ForgotPassword.objects.create(user=user, password_otp=email_otp)
-    email_body= f'''<h2>Password Reset OTP</h2><br><br>
-                    <h3> 
-                    <p>Hi {user.username},</p><br>
-                    <p>Your One-Time Password (OTP) for Password Reset: <strong>{email_otp}<strong>.</p><br>
-                    <p>Please use this code to reset your account.Thank you.</p><br>
-                    </h3>
-                    <br><br><br>
-                    '''
-    data = {
-        'email_body': email_body,
-        'to_email': user.email,
-        'email_subject': 'Email OTP'
-    }
-    Util.send_email(data)
+    send_otp_email(user.username, user.email, email_otp)
     return Response({"message": "OTP sent to your email."}, status=200)
 
 
@@ -236,9 +239,6 @@ def verify_passwordotp(request):
     except ForgotPassword.DoesNotExist:
         return Response({"message":"Invalid otp"}, status = status.HTTP_400_BAD_REQUEST)
 
-
-
-   
 
     
 

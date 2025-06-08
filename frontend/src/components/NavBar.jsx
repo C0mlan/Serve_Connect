@@ -127,7 +127,7 @@ const NavBar = () => {
             </div>
             <div>
               {isOpen && (
-                <div className="absolute right-0 top-16 z-10 w-72 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden">
+                <div className="absolute right-0 top-16 z-10 w-72 rounded-md bg-white shadow-lg">
                   <div className="py-1">
                     {user.username && (
                       <p className="block px-4 py-2 text-sm text-gray-700">
@@ -165,7 +165,7 @@ const NavBar = () => {
         )}
       </nav>
       {isMobileNavOpen && (
-        <div className="absolute top-28 z-100 right-0 text-bold bg-white mx-8 min-w-sm">
+        <div className="absolute top-28 z-100 right-0 left-0 text-bold bg-white block w-[90%] mx-auto">
           <div className="text-bold hover:shadow-lg">
             <Link
               to="/"

@@ -1,7 +1,46 @@
-import React from "react";
+import { useState } from "react";
 import Button from "./Button";
 
-const SearchFilter = () => {
+const SearchFilter = ({
+  handleSearch,
+  handleCategoryFilter,
+  handleDurationFilter,
+}) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [duration, setDuration] = useState("");
+  const [category, setCategory] = useState("");
+
+  const handleSearchChange = (value) => {
+    setSearchTerm(value);
+    handleSearch(value);
+  };
+
+  const handleCategoryFilterChange = (value) => {
+    setCategory(value);
+    setDuration("");
+    handleDurationFilter("");
+    if (value !== "") {
+      handleCategoryFilter(value);
+    }
+  };
+  const handleDurationFilterChange = (value) => {
+    setDuration(value);
+    setCategory("");
+    handleCategoryFilter("");
+    if (value !== "") {
+      handleDurationFilter(value);
+    }
+  };
+
+  const handleClearFilter = () => {
+    setSearchTerm("");
+    handleSearch("");
+    setDuration("");
+    handleDurationFilter("");
+    setCategory("");
+    handleCategoryFilter("");
+  };
+
   return (
     <div className="w-full p-4 bg-white border border-gray-200 rounded-lg shadow-sm mb-5">
       <form className="items-center justify-between mx-auto sm:flex gap-x-4">
@@ -9,15 +48,18 @@ const SearchFilter = () => {
           Search
         </label>
         <input
+          onChange={(e) => handleSearchChange(e.target.value)}
+          value={searchTerm}
           type="text"
-          id="simple-search"
           className="bg-gray-50 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none block w-full sm:w-1/2 p-2.5  "
-          placeholder="Search for an outreach..."
+          placeholder="Search..."
           required
         />
         <div className="flex my-2 gap-x-4 sm:my-0">
           <select
             id="duration"
+            value={duration}
+            onChange={(e) => handleDurationFilterChange(e.target.value)}
             className="bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500 block w-1/2 p-2.5 "
           >
             <option value="">Duration</option>
@@ -29,6 +71,8 @@ const SearchFilter = () => {
           </select>
           <select
             id="category"
+            onChange={(e) => handleCategoryFilterChange(e.target.value)}
+            value={category}
             className="bg-gray-50 border border-gray-300 rounded-lg focus:border-gray-500 focus:outline-none block w-1/2 p-2.5  "
           >
             <option value="">Category</option>
@@ -52,7 +96,7 @@ const SearchFilter = () => {
           </select>
         </div>
 
-        <Button type="button" text="Clear filter"></Button>
+        <Button type="button" text="Clear" onClick={handleClearFilter}></Button>
       </form>
     </div>
   );
