@@ -11,7 +11,8 @@ from django.contrib.auth import authenticate
 from drf_spectacular.utils import extend_schema
 from django.core.exceptions import ValidationError
 from .email import send_otp_email
-import time
+
+
 
 
 
@@ -27,6 +28,7 @@ def register_view(request):
     saving the OTP to the database, and sending it to the user via email.
     
     '''
+    
     serializer= RegistrationSerializer(data=request.data)
     if serializer.is_valid():
         
@@ -38,7 +40,7 @@ def register_view(request):
             "response": "Account has been created.",
             "user" :serializer.data  
         }
-        
+    
         return Response(response_data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -171,7 +173,6 @@ def login_view(request):
 @api_view(['PATCH'])
 @permission_classes([IsAuthenticated])
 def forgot_password(request):
-    t0= time.time()
     password = request.data.get("password")
     password2 =request.data.get("password2")
 
@@ -185,12 +186,8 @@ def forgot_password(request):
         validation_error = validate_password(password)
     except ValidationError as e:
         return Response({"detail": e.messages}, status=status.HTTP_400_BAD_REQUEST)
-
     user = request.user
     user.set_password(password)
-    user.save()
-    t1 = time.time()  # ✅ CALL the function
-    print(f"Execution time: {round(t1 - t0, 2)} seconds")
     return Response({"detail": "Password updated successfully."}, status=status.HTTP_200_OK)
 
 
@@ -226,9 +223,6 @@ def verify_passwordotp(request):
     except ForgotPassword.DoesNotExist:
         return Response({"message":"Invalid otp"}, status = status.HTTP_400_BAD_REQUEST)
 
-
-
-   
 
     
 

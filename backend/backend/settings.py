@@ -103,15 +103,15 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # for local development postgres database
-# database_password = os.environ.get("DATABASE_PASSWORD")
+database_password = os.environ.get("DATABASE_PASSWORD")
 
 # DATABASES = {
 #     'default': {
@@ -125,16 +125,17 @@ DATABASES = {
 # }
 
 # for production postgres database
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'serve_connect',           
-#         'USER': 'serve_connect_user',
-#         'PASSWORD': os.environ.get("database_password"),   
-#         'HOST': 'dpg-d0gds024d50c73fogh50-a',              
-#         'PORT': '5432',                 
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'serve_connect_6y9x',           
+        'USER': 'serve_connect_6y9x_user',
+        'PASSWORD': os.environ.get("database_password"),   
+        'HOST':  'dpg-d12nsrbuibrs73fdur1g-a',              
+        'PORT': '5432',                 
+    }
+}
+
 
 
 
@@ -182,15 +183,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#for production
-# CORS_ALLOWED_ORIGINS =  [
-#     "https://serve-connect.vercel.app/",  #frondend   URL
-# ]
-# CORS_ALLOWS_CREDENTIALS = True
+# for production
+CORS_ALLOWED_ORIGINS =  [
+    "https://serve-connect.vercel.app/",  #frondend   URL
+]
+CORS_ALLOWS_CREDENTIALS = True
 
 #for local development
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_CREDENTIALS = True
 
 
 EMAIL_USE_TLS =True
