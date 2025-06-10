@@ -9,7 +9,7 @@ class Util:
     @staticmethod
     def send_email(data):
         email = EmailMessage(
-            subject= "Email Verification OTP", body=data['email_body'], to=[data['to_email']])
+            subject= data['email_subject'], body=data['email_body'], to=[data['to_email']])
         email.content_subtype = 'html' 
         EmailThread(email).start()
 
