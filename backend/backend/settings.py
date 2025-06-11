@@ -182,7 +182,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # for production
 CORS_ALLOWED_ORIGINS =  [
     "https://serve-connect.vercel.app",  #frontend   URL
-    "https://localhost:5173",
+    "http://localhost:5173",
 
 ]
 CORS_ALLOWS_CREDENTIALS = True
