@@ -10,7 +10,7 @@ import Feedback from "./Feedback";
 
 const Discover = () => {
   return (
-    <section className="mx-auto p-6 md:px-24">
+    <section className="mx-auto py-2 px-1 md:p-6 md:px-24">
       <div className="py-12">
         {/* Header Section */}
         <h3 className="text-4xl text-center font-bold mb-4">
@@ -22,13 +22,12 @@ const Discover = () => {
         <DiscoverGridItem
           image={discoverImg1}
           title="VOLUNTEER OPPORTUNITIES"
-          body="Discover inspiring stories of volunteers who have made a lasting
-              impact in their communities."
+          body="Explore a world of possibilities and find the perfect volunteer role that aligns with your interests and skills."
         />
         <DiscoverGridItem
           image={discoverImg2}
           title="VOLUNTEER PROFILES"
-          body="Stay organized and track your volunteer hours, achievements, and upcoming commitments."
+          body="Discover inspiring stories of volunteers who have made a lasting impact in their communities."
         />
         <DiscoverGridItem
           image={discoverImg3}

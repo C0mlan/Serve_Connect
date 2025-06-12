@@ -21,27 +21,18 @@ const Footer = () => {
           <h3 className="font-bold text-lg mb-4">Quick Links</h3>
           <ul className="space-y-2">
             <li>
-              <Link
-                to="/listings"
-                className="hover:text-black hover:font-semibold transition"
-              >
+              <Link to="/listings" className="hover:text-black">
                 Browse Opportunities
               </Link>
             </li>
             <li>
-              <Link
-                to="/volunteer-feedback"
-                className="hover:text-black hover:font-semibold transition"
-              >
+              <Link to="/volunteer-feedback" className="hover:text-black">
                 Volunteer Stories
               </Link>
             </li>
 
             <li>
-              <Link
-                to="/donate"
-                className="hover:text-black hover:font-semibold transition"
-              >
+              <Link to="/donate" className="hover:text-black">
                 Donate
               </Link>
             </li>
@@ -53,26 +44,17 @@ const Footer = () => {
           <h3 className="font-bold text-lg mb-4">Support</h3>
           <ul className="space-y-2">
             <li>
-              <Link
-                to="/faqs"
-                className="hover:text-black hover:font-semibold transition"
-              >
+              <Link to="/faqs" className="hover:text-black">
                 FAQs
               </Link>
             </li>
             <li>
-              <Link
-                to="/contact"
-                className="hover:text-black hover:font-semibold transition"
-              >
+              <Link to="/contact" className="hover:text-black">
                 Contact Us
               </Link>
             </li>
             <li>
-              <Link
-                to="/privacy-policy"
-                className="hover:text-black hover:font-semibold transition"
-              >
+              <Link to="/privacy-policy" className="hover:text-black">
                 Privacy Policy
               </Link>
             </li>

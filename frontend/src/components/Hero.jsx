@@ -6,14 +6,14 @@ import Button from "./Button";
 
 const Hero = () => {
   return (
-    <section className="flex-grow bg-gray-50">
-      <div className="mx-4 md:mx-12 py-16 flex flex-col md:flex-row gap-x-10 items-center">
+    <section className="flex-grow bg-gray-100">
+      <div className="md:mx-12 pt-4 pb-16 flex flex-col md:flex-row gap-x-10 items-center">
         {/* Left Column - Text Content */}
         <div className="md:w-1/2 mb-12 md:mb-0">
           <h1 className="text-5xl md:text-6xl font-bold uppercase text-black leading-tight mb-6">
             DISCOVER OPPORTUNITIES TO MAKE A DIFFERENCE IN YOUR COMMUNITY
           </h1>
-          <p className="text-lg text-gray-600 mb-8 md:text-2xl">
+          <p className="text-xl text-gray-600 mb-8 md:text-2xl">
             Embark on a meaningful Journey: Explore various Volunteer
             Opportunities and make a lasting impact in your community. From
             teaching underpriviledged children to caring for the elderly,
@@ -25,23 +25,11 @@ const Hero = () => {
         </div>
 
         {/* Right Column - Image */}
-        <div className="md:w-1/2 bg-white pt-4 px-6 pb-4 rounded-2xl gap-y-2 flex flex-col">
-          <img
-            src={hero1}
-            alt="Hero"
-            className="h-3/4 scale-95 hover:scale-100 transition-all ease-in-out duration-300 rounded-2xl"
-          />
-          <div className="grid sm:grid-cols-2 gap-1">
-            <img
-              src={hero2}
-              alt="Hero"
-              className="h-full scale-95 sm:scale-90 hover:scale-100 transition-all ease-in-out duration-300 rounded-2xl"
-            />
-            <img
-              src={hero3}
-              alt="Hero"
-              className="h-full scale-95 sm:scale-90 hover:scale-100 transition-all ease-in-out duration-300 rounded-2xl"
-            />
+        <div className="md:w-1/2 bg-white p-4 rounded-2xl gap-y-3 flex flex-col">
+          <img src={hero1} alt="Hero" className="h-3/4 rounded-2xl" />
+          <div className="grid sm:grid-cols-2 gap-3">
+            <img src={hero2} alt="Hero" className="rounded-2xl" />
+            <img src={hero3} alt="Hero" className="rounded-2xl" />
           </div>
         </div>
       </div>
