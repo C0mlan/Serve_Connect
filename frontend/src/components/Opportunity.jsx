@@ -1,13 +1,13 @@
 import communityEngagement from "../assets/community-engagement.jpg";
 import happyVolunteer from "../assets/happy-volunteer.jpg";
-import screenshot from "../assets/screenshot.png";
+import screenshot from "../assets/screenshot-portrait.png";
 import check from "../assets/check.png";
 import OpportunityCard from "./OpportunityCard";
 
 import ReuseableSection from "./ReuseableSection";
 const Opportunity = () => {
   return (
-    <section className="mx-auto p-6 md:px-24">
+    <section className="mx-auto py-2 px-1 md:p-6 md:px-24">
       <div className="py-12">
         {/* Header Section */}
         <h3 className="text-5xl text-center font-bold mb-4">
@@ -39,7 +39,7 @@ const Opportunity = () => {
         image={screenshot}
         icon={check}
         title="EMPOWERING VOLUNTEERS, ENRICHING COMMUNITIES!"
-        body="Our volunteer program offers a diverse range of opportunities to make
+        body="Our volunteer matching platform offers a diverse range of opportunities to make
           a tangible impact on the lives of others"
         buttonText="Apply now"
       />

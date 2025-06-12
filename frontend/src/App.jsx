@@ -39,7 +39,7 @@ function App() {
     };
   }, []);
   return (
-    <div className="bg-gray-50 min-h-screen flex flex-col">
+    <div className="bg-gray-100 min-h-screen flex flex-col">
       {/* (window.innerWidth || document.documentElement.clientWidth) < 768 */}
       {location.pathname == "/register" || location.pathname == "/login" ? (
         isSmallScreen ? (

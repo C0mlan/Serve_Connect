@@ -99,7 +99,7 @@ const RegisterPage = () => {
 
   return (
     <>
-      <div className="w-full md:h-screen bg-white md:mx-0 overflow-hidden flex flex-col md:flex-row">
+      <div className="mx-4 md:h-screen bg-white md:mx-0 overflow-hidden flex flex-col md:flex-row">
         <div className="text-white text-center md:flex items-center justify-center p-4 hidden">
           <img
             src={logo}
@@ -237,7 +237,7 @@ const RegisterPage = () => {
               text="Register"
             ></Button>
             <div className="text-center text-md mt-2">
-              Already have an account?
+              Already have an account?{" "}
               <Link
                 to="/login"
                 className="text-gray-600 font-medium hover:underline"

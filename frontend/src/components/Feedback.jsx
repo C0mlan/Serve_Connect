@@ -16,13 +16,13 @@ const Feedback = () => {
           </div>
 
           {/* Testimonials Grid */}
-          <div className="grid gap-8 md:grid-cols-2">
+          <div className="grid gap-8 md:grid-cols-2  text-lg">
             {/* Testimonial 1 */}
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold text-gray-900">
                 Emily Johnson
               </h3>
-              <p className="mt-2 text-gray-600">
+              <p className="mt-2 text-gray-600 text-lg">
                 "I found the perfect volunteer opportunity that aligned with my
                 passion for helping others. Thank you for the amazing
                 experience!"
@@ -61,10 +61,7 @@ const Feedback = () => {
               <p className="mt-2 text-gray-600">
                 "Being a volunteer through this platform has been a game-changer
                 for me. The opportunities provided have allowed me to grow
-                personally and contribute to causes I care about. " Lorem ipsum,
-                dolor sit amet consectetur adipisicing elit. Sequi repudiandae
-                voluptatibus molestiae esse earum unde expedita ab ipsam
-                assumenda quibusdam.
+                personally and contribute to causes I care about."
               </p>
             </div>
           </div>

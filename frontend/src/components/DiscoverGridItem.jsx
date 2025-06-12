@@ -11,7 +11,7 @@ const DiscoverGridItem = ({ image, title, body }) => {
         />
 
         <h2 className="text-xl md:text-2xl font-bold uppercase">{title}</h2>
-        <p className="text-gray-600">{body}</p>
+        <p className="text-gray-600 text-lg">{body}</p>
       </div>
     </article>
   );

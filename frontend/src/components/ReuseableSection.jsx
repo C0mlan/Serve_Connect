@@ -26,7 +26,7 @@ const ReuseableSection = ({
           className="w-24 h-auto mb-6 md:mb-12"
         />
         <h1 className="text-5xl font-bold mb-6 md:mb-12 uppercase">{title}</h1>
-        <p className="text-gray-600 text-2xl">{body}</p>
+        <p className="text-gray-600 text-xl">{body}</p>
         <div className="mt-6 md:mt-12">
           <Link to="/register" className="block">
             <Button className="capitalize">{buttonText}</Button>
