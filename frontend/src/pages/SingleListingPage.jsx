@@ -170,7 +170,9 @@ const SingleListingPage = () => {
           <p className="text-center text-lg">
             By:{" "}
             {listing.org_name !== ""
-              ? `${listing.org_name} (${listing.org_type})`
+              ? `${listing.org_name} 
+                  (${listing.org_type})
+                `
               : `${listing.first_name} ${listing.last_name}`}
             <span className="block align-middle text-sm font-normal text-gray-500">
               Posted {formattedDate}

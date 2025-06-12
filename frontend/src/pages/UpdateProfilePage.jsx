@@ -42,6 +42,13 @@ const UpdateProfilePage = () => {
       return;
     }
 
+    if (orgType == "") {
+      enqueueSnackbar("Please select an organization type", {
+        variant: "error",
+      });
+      return;
+    }
+
     setLoading(true);
     const data = {
       account_type: accountType,
@@ -168,18 +175,30 @@ const UpdateProfilePage = () => {
               <select
                 id="org-type"
                 value={orgType}
-                defaultValue="NGO"
                 className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:border-gray-500  focus:outline-none block w-full p-2.5"
                 onChange={(e) => setOrgType(e.target.value)}
               >
+                <option value="">Select organization type</option>
                 <option value="NGO">NGO</option>
-                <option value="Governmental">Governmental</option>
-                <option value="Community based">Community based</option>
-                <option value="International development">
-                  International development
+                <option value="Educational org">Educational org</option>
+                <option value="Governmental org">Governmental org</option>
+                <option value="Community based org">Community based org</option>
+                <option value="International development org">
+                  International development org
                 </option>
-                <option value="Religious">Religious</option>
-                <option value="Other">Other</option>
+                <option value="Religious org">Religious org</option>
+                <option value="Non-Profit org">Non-Profit org</option>
+                <option value="Private Sector org">Private Sector org</option>
+                <option value="Corporate Social Responsibility [CSR] Initiative">
+                  Corporate Social Responsibility [CSR] Initiative
+                </option>
+                <option value="Charity">Charity</option>
+                <option value="Advocacy Group">Advocacy Group</option>
+                <option value="Research Institution">
+                  Research Institution
+                </option>
+                <option value="Youth org">Youth org</option>
+                <option value="Women's org">Women's org</option>
               </select>
             </div>
           </>
