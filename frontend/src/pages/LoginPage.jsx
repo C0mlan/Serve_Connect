@@ -97,7 +97,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <div className="w-full md:h-screen md:mx-0 bg-white overflow-hidden flex flex-col md:flex-row">
+      <div className="mx-4 md:h-screen md:mx-0 bg-white overflow-hidden flex flex-col md:flex-row">
         <div className="text-white text-center md:flex items-center justify-center p-4 hidden">
           <img
             src={logo}
@@ -120,7 +120,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <div className="w-full md:w-1/2 p-8 md:p-12 overflow-y-scroll">
+        <div className="w-full md:w-1/2 p-8 md:p-12 md:overflow-y-scroll">
           <h1 className="text-3xl font-bold mb-6">Welcome back!</h1>
           <form onSubmit={handleLogin} className="space-y-2">
             <div className="flex mb-6 bg-gray-100 rounded-lg p-1">
