@@ -162,4 +162,3 @@ def interaction_state(request, pk):
         return Response({"detail": "Invalid state value."}, status=status.HTTP_400_BAD_REQUEST) 
 
 
-

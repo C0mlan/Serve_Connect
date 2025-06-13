@@ -227,4 +227,13 @@ def verify_passwordotp(request):
         return Response({"message":"Invalid otp"}, status = status.HTTP_400_BAD_REQUEST)
 
 
-    
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def server_status(request):
+    try:
+        return Response({"status": "on"}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response(
+            {"error": "Something went wrong", "details": str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
