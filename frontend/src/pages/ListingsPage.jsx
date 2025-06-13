@@ -7,7 +7,6 @@ import { ACCESS_TOKEN, USER } from "../helpers/constants";
 import SearchFilter from "../components/SearchFilter";
 import ListingCard from "../components/ListingCard";
 import Spinner from "../components/Spinner";
-import { set } from "date-fns";
 
 const ListingsPage = () => {
   const [listings, setListings] = useState([]);
