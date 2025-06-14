@@ -95,7 +95,11 @@ const RegisterPage = () => {
       let data = err.response.data;
       if (data.email) {
         enqueueSnackbar(
+<<<<<<< HEAD
           "The emil address is already in use! Please try again with another email.",
+=======
+          "The emil address is already in use! Please try again.",
+>>>>>>> d1249276e7bdc240bfc5f6c962627e7f155528b2
           { variant: "error" }
         );
         return;
