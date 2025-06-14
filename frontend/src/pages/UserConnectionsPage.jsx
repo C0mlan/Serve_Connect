@@ -32,7 +32,7 @@ const UserConnectionsPage = () => {
       <ul>
         {loading ? (
           <div className="flex justify-center items-center">
-            <Spinner color="black" size="10" />
+            <Spinner color="black" size="6" />
           </div>
         ) : userConnections.length > 0 ? (
           <ul>
