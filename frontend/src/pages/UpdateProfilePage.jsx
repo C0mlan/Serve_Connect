@@ -42,7 +42,7 @@ const UpdateProfilePage = () => {
       return;
     }
 
-    if (orgType == "") {
+    if (accountType === "organization" && orgType == "") {
       enqueueSnackbar("Please select an organization type", {
         variant: "error",
       });
