@@ -76,9 +76,12 @@ const RegisterPage = () => {
     try {
       const res = await api.post("/user/register/", data);
       if (res.status === 201) {
-        enqueueSnackbar("Account has been created, please verify your email!", {
-          variant: "success",
-        });
+        enqueueSnackbar(
+          "Account has been created, please verify your email to continue!",
+          {
+            variant: "success",
+          }
+        );
         setUser({
           isEmailVerified: false,
           isProfileUpdated: false,
@@ -90,8 +93,24 @@ const RegisterPage = () => {
       }
     } catch (err) {
       let data = err.response.data;
-      enqueueSnackbar(Object.values(data)[0][0], { variant: "error" });
-      return;
+      if (data.email) {
+        enqueueSnackbar(
+<<<<<<< HEAD
+          "The emil address is already in use! Please try again with another email.",
+=======
+          "The emil address is already in use! Please try again.",
+>>>>>>> d1249276e7bdc240bfc5f6c962627e7f155528b2
+          { variant: "error" }
+        );
+        return;
+      } else {
+        console.error(err);
+        enqueueSnackbar(
+          "An error occurred while creating your account. Please try again later.",
+          { variant: "error" }
+        );
+        return;
+      }
     } finally {
       setLoading(false);
     }
