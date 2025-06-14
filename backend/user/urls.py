@@ -9,7 +9,8 @@ urlpatterns =[
     
     path ("update_password/", views.forgot_password, name="forgot_password"),
     path ("otp_updatepassword/", views.otp_forgetpassword, name="otp_forgotpassword"),
-    path ("password_verify/", views.verify_passwordotp, name="otp_forgotpassword")
-
+    path ("password_verify/", views.verify_passwordotp, name="otp_forgotpassword"),
+        #check status
+    path('api/status/', views.server_status, name='status_check'),
     
 ]

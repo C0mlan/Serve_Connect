@@ -10,7 +10,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from drf_spectacular.utils import extend_schema
 from django.core.exceptions import ValidationError
-from .email import send_otp_email
+from .email import send_otp_email, forgot_password_email
+import time
 
 
 
@@ -28,6 +29,7 @@ def register_view(request):
     saving the OTP to the database, and sending it to the user via email.
     
     '''
+    t1= time.time()
     
     serializer= RegistrationSerializer(data=request.data)
     if serializer.is_valid():
@@ -40,7 +42,8 @@ def register_view(request):
             "response": "Account has been created.",
             "user" :serializer.data  
         }
-    
+        t2 = time.time()
+        print(f"time taken for reg: {t2-t1} s")
         return Response(response_data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -200,7 +203,7 @@ def otp_forgetpassword(request):
     user = User.objects.get(email=email)
     email_otp = generate_otp() # "generate_otp" generates the otp
     forgot_record = ForgotPassword.objects.create(user=user, password_otp=email_otp)
-    send_otp_email(user.username, user.email, email_otp)
+    forgot_password_email(user.username, user.email, email_otp)
     return Response({"message": "OTP sent to your email."}, status=200)
 
 
@@ -224,4 +227,13 @@ def verify_passwordotp(request):
         return Response({"message":"Invalid otp"}, status = status.HTTP_400_BAD_REQUEST)
 
 
-    
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def server_status(request):
+    try:
+        return Response({"status": "on"}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response(
+            {"error": "Something went wrong", "details": str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )

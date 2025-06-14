@@ -135,7 +135,15 @@ def volunteer_interaction(request):
     interaction = Interaction.objects.filter(user=request.user)
     serializer = Interaction_Serializer(interaction, many=True)
     return Response(serializer.data,status=status.HTTP_200_OK )
- 
+
+
+@extend_schema(methods = ['POST'],
+                 responses={
+        200: {"description": "Interaction updated successfully"},
+        400: {"description": "Invalid state value"},
+        403: {"description": "Permission denied"},
+        404: {"description": "Interaction not found"},
+              } ) 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def interaction_state(request, pk):
@@ -160,6 +168,5 @@ def interaction_state(request, pk):
         return Response({"detail": "seeker has declined interation"},status=status.HTTP_200_OK)
     else:
         return Response({"detail": "Invalid state value."}, status=status.HTTP_400_BAD_REQUEST) 
-
 
 
