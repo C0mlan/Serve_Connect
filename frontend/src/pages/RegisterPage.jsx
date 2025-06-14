@@ -95,11 +95,7 @@ const RegisterPage = () => {
       let data = err.response.data;
       if (data.email) {
         enqueueSnackbar(
-<<<<<<< HEAD
-          "The emil address is already in use! Please try again with another email.",
-=======
-          "The emil address is already in use! Please try again.",
->>>>>>> d1249276e7bdc240bfc5f6c962627e7f155528b2
+          "The emil address is already in use. Please try again with another email!",
           { variant: "error" }
         );
         return;
@@ -120,11 +116,13 @@ const RegisterPage = () => {
     <>
       <div className="mx-4 md:h-screen bg-white md:mx-0 overflow-hidden flex flex-col md:flex-row">
         <div className="text-white text-center md:flex items-center justify-center p-4 hidden">
+          <Link to="/">
           <img
             src={logo}
             alt="ServeConnect logo"
-            className="h-40 w-40 mx-auto"
+            className="h-40 w-40 mx-auto cursor-pointer"
           />
+            </Link>
         </div>
         <div
           className="w-full relative md:w-1/2  md:flex items-center justify-center p-8  bg-no-repeat bg-cover bg-center"
