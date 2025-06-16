@@ -158,8 +158,8 @@ const SingleListingPage = () => {
   return (
     <article>
       {loading ? (
-        <div className="flex justify-center items-center">
-          <Spinner color="black" size="10" />
+        <div className="flex justify-center items-center mb-8">
+          <Spinner color="black" size="6" />
         </div>
       ) : (
         <div

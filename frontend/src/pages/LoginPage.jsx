@@ -99,11 +99,12 @@ export default function LoginPage() {
     <>
       <div className="mx-4 md:h-screen md:mx-0 bg-white overflow-hidden flex flex-col md:flex-row">
         <div className="text-white text-center md:flex items-center justify-center p-4 hidden">
-          <img
+          <Link to="/"><img
             src={logo}
             alt="ServeConnect logo"
-            className="h-40 w-40 mx-auto"
+            className="h-40 w-40 mx-auto cursor-pointer"
           />
+            </Link>
         </div>
         <div
           className="w-full relative md:w-1/2 md:flex items-center justify-center p-8 bg-no-repeat bg-cover bg-top-right"

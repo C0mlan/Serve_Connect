@@ -116,7 +116,7 @@ const ListingsPage = () => {
       <h1 className="text-center text-4xl my-6">Available Opportunities</h1>
       {loading ? (
         <div className="flex justify-center items-center">
-          <Spinner color="black" size="10" />
+          <Spinner color="black" size="6" />
         </div>
       ) : listings.length > 0 ? (
         <>

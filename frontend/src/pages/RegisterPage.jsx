@@ -76,9 +76,12 @@ const RegisterPage = () => {
     try {
       const res = await api.post("/user/register/", data);
       if (res.status === 201) {
-        enqueueSnackbar("Account has been created, please verify your email!", {
-          variant: "success",
-        });
+        enqueueSnackbar(
+          "Account has been created, please verify your email to continue!",
+          {
+            variant: "success",
+          }
+        );
         setUser({
           isEmailVerified: false,
           isProfileUpdated: false,
@@ -90,8 +93,20 @@ const RegisterPage = () => {
       }
     } catch (err) {
       let data = err.response.data;
-      enqueueSnackbar(Object.values(data)[0][0], { variant: "error" });
-      return;
+      if (data.email) {
+        enqueueSnackbar(
+          "The emil address is already in use. Please try again with another email!",
+          { variant: "error" }
+        );
+        return;
+      } else {
+        console.error(err);
+        enqueueSnackbar(
+          "An error occurred while creating your account. Please try again later.",
+          { variant: "error" }
+        );
+        return;
+      }
     } finally {
       setLoading(false);
     }
@@ -101,11 +116,13 @@ const RegisterPage = () => {
     <>
       <div className="mx-4 md:h-screen bg-white md:mx-0 overflow-hidden flex flex-col md:flex-row">
         <div className="text-white text-center md:flex items-center justify-center p-4 hidden">
+          <Link to="/">
           <img
             src={logo}
             alt="ServeConnect logo"
-            className="h-40 w-40 mx-auto"
+            className="h-40 w-40 mx-auto cursor-pointer"
           />
+            </Link>
         </div>
         <div
           className="w-full relative md:w-1/2  md:flex items-center justify-center p-8  bg-no-repeat bg-cover bg-center"

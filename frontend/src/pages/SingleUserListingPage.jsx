@@ -41,7 +41,7 @@ const SingleUserListing = () => {
       <h1 className="text-3xl font-bold text-center">My Listings</h1>
       {loading ? (
         <div className="flex justify-center items-center">
-          <Spinner color="black" size="10" />
+          <Spinner color="black" size="6" />
         </div>
       ) : (
         <ul>
