@@ -19,7 +19,7 @@ class Profile(models.Model):
     org_name = models.CharField(max_length=100, null = True, blank = True)
     org_type = models.CharField(max_length=100, null = True, blank = True)
     based_on = models.JSONField(default=list, null = True, blank = True)
-    bio =  models.CharField(max_length=200, null= True, blank = True)
+    bio =  models.CharField(max_length=550, null= True, blank = True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

@@ -115,12 +115,13 @@ database_password = os.environ.get("DATABASE_PASSWORD")
 
 # DATABASES = {
 #     'default': {
+
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'serve',           
-#         'USER': 'postgres',
-#         'PASSWORD': database_password,   
-#         'HOST': 'localhost',             
-#         'PORT': '5433',                 
+#         'NAME': 'serve_connect_6y9x',           
+#         'USER': 'serve_connect_6y9x_user',
+#         'PASSWORD': os.environ.get("database_password"),   
+#         'HOST':  'dpg-d12nsrbuibrs73fdur1g-a.oregon-postgres.render.com',              
+#         'PORT': '5432',                           
 #     }
 # }
 
