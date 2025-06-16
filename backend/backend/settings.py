@@ -113,29 +113,29 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # for local development postgres database
 database_password = os.environ.get("DATABASE_PASSWORD")
 
-# DATABASES = {
-#     'default': {
-
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'serve_connect_6y9x',           
-#         'USER': 'serve_connect_6y9x_user',
-#         'PASSWORD': os.environ.get("database_password"),   
-#         'HOST':  'dpg-d12nsrbuibrs73fdur1g-a.oregon-postgres.render.com',              
-#         'PORT': '5432',                           
-#     }
-# }
-
-# for production postgres database
 DATABASES = {
     'default': {
+
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'serve_connect_6y9x',           
         'USER': 'serve_connect_6y9x_user',
         'PASSWORD': os.environ.get("database_password"),   
-        'HOST':  'dpg-d12nsrbuibrs73fdur1g-a',              
-        'PORT': '5432',                 
+        'HOST':  'dpg-d12nsrbuibrs73fdur1g-a.oregon-postgres.render.com',              
+        'PORT': '5432',                           
     }
 }
+
+# for production postgres database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'serve_connect_6y9x',           
+#         'USER': 'serve_connect_6y9x_user',
+#         'PASSWORD': os.environ.get("database_password"),   
+#         'HOST':  'dpg-d12nsrbuibrs73fdur1g-a',              
+#         'PORT': '5432',                 
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
