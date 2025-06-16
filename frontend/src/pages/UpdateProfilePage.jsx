@@ -27,6 +27,21 @@ const UpdateProfilePage = () => {
     }
   };
 
+  const handleBioChange = (e) => {
+    const bio = e.target.value;
+    console.log(bio.length);
+
+    if (bio.length === 501) {
+      enqueueSnackbar(
+        "The bio field should not contain more than 500 characters!",
+        { variant: "error" }
+      );
+      return;
+    } else {
+      setBio(bio.slice(0, 500));
+    }
+  };
+
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
 
@@ -80,14 +95,25 @@ const UpdateProfilePage = () => {
         isProfileUpdated: res.data.prof_up,
         isEmailVerified: res.data.is_verified,
       });
-      setLoading(false);
       navigate("/listings");
     } catch (err) {
       console.log(err);
-      enqueueSnackbar(
-        "There was an error updating the profile, please try again!",
-        { variant: "error" }
-      );
+      if (err.status === 400) {
+        if (err.response.data["bio"][0].includes("no more than")) {
+          enqueueSnackbar(
+            "The bio field should not contain more than 500 characters!",
+            {
+              variant: "error",
+            }
+          );
+        } else {
+          enqueueSnackbar(
+            "There was an error updating the profile, please try again!",
+            { variant: "error" }
+          );
+        }
+      }
+    } finally {
       setLoading(false);
     }
   };
@@ -204,19 +230,26 @@ const UpdateProfilePage = () => {
           </>
         )}
         <div className="mb-2">
-          <label htmlFor="bio" className="block mb-2">
+          <label htmlFor="bio" className="mb-2 flex justify-between">
             Short description about
             {accountType === "volunteer"
               ? " yourself"
               : accountType === "individual"
               ? " yourself"
               : " your organization"}
+            {bio.length >= 450 ? (
+              <span className="text-sm text-red-500">
+                {bio.length}/500 characters
+              </span>
+            ) : (
+              <span className="text-sm">{bio.length}/500 characters</span>
+            )}
           </label>
           <textarea
             id="bio"
             value={bio}
             className="block p-2.5 w-full h-24 bg-gray-50 rounded-lg border border-gray-300 focus:border-gray-500 focus:outline-none "
-            onChange={(e) => setBio(e.target.value)}
+            onChange={handleBioChange}
           ></textarea>
         </div>
         <Button
